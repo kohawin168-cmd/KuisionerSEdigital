@@ -86,12 +86,12 @@
             <div class="d-flex justify-content-between align-items-center mb-3">
                 <h4 class="m-0">📁 Draft Tersimpan</h4>
                 <div class="btn-group btn-group-sm">
-                    <button class="btn btn-outline-secondary" onclick="backToMode()">← Beranda</button>
-                    <button class="btn btn-outline-primary" onclick="showForm()">+ Buat Baru</button>
+                    <button class="btn btn-outline-secondary" onclick="backToHome()">← Beranda</button>
+                    <button class="btn btn-outline-primary" onclick="showNewForm()">+ Buat Baru</button>
                 </div>
             </div>
             <div id="draftList"></div>
-            <button class="btn btn-secondary w-100 mt-3" onclick="backToMode()">← Kembali</button>
+            <button class="btn btn-secondary w-100 mt-3" onclick="backToHome()">← Kembali</button>
         </div>
 
         <!-- KELUARGA FORM -->
@@ -99,8 +99,8 @@
             <div class="d-flex justify-content-between align-items-center mb-3">
                 <h4 class="m-0">🏠 Pendataan Keluarga</h4>
                 <div class="btn-group btn-group-sm">
-                    <button class="btn btn-outline-secondary" onclick="backToMode()">← Beranda</button>
-                    <button class="btn btn-outline-primary" onclick="showDrafts()">📁 Draft</button>
+                    <button class="btn btn-outline-secondary" onclick="backToHome()">← Beranda</button>
+                    <button class="btn btn-outline-primary" onclick="showDraftList()">📁 Draft</button>
                 </div>
             </div>
 
@@ -124,6 +124,11 @@
                 <div class="col-12"><label class="form-label">Alamat Lengkap</label><textarea class="form-control" id="k_alamat" rows="2" placeholder="Jalan, RT/RW, Dusun" onchange="autoSave()"></textarea></div>
                 <div class="col-md-6"><label class="form-label">Nomor KK</label><input type="text" class="form-control" id="k_no_kk" placeholder="16 digit" maxlength="16" onchange="autoSave()"></div>
                 <div class="col-md-6"><label class="form-label">Nomor WA</label><input type="tel" class="form-control" id="k_wa" placeholder="08xxxxxxxxxx" onchange="autoSave()"></div>
+                <div class="col-12 mt-2">
+                    <label class="form-label">📷 Foto Bangunan / KK</label>
+                    <input type="file" class="form-control" id="k_foto" accept="image/*" capture="environment" onchange="autoSave()">
+                    <div class="form-text text-muted">Klik untuk ambil foto dari kamera atau pilih dari galeri</div>
+                </div>
             </div>
 
             <!-- Kepala Keluarga -->
@@ -193,6 +198,8 @@
                     <option value=">5500">> 5500 VA</option>
                     <option value="Tidak Ada">Tidak Ada</option>
                 </select></div>
+                <div class="col-md-6"><label class="form-label">💡 Pengeluaran Listrik per Bulan (Rp)</label><input type="number" class="form-control" id="k_pengeluaran_listrik" placeholder="0" onchange="autoSave()"></div>
+                <div class="col-md-6"><label class="form-label">📶 Pengeluaran WiFi/Internet per Bulan (Rp)</label><input type="number" class="form-control" id="k_pengeluaran_internet" placeholder="0" onchange="autoSave()"></div>
             </div>
 
             <!-- Pengeluaran -->
@@ -209,12 +216,24 @@
             <!-- Status Rumah -->
             <div class="section-title">🏡 Status Rumah & Lahan</div>
             <div class="row g-2">
-                <div class="col-md-6"><label class="form-label">Status Kepemilikan Rumah</label><select class="form-select" id="k_status_rumah" onchange="autoSave()">
+                <div class="col-md-6"><label class="form-label">Status Kepemilikan Rumah</label><select class="form-select" id="k_status_rumah" onchange="toggleStatusRumah(); autoSave()">
                     <option value="">Pilih</option>
                     <option value="Milik Sendiri">Milik Sendiri</option>
                     <option value="Kontrak/Sewa">Kontrak/Sewa</option>
                     <option value="Menumpang">Menumpang</option>
                     <option value="Dinas">Dinas</option>
+                    <option value="Lainnya">Lainnya</option>
+                </select></div>
+                <!-- Harga Sewa (muncul jika Kontrak/Sewa) -->
+                <div class="col-md-6 hidden" id="harga_sewa_container"><label class="form-label">💰 Harga Sewa per Bulan (Rp)</label><input type="number" class="form-control" id="k_harga_sewa" placeholder="0" onchange="autoSave()"></div>
+                <!-- Jenis Surat (muncul jika Milik Sendiri) -->
+                <div class="col-md-6 hidden" id="jenis_surat_container"><label class="form-label">📄 Jenis Surat Kepemilikan</label><select class="form-select" id="k_jenis_surat" onchange="autoSave()">
+                    <option value="">Pilih</option>
+                    <option value="SHM">SHM (Sertifikat Hak Milik)</option>
+                    <option value="SHGB">SHGB (Sertifikat Hak Guna Bangun)</option>
+                    <option value="Girik">Girik / Petok D</option>
+                    <option value="SKGR">SKGR (Surat Keterangan Ganti Rugi)</option>
+                    <option value="AJB">AJB (Akta Jual Beli)</option>
                     <option value="Lainnya">Lainnya</option>
                 </select></div>
                 <div class="col-md-3"><label class="form-label">Panjang Bangunan (m)</label><input type="number" class="form-control" id="k_p_bangunan" placeholder="0" onchange="hitungLuasBangunan(); autoSave()"></div>
@@ -223,13 +242,16 @@
                 <div class="col-md-3"><label class="form-label">Panjang Tanah (m)</label><input type="number" class="form-control" id="k_p_tanah" placeholder="0" onchange="hitungLuasTanah(); autoSave()"></div>
                 <div class="col-md-3"><label class="form-label">Lebar Tanah (m)</label><input type="number" class="form-control" id="k_l_tanah" placeholder="0" onchange="hitungLuasTanah(); autoSave()"></div>
                 <div class="col-md-6"><label class="form-label">Luas Tanah (m²)</label><input type="text" class="form-control fw-bold" id="k_luas_tanah" readonly></div>
+                <!-- Harga Rumah & Tanah saat ini -->
+                <div class="col-md-6"><label class="form-label">🏠 Nilai/Harga Rumah Saat Ini (Rp)</label><input type="number" class="form-control" id="k_harga_rumah" placeholder="0" onchange="autoSave()"></div>
+                <div class="col-md-6"><label class="form-label">🌾 Nilai/Harga Tanah Saat Ini (Rp)</label><input type="number" class="form-control" id="k_harga_tanah" placeholder="0" onchange="autoSave()"></div>
             </div>
 
             <!-- Kepemilikan Aset -->
             <div class="section-title">🚗 Kepemilikan Aset</div>
             <div class="row g-2">
-                <div class="col-6 col-md-4"><div class="form-check"><input class="form-check-input" type="checkbox" id="k_aset_mobil" onchange="autoSave()"><label class="form-check-label" for="k_aset_mobil">Mobil</label></div></div>
-                <div class="col-6 col-md-4"><div class="form-check"><input class="form-check-input" type="checkbox" id="k_aset_motor" onchange="autoSave()"><label class="form-check-label" for="k_aset_motor">Sepeda Motor</label></div></div>
+                <div class="col-6 col-md-4"><div class="form-check"><input class="form-check-input" type="checkbox" id="k_aset_mobil" onchange="toggleAsetHarga('mobil'); autoSave()"><label class="form-check-label" for="k_aset_mobil">Mobil</label></div></div>
+                <div class="col-6 col-md-4"><div class="form-check"><input class="form-check-input" type="checkbox" id="k_aset_motor" onchange="toggleAsetHarga('motor'); autoSave()"><label class="form-check-label" for="k_aset_motor">Sepeda Motor</label></div></div>
                 <div class="col-6 col-md-4"><div class="form-check"><input class="form-check-input" type="checkbox" id="k_aset_sepeda" onchange="autoSave()"><label class="form-check-label" for="k_aset_sepeda">Sepeda</label></div></div>
                 <div class="col-6 col-md-4"><div class="form-check"><input class="form-check-input" type="checkbox" id="k_aset_tv" onchange="autoSave()"><label class="form-check-label" for="k_aset_tv">TV</label></div></div>
                 <div class="col-6 col-md-4"><div class="form-check"><input class="form-check-input" type="checkbox" id="k_aset_kulkas" onchange="autoSave()"><label class="form-check-label" for="k_aset_kulkas">Kulkas</label></div></div>
@@ -237,6 +259,11 @@
                 <div class="col-6 col-md-4"><div class="form-check"><input class="form-check-input" type="checkbox" id="k_aset_laptop" onchange="autoSave()"><label class="form-check-label" for="k_aset_laptop">Laptop/Komputer</label></div></div>
                 <div class="col-6 col-md-4"><div class="form-check"><input class="form-check-input" type="checkbox" id="k_aset_hewan" onchange="autoSave()"><label class="form-check-label" for="k_aset_hewan">Ternak/Unggas</label></div></div>
                 <div class="col-6 col-md-4"><div class="form-check"><input class="form-check-input" type="checkbox" id="k_aset_lainnya" onchange="autoSave()"><label class="form-check-label" for="k_aset_lainnya">Lainnya</label></div></div>
+            </div>
+            <!-- Harga Aset -->
+            <div class="row g-2 mt-2">
+                <div class="col-md-6 hidden" id="harga_mobil_container"><label class="form-label">💰 Harga/Nilai Mobil (Rp)</label><input type="number" class="form-control" id="k_harga_mobil" placeholder="0" onchange="autoSave()"></div>
+                <div class="col-md-6 hidden" id="harga_motor_container"><label class="form-label">💰 Harga/Nilai Sepeda Motor (Rp)</label><input type="number" class="form-control" id="k_harga_motor" placeholder="0" onchange="autoSave()"></div>
             </div>
 
             <!-- Anggota Keluarga Dinamis -->
@@ -264,14 +291,16 @@
                             <option value="Online">Online</option>
                         </select></div>
                         <div class="col-md-6"><label class="form-label">Jumlah Pekerja (Termasuk Pemilik)</label><input type="number" class="form-control" id="k_usaha_pekerja" onchange="autoSave()"></div>
-                        <div class="col-md-6"><label class="form-label">Omzet per Bulan (Rp)</label><input type="number" class="form-control" id="k_usaha_omzet" onchange="autoSave()"></div>
+                        <div class="col-md-6"><label class="form-label">Biaya Produksi per Bulan (Rp)</label><input type="number" class="form-control" id="k_biaya_produksi" placeholder="0" onchange="autoSave()"></div>
+                        <div class="col-md-6"><label class="form-label">Biaya Operasional per Bulan (Rp)</label><input type="number" class="form-control" id="k_biaya_operasional" placeholder="0" onchange="autoSave()"></div>
+                        <div class="col-md-6"><label class="form-label">Omzet per Bulan (Rp)</label><input type="number" class="form-control" id="k_omzet_bulan" placeholder="0" onchange="autoSave()"></div>
                     </div>
                 </div>
             </div>
 
             <!-- Actions -->
             <div class="d-grid gap-2 mb-5">
-                <button class="btn btn-success btn-action" onclick="kirimWhatsAppKeluarga()">📤 Kirim ke WhatsApp</button>
+                <button class="btn btn-success btn-action" onclick="kirimWA_Keluarga()">📤 Kirim ke WhatsApp</button>
                 <button class="btn btn-warning btn-action" onclick="simpanDraft()">💾 Simpan Draft</button>
                 <button class="btn btn-danger btn-action" onclick="resetForm()">🗑️ Reset Form</button>
             </div>
@@ -282,8 +311,8 @@
             <div class="d-flex justify-content-between align-items-center mb-3">
                 <h4 class="m-0">🏭 Bangunan Khusus Usaha</h4>
                 <div class="btn-group btn-group-sm">
-                    <button class="btn btn-outline-secondary" onclick="backToMode()">← Beranda</button>
-                    <button class="btn btn-outline-primary" onclick="showDrafts()">📁 Draft</button>
+                    <button class="btn btn-outline-secondary" onclick="backToHome()">← Beranda</button>
+                    <button class="btn btn-outline-primary" onclick="showDraftList()">📁 Draft</button>
                 </div>
             </div>
 
@@ -304,6 +333,11 @@
                     <a id="u_maps_link" href="#" target="_blank" class="btn btn-outline-success w-100 disabled">🗺️ Buka Maps</a>
                 </div>
                 <div class="col-12"><label class="form-label">Alamat Lengkap Usaha</label><textarea class="form-control" id="u_alamat" rows="2" onchange="autoSave()"></textarea></div>
+                <div class="col-12 mt-2">
+                    <label class="form-label">📷 Foto Tempat Usaha / NIB</label>
+                    <input type="file" class="form-control" id="u_foto" accept="image/*" capture="environment" onchange="autoSave()">
+                    <div class="form-text text-muted">Klik untuk ambil foto dari kamera atau pilih dari galeri</div>
+                </div>
             </div>
 
             <!-- Pengusaha -->
@@ -351,7 +385,7 @@
 
             <!-- Actions -->
             <div class="d-grid gap-2 mb-5">
-                <button class="btn btn-success btn-action" onclick="kirimWhatsAppUsaha()">📤 Kirim ke WhatsApp</button>
+                <button class="btn btn-success btn-action" onclick="kirimWA_Usaha()">📤 Kirim ke WhatsApp</button>
                 <button class="btn btn-warning btn-action" onclick="simpanDraft()">💾 Simpan Draft</button>
                 <button class="btn btn-danger btn-action" onclick="resetForm()">🗑️ Reset Form</button>
             </div>
@@ -368,15 +402,15 @@
 
     <!-- Bottom Nav -->
     <div class="nav-bottom d-flex justify-content-around">
-        <button class="btn btn-link text-decoration-none" onclick="backToMode()">
+        <button class="btn btn-link text-decoration-none" onclick="backToHome()">
             <div class="fs-4">🏠</div>
             <small>Beranda</small>
         </button>
-        <button class="btn btn-link text-decoration-none" onclick="showDrafts()">
+        <button class="btn btn-link text-decoration-none" onclick="showDraftList()">
             <div class="fs-4">📁</div>
             <small>Draft</small>
         </button>
-        <button class="btn btn-link text-decoration-none" onclick="showForm()">
+        <button class="btn btn-link text-decoration-none" onclick="showNewForm()">
             <div class="fs-4">➕</div>
             <small>Baru</small>
         </button>
