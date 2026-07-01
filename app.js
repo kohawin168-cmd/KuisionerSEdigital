@@ -239,7 +239,7 @@ async function renderDraftList() {
             subtitle = draft.u_kegiatan || '-';
         }
 
-        html += '<div class="card mb-2"><div class="card-body"><div class="d-flex justify-content-between align-items-start"><div><h6 class="mb-1 fw-bold">' + title + '</h6><p class="mb-1 text-muted small">' + subtitle + '</p><small class="text-secondary">' + date + '</small></div><div class="btn-group btn-group-sm"><button class="btn btn-primary" onclick="loadDraft(' + draft.id + ')">✏️ Edit</button><button class="btn btn-success" onclick="kirimDraftWA(' + draft.id + ')">📤 WA</button><button class="btn btn-danger" onclick="hapusDraft(' + draft.id + ')">🗑️</button></div></div></div></div>';
+        html += '<div class="card mb-2"><div class="card-body"><div class="d-flex justify-content-between align-items-start"><div><h6 class="mb-1 fw-bold">' + title + '</h6><p class="mb-1 text-muted small">' + subtitle + '</p><small class="text-secondary">' + date + '</small></div><div class="btn-group btn-group-sm"><button class="btn btn-primary" onclick="loadDraft(' + draft.id + ')">âœï¸ Edit</button><button class="btn btn-success" onclick="kirimDraftWA(' + draft.id + ')">ðŸ“¤ WA</button><button class="btn btn-danger" onclick="hapusDraft(' + draft.id + ')">ðŸ—‘ï¸</button></div></div></div></div>';
     }
 
     container.innerHTML = html;
@@ -339,7 +339,7 @@ async function doAutoSave() {
         var id = await saveToStore(store, data);
         currentDraftId = id;
         await updateDraftCounts();
-        toast('💾 Auto-saved', 'info', 1500);
+        toast('ðŸ’¾ Auto-saved', 'info', 1500);
     } catch(e) {
         console.error('Auto-save failed:', e);
     }
@@ -347,7 +347,7 @@ async function doAutoSave() {
 
 function simpanDraft() {
     doAutoSave();
-    toast('✅ Draft disimpan!', 'success');
+    toast('âœ… Draft disimpan!', 'success');
 }
 
 function collectData() {
@@ -418,14 +418,14 @@ function hitungLuasBangunan() {
     var p = parseFloat(val('k_p_bangunan')) || 0;
     var l = parseFloat(val('k_l_bangunan')) || 0;
     var el = document.getElementById('k_luas_bangunan');
-    if (el) el.value = (p * l).toLocaleString('id-ID') + ' m²';
+    if (el) el.value = (p * l).toLocaleString('id-ID') + ' mÂ²';
 }
 
 function hitungLuasTanah() {
     var p = parseFloat(val('k_p_tanah')) || 0;
     var l = parseFloat(val('k_l_tanah')) || 0;
     var el = document.getElementById('k_luas_tanah');
-    if (el) el.value = (p * l).toLocaleString('id-ID') + ' m²';
+    if (el) el.value = (p * l).toLocaleString('id-ID') + ' mÂ²';
 }
 
 function hitungTotalKaryawan() {
@@ -508,7 +508,7 @@ function tambahAnggota(data) {
     var div = document.createElement('div');
     div.className = 'member-card anggota-item';
     div.dataset.index = idx;
-    div.innerHTML = '<button type="button" class="btn btn-sm btn-outline-danger btn-remove" onclick="this.parentElement.remove(); autoSave();">✕</button>' +
+    div.innerHTML = '<button type="button" class="btn btn-sm btn-outline-danger btn-remove" onclick="this.parentElement.remove(); autoSave();">âœ•</button>' +
         '<div class="row g-2">' +
         '<div class="col-md-6"><label class="form-label">Nama</label><input type="text" class="form-control" id="anggota_nama_' + idx + '" value="' + nama + '" onchange="autoSave()"></div>' +
         '<div class="col-md-6"><label class="form-label">NIK</label><input type="text" class="form-control" id="anggota_nik_' + idx + '" maxlength="16" value="' + nik + '" onchange="autoSave()"></div>' +
@@ -578,7 +578,7 @@ function updateMapsLink(inputId, linkId) {
 function kirimWA_Keluarga() {
     var data = collectData();
     var msg = '*KUISIONER SENSUS EKONOMI 2026 - KELUARGA*%0A%0A';
-    msg += '*📍 DATA BANGUNAN*%0A';
+    msg += '*ðŸ“ DATA BANGUNAN*%0A';
     msg += 'No Bangunan: ' + (data.k_no_bangunan || '-') + '%0A';
     msg += 'No Urut KK: ' + (data.k_no_urut || '-') + '%0A';
     msg += 'GPS: ' + (data.k_gps || '-') + '%0A';
@@ -586,7 +586,7 @@ function kirimWA_Keluarga() {
     msg += 'No KK: ' + (data.k_no_kk || '-') + '%0A';
     msg += 'WA: ' + (data.k_wa || '-') + '%0A%0A';
 
-    msg += '*👤 KEPALA KELUARGA*%0A';
+    msg += '*ðŸ‘¤ KEPALA KELUARGA*%0A';
     msg += 'Nama: ' + (data.k_kk_nama || '-') + '%0A';
     msg += 'NIK: ' + (data.k_kk_nik || '-') + '%0A';
     msg += 'Tgl Lahir: ' + (data.k_kk_tgl_lahir || '-') + '%0A';
@@ -596,30 +596,30 @@ function kirimWA_Keluarga() {
     msg += 'Status Kawin: ' + (data.k_kk_status_kawin || '-') + '%0A%0A';
 
     if (data.k_pasangan_nama) {
-        msg += '*💑 PASANGAN*%0A';
+        msg += '*ðŸ’‘ PASANGAN*%0A';
         msg += 'Nama: ' + data.k_pasangan_nama + '%0A';
         msg += 'Pekerjaan: ' + (data.k_pasangan_pekerjaan || '-') + '%0A%0A';
     }
 
-    msg += '*💰 DATA EKONOMI*%0A';
+    msg += '*ðŸ’° DATA EKONOMI*%0A';
     msg += 'Gaji/Bulan: ' + formatRp(data.k_gaji) + '%0A';
     msg += 'Listrik: ' + (data.k_listrik || '-') + '%0A';
     msg += 'Internet: ' + (data.k_internet || '-') + '%0A';
     msg += 'No Meter: ' + (data.k_no_meter || '-') + '%0A';
     msg += 'Daya: ' + (data.k_daya || '-') + ' VA%0A%0A';
 
-    msg += '*💸 PENGELUARAN*%0A';
+    msg += '*ðŸ’¸ PENGELUARAN*%0A';
     msg += 'Makanan/Minggu: ' + formatRp(data.k_makanan_minggu) + '%0A';
     msg += 'Non-Makanan/Bulan: ' + formatRp(data.k_nonmakanan_bulan) + '%0A';
     msg += 'Rutin/Tahun: ' + formatRp(data.k_rutin_tahun) + '%0A';
     msg += '*Total: ' + (document.getElementById('k_total_pengeluaran') ? document.getElementById('k_total_pengeluaran').value : '-') + '*%0A%0A';
 
-    msg += '*🏡 RUMAH & LAHAN*%0A';
+    msg += '*ðŸ¡ RUMAH & LAHAN*%0A';
     msg += 'Status: ' + (data.k_status_rumah || '-') + '%0A';
     msg += 'Luas Bangunan: ' + (document.getElementById('k_luas_bangunan') ? document.getElementById('k_luas_bangunan').value : '-') + '%0A';
     msg += 'Luas Tanah: ' + (document.getElementById('k_luas_tanah') ? document.getElementById('k_luas_tanah').value : '-') + '%0A%0A';
 
-    msg += '*🚗 ASET*%0A';
+    msg += '*ðŸš— ASET*%0A';
     var aset = [];
     if (data.k_aset_mobil) aset.push('Mobil');
     if (data.k_aset_motor) aset.push('Motor');
@@ -633,7 +633,7 @@ function kirimWA_Keluarga() {
     msg += (aset.length > 0 ? aset.join(', ') : 'Tidak ada') + '%0A%0A';
 
     if (data.anggota && data.anggota.length > 0) {
-        msg += '*👨‍👩‍👧‍👦 ANGGOTA (' + data.anggota.length + ' orang)*%0A';
+        msg += '*ðŸ‘¨â€ðŸ‘©â€ðŸ‘§â€ðŸ‘¦ ANGGOTA (' + data.anggota.length + ' orang)*%0A';
         for (var i = 0; i < data.anggota.length; i++) {
             var a = data.anggota[i];
             msg += (i+1) + '. ' + (a.nama || '-') + ' (' + (a.status || '-') + ', ' + (a.umur || '-') + ' th, ' + (a.pekerjaan || '-') + ')%0A';
@@ -641,11 +641,11 @@ function kirimWA_Keluarga() {
         msg += '%0A';
     }
 
-    msg += '*💡 PENGELUARAN LISTRIK & INTERNET*%0A';
+    msg += '*ðŸ’¡ PENGELUARAN LISTRIK & INTERNET*%0A';
     msg += 'Pengeluaran Listrik/Bulan: ' + formatRp(data.k_pengeluaran_listrik) + '%0A';
     msg += 'Pengeluaran WiFi/Internet/Bulan: ' + formatRp(data.k_pengeluaran_internet) + '%0A%0A';
 
-    msg += '*🏡 RUMAH & TANAH - DETAIL*%0A';
+    msg += '*ðŸ¡ RUMAH & TANAH - DETAIL*%0A';
     msg += 'Status: ' + (data.k_status_rumah || '-') + '%0A';
     if (data.k_status_rumah === 'Kontrak/Sewa') {
         msg += 'Harga Sewa/Bulan: ' + formatRp(data.k_harga_sewa) + '%0A';
@@ -656,12 +656,12 @@ function kirimWA_Keluarga() {
     msg += 'Harga Rumah Saat Ini: ' + formatRp(data.k_harga_rumah) + '%0A';
     msg += 'Harga Tanah Saat Ini: ' + formatRp(data.k_harga_tanah) + '%0A%0A';
 
-    msg += '*🚗 ASET - NILAI*%0A';
+    msg += '*ðŸš— ASET - NILAI*%0A';
     if (data.k_aset_mobil) msg += 'Nilai Mobil: ' + formatRp(data.k_harga_mobil) + '%0A';
     if (data.k_aset_motor) msg += 'Nilai Motor: ' + formatRp(data.k_harga_motor) + '%0A';
     msg += '%0A';
 
-    msg += '*🏪 USAHA KELUARGA*%0A';
+    msg += '*ðŸª USAHA KELUARGA*%0A';
     msg += 'Ada Usaha: ' + (data.k_ada_usaha || '-') + '%0A';
     if (data.k_ada_usaha === 'Ya') {
         msg += 'Jenis: ' + (data.k_usaha_jenis || '-') + '%0A';
@@ -681,35 +681,35 @@ function kirimWA_Keluarga() {
 function kirimWA_Usaha() {
     var data = collectData();
     var msg = '*KUISIONER SENSUS EKONOMI 2026 - USAHA*%0A%0A';
-    msg += '*🏢 IDENTITAS*%0A';
+    msg += '*ðŸ¢ IDENTITAS*%0A';
     msg += 'Nama: ' + (data.u_nama || '-') + '%0A';
     msg += 'WA: ' + (data.u_wa || '-') + '%0A';
     msg += 'NIB: ' + (data.u_nib || '-') + '%0A';
     msg += 'GPS: ' + (data.u_gps || '-') + '%0A';
     msg += 'Alamat: ' + (data.u_alamat || '-') + '%0A%0A';
 
-    msg += '*👤 PENGUSAHA*%0A';
+    msg += '*ðŸ‘¤ PENGUSAHA*%0A';
     msg += 'Nama: ' + (data.u_pengusaha || '-') + '%0A';
     msg += 'JK: ' + (data.u_jk || '-') + '%0A';
     msg += 'NIK: ' + (data.u_nik || '-') + '%0A';
     msg += 'Umur: ' + (data.u_umur || '-') + ' th%0A%0A';
 
-    msg += '*🏭 KEGIATAN*%0A';
+    msg += '*ðŸ­ KEGIATAN*%0A';
     msg += 'Usaha: ' + (data.u_kegiatan || '-') + '%0A';
     msg += 'Produksi: ' + (data.u_produksi || '-') + ' ' + (data.u_satuan || '') + '%0A%0A';
 
-    msg += '*👷 KARYAWAN*%0A';
+    msg += '*ðŸ‘· KARYAWAN*%0A';
     msg += 'Pria: ' + (data.u_karyawan_pria || 0) + '%0A';
     msg += 'Wanita: ' + (data.u_karyawan_wanita || 0) + '%0A';
     msg += '*Total: ' + (document.getElementById('u_karyawan_total') ? document.getElementById('u_karyawan_total').value : '-') + '*%0A%0A';
 
-    msg += '*💰 GAJI*%0A';
+    msg += '*ðŸ’° GAJI*%0A';
     msg += 'Harian: ' + formatRp(data.u_gaji_harian) + '%0A';
     msg += 'Mingguan: ' + (document.getElementById('u_gaji_mingguan') ? document.getElementById('u_gaji_mingguan').value : '-') + '%0A';
     msg += 'Bulanan: ' + (document.getElementById('u_gaji_bulanan') ? document.getElementById('u_gaji_bulanan').value : '-') + '%0A';
     msg += '*Tahunan: ' + (document.getElementById('u_gaji_tahunan') ? document.getElementById('u_gaji_tahunan').value : '-') + '*%0A%0A';
 
-    msg += '*📊 BIAYA & OMZET*%0A';
+    msg += '*ðŸ“Š BIAYA & OMZET*%0A';
     msg += 'Biaya Produksi/Bulan: ' + formatRp(data.u_biaya_produksi) + '%0A';
     msg += 'Biaya Operasional/Bulan: ' + formatRp(data.u_biaya_operasional) + '%0A';
     msg += 'Omzet/Bulan: ' + formatRp(data.u_omzet_bulan) + '%0A';
