@@ -85,7 +85,10 @@
         <div id="draftListSection" class="hidden">
             <div class="d-flex justify-content-between align-items-center mb-3">
                 <h4 class="m-0">📁 Draft Tersimpan</h4>
-                <button class="btn btn-outline-primary btn-sm" onclick="showForm()">+ Buat Baru</button>
+                <div class="btn-group btn-group-sm">
+                    <button class="btn btn-outline-secondary" onclick="backToMode()">← Beranda</button>
+                    <button class="btn btn-outline-primary" onclick="showForm()">+ Buat Baru</button>
+                </div>
             </div>
             <div id="draftList"></div>
             <button class="btn btn-secondary w-100 mt-3" onclick="backToMode()">← Kembali</button>
@@ -95,7 +98,10 @@
         <div id="formKeluarga" class="hidden">
             <div class="d-flex justify-content-between align-items-center mb-3">
                 <h4 class="m-0">🏠 Pendataan Keluarga</h4>
-                <button class="btn btn-outline-secondary btn-sm" onclick="backToDrafts()">← Draft</button>
+                <div class="btn-group btn-group-sm">
+                    <button class="btn btn-outline-secondary" onclick="backToMode()">← Beranda</button>
+                    <button class="btn btn-outline-primary" onclick="showDrafts()">📁 Draft</button>
+                </div>
             </div>
 
             <!-- Data Bangunan -->
@@ -275,7 +281,10 @@
         <div id="formUsaha" class="hidden">
             <div class="d-flex justify-content-between align-items-center mb-3">
                 <h4 class="m-0">🏭 Bangunan Khusus Usaha</h4>
-                <button class="btn btn-outline-secondary btn-sm" onclick="backToDrafts()">← Draft</button>
+                <div class="btn-group btn-group-sm">
+                    <button class="btn btn-outline-secondary" onclick="backToMode()">← Beranda</button>
+                    <button class="btn btn-outline-primary" onclick="showDrafts()">📁 Draft</button>
+                </div>
             </div>
 
             <!-- Identitas Usaha -->
@@ -375,5 +384,16 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="app.js"></script>
-</body>
+
+    <script>
+        // Register Service Worker
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('service-worker.js')
+                    .then(reg => console.log('SW registered:', reg.scope))
+                    .catch(err => console.log('SW registration failed:', err));
+            });
+        }
+    </script>
+    </body>
 </html>
