@@ -88,11 +88,11 @@
                 <div class="card-header">Pilih Mode Pendataan</div>
                 <div class="card-body">
                     <div class="mode-grid">
-                        <button class="btn btn-outline-primary btn-mode" onclick="goToMode('keluarga')">
+                        <button class="btn btn-outline-primary btn-mode" id="btnModeKeluarga">
                             <span class="icon">&#128106;</span>
                             <span>Pendataan<br>Keluarga</span>
                         </button>
-                        <button class="btn btn-outline-success btn-mode" onclick="goToMode('bangunan')">
+                        <button class="btn btn-outline-success btn-mode" id="btnModeBangunan">
                             <span class="icon">&#127970;</span>
                             <span>Bangunan Khusus<br>Usaha</span>
                         </button>
@@ -115,16 +115,16 @@
                 <div class="card-header">Pendataan Keluarga</div>
                 <div class="card-body">
                     <div class="mode-grid">
-                        <button class="btn btn-outline-primary btn-mode" onclick="startForm('prelist')">
+                        <button class="btn btn-outline-primary btn-mode" id="btnPrelist">
                             <span class="icon">&#128203;</span><span>Prelist</span>
                         </button>
-                        <button class="btn btn-outline-info btn-mode" onclick="startForm('assignment')">
+                        <button class="btn btn-outline-info btn-mode" id="btnAssignment">
                             <span class="icon">&#10024;</span><span>Assignment Baru</span>
                         </button>
                     </div>
                 </div>
             </div>
-            <div class="text-center mt-3"><button class="btn btn-secondary" onclick="goToPage('pageHome')">Kembali</button></div>
+            <div class="text-center mt-3"><button class="btn btn-secondary btn-kembali-home">Kembali</button></div>
         </div>
     </div>
 
@@ -133,9 +133,95 @@
         <div class="container py-4">
             <div class="card">
                 <div class="card-header">Bangunan Khusus Usaha</div>
-                <div class="card-body"><p class="text-muted text-center">Fitur ini sedang dalam pengembangan.</p></div>
+                <div class="card-body">
+                    <div class="mode-grid">
+                        <button class="btn btn-outline-primary btn-mode" id="btnPrelistBangunan">
+                            <span class="icon">&#128203;</span><span>Prelist</span>
+                        </button>
+                        <button class="btn btn-outline-info btn-mode" id="btnAssignmentBangunan">
+                            <span class="icon">&#10024;</span><span>Assignment Baru</span>
+                        </button>
+                    </div>
+                </div>
             </div>
-            <div class="text-center mt-3"><button class="btn btn-secondary" onclick="goToPage('pageHome')">Kembali</button></div>
+            <div class="text-center mt-3"><button class="btn btn-secondary btn-kembali-home">Kembali</button></div>
+        </div>
+    </div>
+
+    <!-- PAGE: FORM BANGUNAN KHUSUS USAHA -->
+    <div class="page" id="pageFormBangunan">
+        <div class="container py-3">
+            <form id="bangunanForm" onsubmit="return false;">
+                <!-- DATA BANGUNAN USAHA -->
+                <div class="card">
+                    <div class="card-header">Data Bangunan Usaha</div>
+                    <div class="card-body">
+                        <div class="mb-3"><label class="form-label">Nomor Bangunan</label><input type="text" class="form-control" id="bnoBangunan" placeholder="Contoh: 001" onchange="autoSaveBangunan()"></div>
+                        <div class="mb-3"><label class="form-label">Koordinat GPS</label><div class="input-group"><input type="text" class="form-control" id="bkoordinat" placeholder="-6.xxx, 107.xxx" readonly><button class="btn btn-outline-primary gps-btn" type="button" id="btnGetGPSBangunan">Ambil GPS</button></div></div>
+                        <div class="mb-3" id="bgmapsContainer" style="display:none;"><label class="form-label">Google Maps</label><div class="d-flex gap-2"><a id="bgmapsLink" href="#" target="_blank" class="btn btn-outline-info btn-sm gmaps-btn">&#127760; Buka Google Maps</a><button type="button" class="btn btn-outline-secondary btn-sm gmaps-btn" id="btnCopyGmapsBangunan">&#128203; Copy Link</button></div></div>
+                        <div class="mb-3"><label class="form-label">Alamat Lengkap</label><textarea class="form-control" id="balamat" rows="2" placeholder="RT/RW, Dusun, Desa Sukadamai" onchange="autoSaveBangunan()"></textarea></div>
+                        <div class="mb-3"><label class="form-label">Nomor WhatsApp Usaha</label><input type="text" class="form-control" id="bnoWA" placeholder="08xxxxxxxxxx" oninput="this.value=this.value.replace(/\D/g,'');autoSaveBangunan()" onchange="autoSaveBangunan()"></div>
+                    </div>
+                </div>
+
+                <!-- DATA USAHA -->
+                <div class="card">
+                    <div class="card-header">Data Usaha</div>
+                    <div class="card-body">
+                        <div class="mb-3"><label class="form-label">Nama Komersial Usaha</label><input type="text" class="form-control" id="bnamaKomersial" placeholder="Nama usaha/jualan" onchange="autoSaveBangunan()"></div>
+                        <div class="mb-3"><label class="form-label">Memiliki NIB?</label><div class="radio-group"><input type="radio" class="btn-check" name="bnib" id="bnib_ya" value="Ya" onchange="autoSaveBangunan()"><label class="btn btn-outline-secondary" for="bnib_ya">Ya</label><input type="radio" class="btn-check" name="bnib" id="bnib_tidak" value="Tidak" onchange="autoSaveBangunan()"><label class="btn btn-outline-secondary" for="bnib_tidak">Tidak</label></div></div>
+                        <div class="mb-3"><label class="form-label">Nama Pengusaha</label><input type="text" class="form-control" id="bnamaPengusaha" placeholder="Nama pengusaha" onchange="autoSaveBangunan()"></div>
+                        <div class="mb-3"><label class="form-label">Jenis Kelamin Pengusaha</label><div class="radio-group"><input type="radio" class="btn-check" name="bjkPengusaha" id="bjkPeng_L" value="Laki-laki" onchange="autoSaveBangunan()"><label class="btn btn-outline-secondary" for="bjkPeng_L">Laki-laki</label><input type="radio" class="btn-check" name="bjkPengusaha" id="bjkPeng_P" value="Perempuan" onchange="autoSaveBangunan()"><label class="btn btn-outline-secondary" for="bjkPeng_P">Perempuan</label></div></div>
+                        <div class="mb-3"><label class="form-label">NIK Pengusaha</label><input type="text" class="form-control" id="bnikPengusaha" placeholder="16 digit" maxlength="16" oninput="this.value=this.value.replace(/\D/g,'');autoSaveBangunan()" onchange="autoSaveBangunan()"></div>
+                        <div class="mb-3"><label class="form-label">Umur Pengusaha</label><input type="number" class="form-control" id="bumurPengusaha" placeholder="Tahun" onchange="autoSaveBangunan()"></div>
+                        <div class="mb-3"><label class="form-label">Kegiatan Utama Usaha</label><input type="text" class="form-control" id="bkegiatanUtama" placeholder="Contoh: Warung, Pertanian, Jasa, dll" onchange="autoSaveBangunan()"></div>
+                        <div class="mb-3"><label class="form-label">Memproduksi Barang?</label><div class="radio-group"><input type="radio" class="btn-check" name="bproduksiBarang" id="bprod_ya" value="Ya" onchange="autoSaveBangunan()"><label class="btn btn-outline-secondary" for="bprod_ya">Ya</label><input type="radio" class="btn-check" name="bproduksiBarang" id="bprod_tidak" value="Tidak" onchange="autoSaveBangunan()"><label class="btn btn-outline-secondary" for="bprod_tidak">Tidak</label></div></div>
+                    </div>
+                </div>
+
+                <!-- PEMASUKAN LAIN USAHA -->
+                <div class="card">
+                    <div class="card-header">Pemasukan Lain Usaha</div>
+                    <div class="card-body">
+                        <div class="mb-3"><label class="form-label">Pemasukan Lain (selain omzet utama)</label><div class="input-group"><span class="input-group-text">Rp</span><input type="text" class="form-control rupiah-input" id="bpemasukanLain" placeholder="0" oninput="formatRupiah(this);autoSaveBangunan()" onchange="autoSaveBangunan()"></div><small class="text-muted">*Pemasukan lain dari usaha (sewa, jasa tambahan, dll)</small></div>
+                    </div>
+                </div>
+
+                <!-- JUMLAH KARYAWAN -->
+                <div class="card">
+                    <div class="card-header">Jumlah Karyawan</div>
+                    <div class="card-body">
+                        <div class="row g-2">
+                            <div class="col-4"><label class="form-label">Total Karyawan</label><input type="number" class="form-control" id="bjumlahKaryawan" placeholder="0" onchange="autoSaveBangunan()"></div>
+                            <div class="col-4"><label class="form-label">Pria</label><input type="number" class="form-control" id="bjumlahKaryawanPria" placeholder="0" onchange="autoSaveBangunan()"></div>
+                            <div class="col-4"><label class="form-label">Wanita</label><input type="number" class="form-control" id="bjumlahKaryawanWanita" placeholder="0" onchange="autoSaveBangunan()"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- UPAH GAJI KARYAWAN -->
+                <div class="card">
+                    <div class="card-header">Upah Gaji Total Karyawan</div>
+                    <div class="card-body">
+                        <div class="mb-3"><label class="form-label">Total Upah/Gaji Karyawan</label><div class="row g-2"><div class="col-7"><div class="input-group"><span class="input-group-text">Rp</span><input type="text" class="form-control rupiah-input" id="bupahGajiKaryawan" placeholder="0" oninput="formatRupiah(this);hitungTahunanBangunan();autoSaveBangunan()"></div></div><div class="col-5"><select class="form-select" id="bperiodeUpah" onchange="hitungTahunanBangunan();autoSaveBangunan()"><option value="hari">/ Hari</option><option value="minggu">/ Minggu</option><option value="bulan">/ Bulan</option><option value="tahun">/ Tahun</option></select></div></div><div class="mt-1"><small>Per Tahun: <span class="hasil-rupiah" id="bthnUpah">Rp 0</span></small></div></div>
+                    </div>
+                </div>
+
+                <!-- BIAYA & OMZET -->
+                <div class="card">
+                    <div class="card-header">Biaya & Omzet</div>
+                    <div class="card-body">
+                        <div class="mb-3"><label class="form-label">Biaya Produksi</label><div class="row g-2"><div class="col-7"><div class="input-group"><span class="input-group-text">Rp</span><input type="text" class="form-control rupiah-input" id="bbiayaProduksi" placeholder="0" oninput="formatRupiah(this);hitungTahunanBangunan();autoSaveBangunan()"></div></div><div class="col-5"><select class="form-select" id="bperiodeProduksi" onchange="hitungTahunanBangunan();autoSaveBangunan()"><option value="hari">/ Hari</option><option value="minggu">/ Minggu</option><option value="bulan">/ Bulan</option><option value="tahun">/ Tahun</option></select></div></div><div class="mt-1"><small>Per Tahun: <span class="hasil-rupiah" id="bthnProduksi">Rp 0</span></small></div></div>
+                        <div class="mb-3"><label class="form-label">Biaya Operasional</label><div class="row g-2"><div class="col-7"><div class="input-group"><span class="input-group-text">Rp</span><input type="text" class="form-control rupiah-input" id="bbiayaOperasional" placeholder="0" oninput="formatRupiah(this);hitungTahunanBangunan();autoSaveBangunan()"></div></div><div class="col-5"><select class="form-select" id="bperiodeOperasional" onchange="hitungTahunanBangunan();autoSaveBangunan()"><option value="hari">/ Hari</option><option value="minggu">/ Minggu</option><option value="bulan">/ Bulan</option><option value="tahun">/ Tahun</option></select></div></div><div class="mt-1"><small>Per Tahun: <span class="hasil-rupiah" id="bthnOperasional">Rp 0</span></small></div></div>
+                        <div class="mb-3"><label class="form-label">Omzet</label><div class="row g-2"><div class="col-7"><div class="input-group"><span class="input-group-text">Rp</span><input type="text" class="form-control rupiah-input" id="bomzet" placeholder="0" oninput="formatRupiah(this);hitungTahunanBangunan();autoSaveBangunan()"></div></div><div class="col-5"><select class="form-select" id="bperiodeOmzet" onchange="hitungTahunanBangunan();autoSaveBangunan()"><option value="hari">/ Hari</option><option value="minggu">/ Minggu</option><option value="bulan">/ Bulan</option><option value="tahun">/ Tahun</option></select></div></div><div class="mt-1"><small>Per Tahun: <span class="hasil-rupiah" id="bthnOmzet">Rp 0</span></small></div></div>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="nav-bottom">
+            <button class="btn btn-secondary btn-kembali-home">Kembali</button>
+            <button class="btn btn-warning" id="btnSaveDraftBangunan">Simpan Draft</button>
+            <button class="btn btn-success" id="btnKirimWABangunan">Kirim WA</button>
         </div>
     </div>
 
@@ -159,14 +245,14 @@
                             <label class="form-label">Koordinat GPS</label>
                             <div class="input-group">
                                 <input type="text" class="form-control" id="koordinat" placeholder="-6.xxx, 107.xxx" readonly>
-                                <button class="btn btn-outline-primary gps-btn" type="button" onclick="getGPS()">Ambil GPS</button>
+                                <button class="btn btn-outline-primary gps-btn" type="button" id="btnGetGPS">Ambil GPS</button>
                             </div>
                         </div>
                         <div class="mb-3" id="gmapsContainer" style="display:none;">
                             <label class="form-label">Google Maps</label>
                             <div class="d-flex gap-2">
                                 <a id="gmapsLink" href="#" target="_blank" class="btn btn-outline-info btn-sm gmaps-btn">&#127760; Buka Google Maps</a>
-                                <button type="button" class="btn btn-outline-secondary btn-sm gmaps-btn" onclick="copyGmapsLink()">&#128203; Copy Link</button>
+                                <button type="button" class="btn btn-outline-secondary btn-sm gmaps-btn" id="btnCopyGmaps">&#128203; Copy Link</button>
                             </div>
                         </div>
                         <div class="mb-3">
@@ -299,7 +385,7 @@
 
                 <!-- ANGGOTA KELUARGA -->
                 <div class="card">
-                    <div class="card-header d-flex justify-content-between align-items-center"><span>Anggota Keluarga</span><button type="button" class="btn btn-sm btn-primary" onclick="tambahAnggota()">+ Tambah</button></div>
+                    <div class="card-header d-flex justify-content-between align-items-center"><span>Anggota Keluarga</span><button type="button" class="btn btn-sm btn-primary" id="btnTambahAnggota">+ Tambah</button></div>
                     <div class="card-body" id="anggotaContainer"><p class="text-muted text-center" id="anggotaEmpty">Belum ada anggota keluarga</p></div>
                 </div>
 
@@ -339,9 +425,9 @@
             </form>
         </div>
         <div class="nav-bottom">
-            <button class="btn btn-secondary" onclick="goToPage('pageHome')">Kembali</button>
-            <button class="btn btn-warning" onclick="saveDraft()">Simpan Draft</button>
-            <button class="btn btn-success" onclick="kirimWhatsApp()">Kirim WA</button>
+            <button class="btn btn-secondary btn-kembali-home">Kembali</button>
+            <button class="btn btn-warning" id="btnSaveDraft">Simpan Draft</button>
+            <button class="btn btn-success" id="btnKirimWA">Kirim WA</button>
         </div>
     </div>
 
@@ -874,9 +960,303 @@
             }
         }
 
+        // ============================================================
+        // BANGUNAN KHUSUS USAHA FUNCTIONS
+        // ============================================================
+        let currentDraftBangunanId = null;
+        let saveTimeoutBangunan = null;
+
+        function startFormBangunan(type) {
+            resetFormBangunan();
+            currentDraftBangunanId = null;
+            goToPage('pageFormBangunan');
+            showToast('Form Bangunan Usaha baru siap diisi.');
+        }
+
+        function resetFormBangunan() {
+            document.getElementById('bangunanForm').reset();
+            currentDraftBangunanId = null;
+            ['bthnUpah','bthnProduksi','bthnOperasional','bthnOmzet'].forEach(id => { document.getElementById(id).textContent = 'Rp 0'; });
+            document.getElementById('bgmapsContainer').style.display = 'none';
+        }
+
+        function getFormDataBangunan() {
+            return {
+                noBangunan: document.getElementById('bnoBangunan').value,
+                koordinat: document.getElementById('bkoordinat').value,
+                alamat: document.getElementById('balamat').value,
+                noWA: document.getElementById('bnoWA').value,
+                namaKomersial: document.getElementById('bnamaKomersial').value,
+                nib: getRadioValue('bnib'),
+                namaPengusaha: document.getElementById('bnamaPengusaha').value,
+                jkPengusaha: getRadioValue('bjkPengusaha'),
+                nikPengusaha: document.getElementById('bnikPengusaha').value,
+                umurPengusaha: document.getElementById('bumurPengusaha').value,
+                kegiatanUtama: document.getElementById('bkegiatanUtama').value,
+                produksiBarang: getRadioValue('bproduksiBarang'),
+                pemasukanLain: document.getElementById('bpemasukanLain').value,
+                jumlahKaryawan: document.getElementById('bjumlahKaryawan').value,
+                jumlahKaryawanPria: document.getElementById('bjumlahKaryawanPria').value,
+                jumlahKaryawanWanita: document.getElementById('bjumlahKaryawanWanita').value,
+                upahGajiKaryawan: document.getElementById('bupahGajiKaryawan').value,
+                periodeUpah: document.getElementById('bperiodeUpah').value,
+                biayaProduksi: document.getElementById('bbiayaProduksi').value,
+                periodeProduksi: document.getElementById('bperiodeProduksi').value,
+                biayaOperasional: document.getElementById('bbiayaOperasional').value,
+                periodeOperasional: document.getElementById('bperiodeOperasional').value,
+                omzet: document.getElementById('bomzet').value,
+                periodeOmzet: document.getElementById('bperiodeOmzet').value,
+                updatedAt: new Date().toISOString()
+            };
+        }
+
+        function setFormDataBangunan(data) {
+            document.getElementById('bnoBangunan').value = data.noBangunan || '';
+            document.getElementById('bkoordinat').value = data.koordinat || '';
+            document.getElementById('balamat').value = data.alamat || '';
+            document.getElementById('bnoWA').value = data.noWA || '';
+            document.getElementById('bnamaKomersial').value = data.namaKomersial || '';
+            setRadioValue('bnib', data.nib || '');
+            document.getElementById('bnamaPengusaha').value = data.namaPengusaha || '';
+            setRadioValue('bjkPengusaha', data.jkPengusaha || '');
+            document.getElementById('bnikPengusaha').value = data.nikPengusaha || '';
+            document.getElementById('bumurPengusaha').value = data.umurPengusaha || '';
+            document.getElementById('bkegiatanUtama').value = data.kegiatanUtama || '';
+            setRadioValue('bproduksiBarang', data.produksiBarang || '');
+            document.getElementById('bpemasukanLain').value = data.pemasukanLain || '';
+            document.getElementById('bjumlahKaryawan').value = data.jumlahKaryawan || '';
+            document.getElementById('bjumlahKaryawanPria').value = data.jumlahKaryawanPria || '';
+            document.getElementById('bjumlahKaryawanWanita').value = data.jumlahKaryawanWanita || '';
+            document.getElementById('bupahGajiKaryawan').value = data.upahGajiKaryawan || '';
+            document.getElementById('bperiodeUpah').value = data.periodeUpah || 'bulan';
+            document.getElementById('bbiayaProduksi').value = data.biayaProduksi || '';
+            document.getElementById('bperiodeProduksi').value = data.periodeProduksi || 'bulan';
+            document.getElementById('bbiayaOperasional').value = data.biayaOperasional || '';
+            document.getElementById('bperiodeOperasional').value = data.periodeOperasional || 'bulan';
+            document.getElementById('bomzet').value = data.omzet || '';
+            document.getElementById('bperiodeOmzet').value = data.periodeOmzet || 'bulan';
+            hitungTahunanBangunan();
+            updateGmapsLinkBangunan(data.koordinat || '');
+        }
+
+        function autoSaveBangunan() {
+            if (saveTimeoutBangunan) clearTimeout(saveTimeoutBangunan);
+            saveTimeoutBangunan = setTimeout(async () => {
+                const data = getFormDataBangunan();
+                if (currentDraftBangunanId) data.id = currentDraftBangunanId;
+                if (data.noBangunan || data.namaKomersial) {
+                    const id = await saveToDB(data);
+                    currentDraftBangunanId = id;
+                    showAutoSave();
+                }
+            }, 1000);
+        }
+
+        async function saveDraftBangunan() {
+            const data = getFormDataBangunan();
+            if (currentDraftBangunanId) data.id = currentDraftBangunanId;
+            const id = await saveToDB(data);
+            currentDraftBangunanId = id;
+            showToast('Draft Bangunan berhasil disimpan!');
+            renderDraftList();
+        }
+
+        function getGPSBangunan() {
+            const btn = document.querySelectorAll('.gps-btn')[1];
+            btn.textContent = 'Mengambil...';
+            btn.disabled = true;
+            if (!navigator.geolocation) {
+                showToast('GPS tidak didukung', 'danger');
+                btn.textContent = 'Ambil GPS'; btn.disabled = false; return;
+            }
+            navigator.geolocation.getCurrentPosition(
+                (pos) => {
+                    const lat = pos.coords.latitude.toFixed(6);
+                    const lng = pos.coords.longitude.toFixed(6);
+                    const koordinat = lat + ', ' + lng;
+                    document.getElementById('bkoordinat').value = koordinat;
+                    updateGmapsLinkBangunan(koordinat);
+                    autoSaveBangunan();
+                    btn.textContent = 'GPS OK';
+                    setTimeout(() => { btn.textContent = 'Ambil GPS'; btn.disabled = false; }, 2000);
+                },
+                (err) => { showToast('Gagal ambil GPS: ' + err.message, 'danger'); btn.textContent = 'Ambil GPS'; btn.disabled = false; },
+                { enableHighAccuracy: true, timeout: 15000, maximumAge: 0 }
+            );
+        }
+
+        function updateGmapsLinkBangunan(koordinat) {
+            const container = document.getElementById('bgmapsContainer');
+            const link = document.getElementById('bgmapsLink');
+            if (koordinat && koordinat.includes(',')) {
+                const parts = koordinat.split(',');
+                if (parts.length === 2) {
+                    const lat = parts[0].trim();
+                    const lng = parts[1].trim();
+                    const gmapsUrl = 'https://www.google.com/maps?q=' + lat + ',' + lng;
+                    link.href = gmapsUrl;
+                    container.style.display = 'block';
+                } else { container.style.display = 'none'; }
+            } else { container.style.display = 'none'; }
+        }
+
+        function copyGmapsLinkBangunan() {
+            const link = document.getElementById('bgmapsLink').href;
+            if (navigator.clipboard) {
+                navigator.clipboard.writeText(link).then(() => showToast('Link Google Maps disalin!'));
+            } else {
+                const ta = document.createElement('textarea');
+                ta.value = link;
+                document.body.appendChild(ta);
+                ta.select();
+                document.execCommand('copy');
+                document.body.removeChild(ta);
+                showToast('Link Google Maps disalin!');
+            }
+        }
+
+        function hitungTahunanBangunan() {
+            const periodeMap = { hari: 365, minggu: 52, bulan: 12, tahun: 1 };
+            const up = parseRupiah(document.getElementById('bupahGajiKaryawan').value);
+            const pup = periodeMap[document.getElementById('bperiodeUpah').value] || 12;
+            document.getElementById('bthnUpah').textContent = formatRupiahStr(up * pup);
+            const bp = parseRupiah(document.getElementById('bbiayaProduksi').value);
+            const pp = periodeMap[document.getElementById('bperiodeProduksi').value] || 12;
+            document.getElementById('bthnProduksi').textContent = formatRupiahStr(bp * pp);
+            const bo = parseRupiah(document.getElementById('bbiayaOperasional').value);
+            const po = periodeMap[document.getElementById('bperiodeOperasional').value] || 12;
+            document.getElementById('bthnOperasional').textContent = formatRupiahStr(bo * po);
+            const om = parseRupiah(document.getElementById('bomzet').value);
+            const pom = periodeMap[document.getElementById('bperiodeOmzet').value] || 12;
+            document.getElementById('bthnOmzet').textContent = formatRupiahStr(om * pom);
+        }
+
+        async function kirimWhatsAppBangunan() {
+            const data = getFormDataBangunan();
+            let msg = '*SENSUS EKONOMI 2026 - BANGUNAN KHUSUS USAHA*
+';
+            msg += 'DESA SUKADAMAI
+';
+            msg += '=======================================
+
+';
+            msg += '*DATA BANGUNAN USAHA*
+';
+            msg += 'Nomor Bangunan: ' + (data.noBangunan || '-') + '
+';
+            msg += 'Koordinat GPS: ' + (data.koordinat || '-') + '
+';
+            if (data.koordinat && data.koordinat.includes(',')) {
+                const parts = data.koordinat.split(',');
+                if (parts.length === 2) {
+                    msg += 'Google Maps: https://www.google.com/maps?q=' + parts[0].trim() + ',' + parts[1].trim() + '
+';
+                }
+            }
+            msg += 'Alamat: ' + (data.alamat || '-') + '
+';
+            msg += 'Nomor WA: ' + (data.noWA || '-') + '
+
+';
+            msg += '*DATA USAHA*
+';
+            msg += 'Nama Komersial: ' + (data.namaKomersial || '-') + '
+';
+            msg += 'NIB: ' + (data.nib || '-') + '
+';
+            msg += 'Nama Pengusaha: ' + (data.namaPengusaha || '-') + '
+';
+            msg += 'JK Pengusaha: ' + (data.jkPengusaha || '-') + '
+';
+            msg += 'NIK Pengusaha: ' + (data.nikPengusaha || '-') + '
+';
+            msg += 'Umur: ' + (data.umurPengusaha || '-') + ' th
+';
+            msg += 'Kegiatan Utama: ' + (data.kegiatanUtama || '-') + '
+';
+            msg += 'Produksi Barang: ' + (data.produksiBarang || '-') + '
+
+';
+            msg += '*PEMASUKAN LAIN*
+';
+            msg += 'Pemasukan Lain: ' + (data.pemasukanLain || 'Rp 0') + '
+
+';
+            msg += '*JUMLAH KARYAWAN*
+';
+            msg += 'Total: ' + (data.jumlahKaryawan || '0') + '
+';
+            msg += 'Pria: ' + (data.jumlahKaryawanPria || '0') + '
+';
+            msg += 'Wanita: ' + (data.jumlahKaryawanWanita || '0') + '
+
+';
+            msg += '*UPAH GAJI KARYAWAN*
+';
+            const periodeMap = { hari: 365, minggu: 52, bulan: 12, tahun: 1 };
+            const up = parseRupiah(data.upahGajiKaryawan); const pup = periodeMap[data.periodeUpah] || 12;
+            msg += 'Upah: ' + (data.upahGajiKaryawan || 'Rp 0') + ' / ' + (data.periodeUpah || 'bulan') + '
+';
+            msg += 'Per Tahun: Rp ' + (up * pup).toLocaleString('id-ID') + '
+
+';
+            msg += '*BIAYA & OMZET*
+';
+            const bp = parseRupiah(data.biayaProduksi); const pp = periodeMap[data.periodeProduksi] || 12;
+            const bo = parseRupiah(data.biayaOperasional); const po = periodeMap[data.periodeOperasional] || 12;
+            const om = parseRupiah(data.omzet); const pom = periodeMap[data.periodeOmzet] || 12;
+            msg += 'Biaya Produksi/thn: Rp ' + (bp * pp).toLocaleString('id-ID') + '
+';
+            msg += 'Biaya Operasional/thn: Rp ' + (bo * po).toLocaleString('id-ID') + '
+';
+            msg += 'Omzet/thn: Rp ' + (om * pom).toLocaleString('id-ID') + '
+';
+            msg += '
+=======================================
+';
+            msg += 'Dikirim via Aplikasi Sensus Ekonomi 2026';
+
+            const waUrl = 'https://wa.me/6285791111335?text=' + encodeURIComponent(msg);
+            window.open(waUrl, '_blank');
+
+            if (currentDraftBangunanId) {
+                await deleteDraft(currentDraftBangunanId);
+                currentDraftBangunanId = null;
+                resetFormBangunan();
+                renderDraftList();
+                showToast('Draft Bangunan otomatis dihapus');
+            }
+        }
+
         document.addEventListener('DOMContentLoaded', async () => {
             await openDB();
             renderDraftList();
+
+            // Event listeners for navigation buttons (fix for PWA standalone mode)
+            document.getElementById('btnModeKeluarga')?.addEventListener('click', () => goToMode('keluarga'));
+            document.getElementById('btnModeBangunan')?.addEventListener('click', () => goToMode('bangunan'));
+            document.getElementById('btnPrelist')?.addEventListener('click', () => startForm('prelist'));
+            document.getElementById('btnAssignment')?.addEventListener('click', () => startForm('assignment'));
+            document.getElementById('btnPrelistBangunan')?.addEventListener('click', () => startFormBangunan('prelist'));
+            document.getElementById('btnAssignmentBangunan')?.addEventListener('click', () => startFormBangunan('assignment'));
+
+            // Kembali buttons
+            document.querySelectorAll('.btn-kembali-home').forEach(btn => {
+                btn.addEventListener('click', () => goToPage('pageHome'));
+            });
+
+            // Form action buttons
+            document.getElementById('btnSaveDraft')?.addEventListener('click', saveDraft);
+            document.getElementById('btnKirimWA')?.addEventListener('click', kirimWhatsApp);
+            document.getElementById('btnSaveDraftBangunan')?.addEventListener('click', saveDraftBangunan);
+            document.getElementById('btnKirimWABangunan')?.addEventListener('click', kirimWhatsAppBangunan);
+
+            // GPS and other buttons
+            document.getElementById('btnGetGPS')?.addEventListener('click', getGPS);
+            document.getElementById('btnCopyGmaps')?.addEventListener('click', copyGmapsLink);
+            document.getElementById('btnGetGPSBangunan')?.addEventListener('click', getGPSBangunan);
+            document.getElementById('btnCopyGmapsBangunan')?.addEventListener('click', copyGmapsLinkBangunan);
+            document.getElementById('btnTambahAnggota')?.addEventListener('click', tambahAnggota);
         });
     </script>
     <script>
