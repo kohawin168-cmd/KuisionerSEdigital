@@ -5,12 +5,12 @@
 
 const CACHE_NAME = 'sensus-ekonomi-2026-v1';
 const STATIC_ASSETS = [
-    '/',
-    '/index.html',
-    '/app.js',
-    '/manifest.json',
-    '/icon-192x192.png',
-    '/icon-512x512.png',
+    './',
+    './index.html',
+    './app.js',
+    './manifest.json',
+    './icon-192x192.png',
+    './icon-512x512.png',
     'https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css',
     'https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js'
 ];
@@ -91,7 +91,7 @@ self.addEventListener('fetch', (event) => {
                 // Network failed and not in cache
                 // For HTML requests, return the offline page
                 if (request.headers.get('accept')?.includes('text/html')) {
-                    return caches.match('/index.html');
+                    return caches.match('./index.html');
                 }
                 return new Response('Offline - Data tersimpan di IndexedDB', {
                     status: 503,
@@ -119,8 +119,8 @@ self.addEventListener('push', (event) => {
     const title = data.title || 'Sensus Ekonomi 2026';
     const options = {
         body: data.body || 'Pengingan pendataan',
-        icon: '/icon-192x192.png',
-        badge: '/icon-192x192.png',
+        icon: './icon-192x192.png',
+        badge: './icon-192x192.png',
         data: data
     };
     event.waitUntil(self.registration.showNotification(title, options));
