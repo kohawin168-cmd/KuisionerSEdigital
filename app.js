@@ -85,7 +85,7 @@ function selectMode(mode) {
     currentMode = mode;
     document.querySelectorAll('.mode-card').forEach(c => c.classList.remove('active'));
     document.getElementById('mode' + (mode === 'keluarga' ? 'Keluarga' : 'Usaha')).classList.add('active');
-    setTimeout(() => showDrafts(), 300);
+    setTimeout(() => showForm(), 300);
 }
 
 function backToMode() {
@@ -110,14 +110,19 @@ function hideAll() {
 function showForm() {
     hideAll();
     currentDraftId = null;
-    resetForm(false);
+
+    // Show the form FIRST, then reset it
     if (currentMode === 'keluarga') {
         document.getElementById('formKeluarga').classList.remove('hidden');
     } else if (currentMode === 'usaha') {
         document.getElementById('formUsaha').classList.remove('hidden');
     } else {
         backToMode();
+        return;
     }
+
+    // Now reset the form (form is visible, DOM elements are accessible)
+    resetFormInternal();
 }
 
 async function showDrafts() {
@@ -133,7 +138,7 @@ async function renderDraftList() {
     const container = document.getElementById('draftList');
 
     if (drafts.length === 0) {
-        container.innerHTML = '<div class="alert alert-info text-center">Belum ada draft tersimpan.</div>';
+        container.innerHTML = '<div class="alert alert-info text-center">Belum ada draft tersimpan. Klik "+ Buat Baru" untuk memulai.</div>';
         return;
     }
 
@@ -176,18 +181,25 @@ async function loadDraft(id) {
     if (!draft) { showToast('Draft tidak ditemukan!', 'danger'); return; }
 
     currentDraftId = id;
-    showForm();
+    hideAll();
 
-    // Populate form fields
-    Object.keys(draft).forEach(key => {
-        const el = document.getElementById(key);
-        if (!el) return;
-        if (el.type === 'checkbox') {
-            el.checked = draft[key];
-        } else if (el.tagName === 'SELECT') {
-            el.value = draft[key] || '';
-        } else {
-            el.value = draft[key] || '';
+    if (currentMode === 'keluarga') {
+        document.getElementById('formKeluarga').classList.remove('hidden');
+    } else {
+        document.getElementById('formUsaha').classList.remove('hidden');
+    }
+
+    // Populate form fields - only target actual form inputs, not all elements
+    const prefix = currentMode === 'keluarga' ? 'k_' : 'u_';
+    const formInputs = document.querySelectorAll(`#form${currentMode === 'keluarga' ? 'Keluarga' : 'Usaha'} [id^="${prefix}"]`);
+
+    formInputs.forEach(el => {
+        if (draft[el.id] !== undefined) {
+            if (el.type === 'checkbox') {
+                el.checked = !!draft[el.id];
+            } else {
+                el.value = draft[el.id] || '';
+            }
         }
     });
 
@@ -262,7 +274,9 @@ async function doAutoSave() {
 function collectFormData() {
     const data = {};
     const prefix = currentMode === 'keluarga' ? 'k_' : 'u_';
-    const inputs = document.querySelectorAll(`[id^="${prefix}"]`);
+    // Only collect from visible form inputs, not from draft list or other elements
+    const formId = currentMode === 'keluarga' ? 'formKeluarga' : 'formUsaha';
+    const inputs = document.querySelectorAll(`#${formId} [id^="${prefix}"]`);
 
     inputs.forEach(el => {
         if (el.type === 'checkbox') {
@@ -317,27 +331,33 @@ function hitungPengeluaran() {
     const nonmakananTahun = nonmakananBulan * 12;
     const total = makananTahun + nonmakananTahun + rutinTahun;
 
-    document.getElementById('k_makanan_tahun').value = formatRupiah(makananTahun);
-    document.getElementById('k_nonmakanan_tahun').value = formatRupiah(nonmakananTahun);
-    document.getElementById('k_total_pengeluaran').value = formatRupiah(total);
+    const el1 = document.getElementById('k_makanan_tahun');
+    const el2 = document.getElementById('k_nonmakanan_tahun');
+    const el3 = document.getElementById('k_total_pengeluaran');
+    if (el1) el1.value = formatRupiah(makananTahun);
+    if (el2) el2.value = formatRupiah(nonmakananTahun);
+    if (el3) el3.value = formatRupiah(total);
 }
 
 function hitungLuasBangunan() {
     const p = parseFloat(document.getElementById('k_p_bangunan')?.value) || 0;
     const l = parseFloat(document.getElementById('k_l_bangunan')?.value) || 0;
-    document.getElementById('k_luas_bangunan').value = (p * l).toLocaleString('id-ID') + ' m²';
+    const el = document.getElementById('k_luas_bangunan');
+    if (el) el.value = (p * l).toLocaleString('id-ID') + ' m²';
 }
 
 function hitungLuasTanah() {
     const p = parseFloat(document.getElementById('k_p_tanah')?.value) || 0;
     const l = parseFloat(document.getElementById('k_l_tanah')?.value) || 0;
-    document.getElementById('k_luas_tanah').value = (p * l).toLocaleString('id-ID') + ' m²';
+    const el = document.getElementById('k_luas_tanah');
+    if (el) el.value = (p * l).toLocaleString('id-ID') + ' m²';
 }
 
 function hitungTotalKaryawan() {
     const pria = parseInt(document.getElementById('u_karyawan_pria')?.value) || 0;
     const wanita = parseInt(document.getElementById('u_karyawan_wanita')?.value) || 0;
-    document.getElementById('u_karyawan_total').value = (pria + wanita).toLocaleString('id-ID') + ' orang';
+    const el = document.getElementById('u_karyawan_total');
+    if (el) el.value = (pria + wanita).toLocaleString('id-ID') + ' orang';
 }
 
 function hitungGaji() {
@@ -346,19 +366,24 @@ function hitungGaji() {
     const bulanan = harian * 26;
     const tahunan = bulanan * 12;
 
-    document.getElementById('u_gaji_mingguan').value = formatRupiah(mingguan);
-    document.getElementById('u_gaji_bulanan').value = formatRupiah(bulanan);
-    document.getElementById('u_gaji_tahunan').value = formatRupiah(tahunan);
+    const el1 = document.getElementById('u_gaji_mingguan');
+    const el2 = document.getElementById('u_gaji_bulanan');
+    const el3 = document.getElementById('u_gaji_tahunan');
+    if (el1) el1.value = formatRupiah(mingguan);
+    if (el2) el2.value = formatRupiah(bulanan);
+    if (el3) el3.value = formatRupiah(tahunan);
 }
 
 function hitungOmzet() {
     const bulan = parseFloat(document.getElementById('u_omzet_bulan')?.value) || 0;
-    document.getElementById('u_omzet_tahun').value = formatRupiah(bulan * 12);
+    const el = document.getElementById('u_omzet_tahun');
+    if (el) el.value = formatRupiah(bulan * 12);
 }
 
 function toggleDetailUsaha() {
     const val = document.getElementById('k_ada_usaha')?.value;
     const detail = document.getElementById('detailUsahaKeluarga');
+    if (!detail) return;
     if (val === 'Ya') {
         detail.classList.remove('hidden');
     } else {
@@ -374,6 +399,7 @@ function tambahAnggota(data = null) {
     anggotaCount++;
     const idx = anggotaCount;
     const container = document.getElementById('anggotaContainer');
+    if (!container) return;
 
     const div = document.createElement('div');
     div.className = 'member-card anggota-item';
@@ -409,8 +435,10 @@ function tambahAnggota(data = null) {
 }
 
 function hapusAnggota(btn) {
-    btn.closest('.anggota-item').remove();
-    autoSave();
+    if (btn && btn.closest) {
+        btn.closest('.anggota-item').remove();
+        autoSave();
+    }
 }
 
 // ============================================
@@ -438,7 +466,8 @@ function getGPS(inputId = 'k_gps', linkId = 'k_maps_link') {
             const lat = position.coords.latitude;
             const lng = position.coords.longitude;
             const coords = `${lat.toFixed(6)}, ${lng.toFixed(6)}`;
-            document.getElementById(inputId).value = coords;
+            const inputEl = document.getElementById(inputId);
+            if (inputEl) inputEl.value = coords;
             updateMapsLink(inputId, linkId);
             if (statusEl) {
                 statusEl.textContent = `Lokasi: ${coords}`;
@@ -619,17 +648,31 @@ async function kirimDraftWhatsApp(id) {
 
 function resetForm(confirmFirst = true) {
     if (confirmFirst && !confirm('Yakin reset form? Data belum tersimpan akan hilang.')) return;
+    resetFormInternal();
+}
 
+function resetFormInternal() {
     const prefix = currentMode === 'keluarga' ? 'k_' : 'u_';
-    document.querySelectorAll(`[id^="${prefix}"]`).forEach(el => {
+    const formId = currentMode === 'keluarga' ? 'formKeluarga' : 'formUsaha';
+
+    // Only reset elements inside the active form
+    const form = document.getElementById(formId);
+    if (!form) return;
+
+    const inputs = form.querySelectorAll(`[id^="${prefix}"]`);
+    inputs.forEach(el => {
         if (el.type === 'checkbox') el.checked = false;
         else el.value = '';
     });
 
     if (currentMode === 'keluarga') {
-        document.getElementById('anggotaContainer').innerHTML = '';
+        const anggotaContainer = document.getElementById('anggotaContainer');
+        if (anggotaContainer) anggotaContainer.innerHTML = '';
         anggotaCount = 0;
-        document.getElementById('k_maps_link').classList.add('disabled');
+
+        const mapsLink = document.getElementById('k_maps_link');
+        if (mapsLink) mapsLink.classList.add('disabled');
+
         const gpsStatus = document.getElementById('gpsStatus');
         if (gpsStatus) {
             gpsStatus.textContent = 'Belum mengambil koordinat';
@@ -640,7 +683,8 @@ function resetForm(confirmFirst = true) {
         hitungLuasTanah();
         toggleDetailUsaha();
     } else {
-        document.getElementById('u_maps_link').classList.add('disabled');
+        const mapsLink = document.getElementById('u_maps_link');
+        if (mapsLink) mapsLink.classList.add('disabled');
         hitungTotalKaryawan();
         hitungGaji();
         hitungOmzet();
@@ -652,6 +696,7 @@ function resetForm(confirmFirst = true) {
 
 function showToast(message, type = 'info', duration = 3000) {
     const container = document.getElementById('toastContainer');
+    if (!container) return;
     const toast = document.createElement('div');
     toast.className = `toast align-items-center text-white bg-${type} border-0 show`;
     toast.setAttribute('role', 'alert');
