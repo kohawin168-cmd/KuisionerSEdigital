@@ -2,1269 +2,378 @@
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="theme-color" content="#0d6efd">
-    <title>Sensus Ekonomi 2026 - Desa Sukadamai</title>
-    <link rel="manifest" href="./manifest.json">
+    <title>Kuisioner Singkat PCL Sensus Ekonomi 2026 - Desa Sukadamai</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="apple-touch-icon" href="./icon-192.png">
+    <link rel="manifest" href="manifest.json">
+    <link rel="apple-touch-icon" href="icon-192x192.png">
     <style>
-        :root { --primary: #0d6efd; --secondary: #6c757d; --success: #198754; --warning: #ffc107; --danger: #dc3545; --info: #0dcaf0; }
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #f0f2f5; padding-bottom: 80px; }
-        .banner { background: linear-gradient(135deg, #0d6efd 0%, #0a58ca 100%); color: white; padding: 1.2rem 1rem; text-align: center; box-shadow: 0 2px 8px rgba(0,0,0,0.15); position: sticky; top: 0; z-index: 1000; }
-        .banner h1 { font-size: 1.15rem; margin: 0; font-weight: 700; letter-spacing: 0.5px; }
-        .banner p { font-size: 0.8rem; margin: 0.3rem 0 0 0; opacity: 0.9; }
-        .card { border: none; border-radius: 14px; box-shadow: 0 2px 12px rgba(0,0,0,0.06); margin-bottom: 1rem; overflow: hidden; }
-        .card-header { background: #fff; border-bottom: 2px solid #e9ecef; font-weight: 700; font-size: 0.95rem; padding: 0.85rem 1.1rem; color: #0d6efd; }
-        .form-label { font-weight: 600; font-size: 0.85rem; color: #495057; margin-bottom: 0.3rem; }
-        .form-control, .form-select { border-radius: 10px; border: 1.5px solid #dee2e6; font-size: 0.9rem; padding: 0.55rem 0.85rem; }
-        .form-control:focus, .form-select:focus { border-color: #0d6efd; box-shadow: 0 0 0 0.2rem rgba(13,110,253,0.15); }
-        .btn { border-radius: 10px; font-weight: 600; padding: 0.6rem 1.2rem; font-size: 0.9rem; }
-        .btn-lg { padding: 0.85rem 1.5rem; font-size: 1rem; }
-        .btn-mode { height: 100px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0.4rem; font-size: 0.95rem; }
-        .btn-mode .icon { font-size: 1.6rem; }
-        .section-title { background: #e7f1ff; color: #0d6efd; padding: 0.5rem 1rem; border-radius: 8px; font-weight: 700; font-size: 0.85rem; margin-bottom: 1rem; display: inline-block; }
-        .anggota-card { background: #f8f9fa; border-radius: 12px; padding: 1rem; margin-bottom: 0.8rem; border: 1.5px solid #e9ecef; position: relative; }
-        .btn-remove-anggota { position: absolute; top: 0.5rem; right: 0.5rem; padding: 0.2rem 0.5rem; font-size: 0.75rem; }
-        .draft-item { background: #fff; border-radius: 12px; padding: 1rem; margin-bottom: 0.7rem; border: 1.5px solid #dee2e6; display: flex; justify-content: space-between; align-items: center; }
-        .draft-info { flex: 1; }
-        .draft-info .draft-title { font-weight: 700; color: #212529; font-size: 0.95rem; }
-        .draft-info .draft-date { font-size: 0.78rem; color: #6c757d; }
-        .draft-actions { display: flex; gap: 0.4rem; }
-        .btn-draft-action { padding: 0.4rem 0.7rem; font-size: 0.78rem; border-radius: 8px; }
+        :root { --primary: #0d6efd; --success: #198754; --warning: #ffc107; --danger: #dc3545; }
+        body { background: #f0f2f5; padding-bottom: 80px; }
+        .banner { background: linear-gradient(135deg, #0d6efd, #0a58ca); color: white; padding: 20px; border-radius: 12px; margin-bottom: 20px; text-align: center; }
+        .banner h2 { font-size: 1.3rem; margin: 0; font-weight: 700; }
+        .banner p { margin: 5px 0 0; opacity: 0.9; font-size: 0.9rem; }
+        .mode-card { cursor: pointer; transition: all 0.3s; border: 2px solid transparent; }
+        .mode-card:hover { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(0,0,0,0.1); }
+        .mode-card.active { border-color: var(--primary); background: #e7f1ff; }
+        .section-title { background: var(--primary); color: white; padding: 10px 15px; border-radius: 8px; font-weight: 600; margin: 20px 0 15px; }
+        .form-label { font-weight: 500; color: #333; }
+        .form-control, .form-select { border-radius: 8px; }
+        .btn-action { border-radius: 10px; padding: 10px 20px; font-weight: 600; }
+        .draft-badge { position: absolute; top: -8px; right: -8px; background: var(--danger); color: white; border-radius: 50%; width: 24px; height: 24px; font-size: 12px; display: flex; align-items: center; justify-content: center; }
+        .member-card { background: white; border: 1px solid #dee2e6; border-radius: 10px; padding: 15px; margin-bottom: 10px; position: relative; }
+        .member-card .btn-remove { position: absolute; top: 10px; right: 10px; }
+        .toast-container { position: fixed; bottom: 20px; right: 20px; z-index: 1050; }
+        .loading-overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(255,255,255,0.8); display: none; align-items: center; justify-content: center; z-index: 9999; }
+        .nav-bottom { position: fixed; bottom: 0; left: 0; right: 0; background: white; border-top: 1px solid #dee2e6; padding: 10px; z-index: 1000; }
         .hidden { display: none !important; }
-        .fade-in { animation: fadeIn 0.3s ease-in; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-        .gps-btn { padding: 0.4rem 0.7rem; font-size: 0.8rem; }
-        .gmaps-btn { padding: 0.4rem 0.7rem; font-size: 0.8rem; }
-        .empty-state { text-align: center; padding: 2rem 1rem; color: #6c757d; }
-        .empty-state .icon { font-size: 3rem; margin-bottom: 0.5rem; opacity: 0.4; }
-        .nav-bottom { position: fixed; bottom: 0; left: 0; right: 0; background: #fff; border-top: 1px solid #dee2e6; padding: 0.6rem 1rem; display: flex; justify-content: space-between; align-items: center; z-index: 1000; box-shadow: 0 -2px 10px rgba(0,0,0,0.05); }
-        .nav-bottom .btn { flex: 1; margin: 0 0.3rem; }
-        .page { display: none; }
-        .page.active { display: block; }
-        .mode-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.8rem; }
-        .input-group-text { border-radius: 10px 0 0 10px; background: #e9ecef; border: 1.5px solid #dee2e6; border-right: none; font-size: 0.85rem; font-weight: 600; }
-        .input-group .form-control { border-radius: 0 10px 10px 0; }
-        .radio-group { display: flex; gap: 0.5rem; flex-wrap: wrap; }
-        .radio-group .btn-check + .btn { border-radius: 8px; font-size: 0.82rem; padding: 0.4rem 0.8rem; }
-        .radio-group .btn-check:checked + .btn { background-color: #0d6efd; color: white; border-color: #0d6efd; }
-        .auto-save-indicator { position: fixed; top: 80px; right: 10px; background: rgba(25,135,84,0.9); color: white; padding: 0.3rem 0.7rem; border-radius: 20px; font-size: 0.75rem; font-weight: 600; z-index: 1050; display: none; animation: pulse 2s infinite; }
-        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.6; } }
-        .hasil-rupiah { font-weight: 700; color: #198754; font-size: 1rem; }
-        .form-usaha-wrapper { background: #fffbeb; border: 2px dashed #ffc107; border-radius: 14px; padding: 1.2rem; margin-top: 1rem; }
-        .form-usaha-wrapper .section-title { background: #fff3cd; color: #856404; }
-        .toast-container { z-index: 1060; }
-        .toast { border-radius: 10px; }
+        .gps-status { font-size: 0.85rem; }
+        .gps-status.ok { color: var(--success); }
+        .gps-status.waiting { color: var(--warning); }
+        .gps-status.error { color: var(--danger); }
+        .summary-card { background: white; border-radius: 12px; padding: 20px; margin-bottom: 15px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
+        .summary-card h5 { color: var(--primary); margin-bottom: 15px; }
+        .data-row { display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid #f0f0f0; }
+        .data-row:last-child { border-bottom: none; }
+        .data-label { color: #666; font-size: 0.9rem; }
+        .data-value { font-weight: 600; color: #333; }
     </style>
 <base target="_blank">
 </head>
 <body>
-    <div class="banner">
-        <h1>KUISIONER SINGKAT PCL</h1>
-        <p>SENSUS EKONOMI 2026 - DESA SUKADAMAI</p>
+    <!-- Loading Overlay -->
+    <div class="loading-overlay" id="loadingOverlay">
+        <div class="spinner-border text-primary" role="status"><span class="visually-hidden">Loading...</span></div>
     </div>
-    <div class="auto-save-indicator" id="autoSaveIndicator">Tersimpan</div>
-    <div class="toast-container position-fixed top-0 end-0 p-3" style="margin-top:80px;">
-        <div id="liveToast" class="toast align-items-center text-white bg-success border-0" role="alert">
-            <div class="d-flex">
-                <div class="toast-body" id="toastBody">Berhasil!</div>
-                <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button>
+
+    <!-- Toast Container -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <div class="container-fluid px-3 px-md-4" style="max-width: 900px; margin: 0 auto;">
+        <!-- Banner -->
+        <div class="banner mt-3">
+            <h2>📋 KUISIONER SINGKAT PCL</h2>
+            <p>SENSUS EKONOMI 2026 - DESA SUKADAMAI</p>
+        </div>
+
+        <!-- Mode Selection -->
+        <div class="row g-3 mb-3" id="modeSelection">
+            <div class="col-6">
+                <div class="card mode-card h-100" id="modeKeluarga" onclick="selectMode('keluarga')">
+                    <div class="card-body text-center">
+                        <div class="fs-1 mb-2">🏠</div>
+                        <h5 class="card-title">Pendataan Keluarga</h5>
+                        <p class="card-text text-muted small">Prelist & Assignment Baru</p>
+                        <span class="badge bg-primary" id="draftKeluarga">0 Draft</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6">
+                <div class="card mode-card h-100" id="modeUsaha" onclick="selectMode('usaha')">
+                    <div class="card-body text-center">
+                        <div class="fs-1 mb-2">🏭</div>
+                        <h5 class="card-title">Bangunan Khusus Usaha</h5>
+                        <p class="card-text text-muted small">Data Usaha/Perusahaan</p>
+                        <span class="badge bg-primary" id="draftUsaha">0 Draft</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Draft List -->
+        <div id="draftListSection" class="hidden">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <h4 class="m-0">📁 Draft Tersimpan</h4>
+                <button class="btn btn-outline-primary btn-sm" onclick="showForm()">+ Buat Baru</button>
+            </div>
+            <div id="draftList"></div>
+            <button class="btn btn-secondary w-100 mt-3" onclick="backToMode()">← Kembali</button>
+        </div>
+
+        <!-- KELUARGA FORM -->
+        <div id="formKeluarga" class="hidden">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <h4 class="m-0">🏠 Pendataan Keluarga</h4>
+                <button class="btn btn-outline-secondary btn-sm" onclick="backToDrafts()">← Draft</button>
+            </div>
+
+            <!-- Data Bangunan -->
+            <div class="section-title">📍 Data Bangunan</div>
+            <div class="row g-2">
+                <div class="col-md-6"><label class="form-label">Nomor Bangunan</label><input type="text" class="form-control" id="k_no_bangunan" placeholder="Contoh: B-001" onchange="autoSave()"></div>
+                <div class="col-md-6"><label class="form-label">No Urut Keluarga</label><input type="text" class="form-control" id="k_no_urut" placeholder="Contoh: 1" onchange="autoSave()"></div>
+                <div class="col-md-6">
+                    <label class="form-label">Koordinat GPS</label>
+                    <div class="input-group">
+                        <input type="text" class="form-control" id="k_gps" readonly placeholder="Klik tombol GPS">
+                        <button class="btn btn-outline-primary" type="button" onclick="getGPS()">📍 GPS</button>
+                    </div>
+                    <div class="gps-status waiting" id="gpsStatus">Belum mengambil koordinat</div>
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label">Google Maps</label>
+                    <a id="k_maps_link" href="#" target="_blank" class="btn btn-outline-success w-100 disabled">🗺️ Buka Maps</a>
+                </div>
+                <div class="col-12"><label class="form-label">Alamat Lengkap</label><textarea class="form-control" id="k_alamat" rows="2" placeholder="Jalan, RT/RW, Dusun" onchange="autoSave()"></textarea></div>
+                <div class="col-md-6"><label class="form-label">Nomor KK</label><input type="text" class="form-control" id="k_no_kk" placeholder="16 digit" maxlength="16" onchange="autoSave()"></div>
+                <div class="col-md-6"><label class="form-label">Nomor WA</label><input type="tel" class="form-control" id="k_wa" placeholder="08xxxxxxxxxx" onchange="autoSave()"></div>
+            </div>
+
+            <!-- Kepala Keluarga -->
+            <div class="section-title">👤 Kepala Keluarga</div>
+            <div class="row g-2">
+                <div class="col-md-6"><label class="form-label">Nama Lengkap</label><input type="text" class="form-control" id="k_kk_nama" onchange="autoSave()"></div>
+                <div class="col-md-6"><label class="form-label">NIK</label><input type="text" class="form-control" id="k_kk_nik" maxlength="16" onchange="autoSave()"></div>
+                <div class="col-md-6"><label class="form-label">Tanggal Lahir</label><input type="date" class="form-control" id="k_kk_tgl_lahir" onchange="autoSave()"></div>
+                <div class="col-md-6"><label class="form-label">Jenis Kelamin</label><select class="form-select" id="k_kk_jk" onchange="autoSave()"><option value="">Pilih</option><option value="Laki-laki">Laki-laki</option><option value="Perempuan">Perempuan</option></select></div>
+                <div class="col-md-6"><label class="form-label">Pendidikan Tertinggi</label><select class="form-select" id="k_kk_pendidikan" onchange="autoSave()">
+                    <option value="">Pilih</option>
+                    <option value="Tidak Sekolah">Tidak Sekolah</option>
+                    <option value="SD">SD</option>
+                    <option value="SMP">SMP</option>
+                    <option value="SMA/SMK">SMA/SMK</option>
+                    <option value="D1/D2">D1/D2</option>
+                    <option value="D3">D3</option>
+                    <option value="S1">S1</option>
+                    <option value="S2">S2</option>
+                    <option value="S3">S3</option>
+                </select></div>
+                <div class="col-md-6"><label class="form-label">Pekerjaan Utama</label><input type="text" class="form-control" id="k_kk_pekerjaan" placeholder="Contoh: Petani, Buruh, PNS" onchange="autoSave()"></div>
+                <div class="col-md-6"><label class="form-label">Status Perkawinan</label><select class="form-select" id="k_kk_status_kawin" onchange="autoSave()">
+                    <option value="">Pilih</option>
+                    <option value="Belum Kawin">Belum Kawin</option>
+                    <option value="Kawin">Kawin</option>
+                    <option value="Cerai Hidup">Cerai Hidup</option>
+                    <option value="Cerai Mati">Cerai Mati</option>
+                </select></div>
+            </div>
+
+            <!-- Pasangan -->
+            <div class="section-title">💑 Pasangan (Jika Ada)</div>
+            <div class="row g-2">
+                <div class="col-md-6"><label class="form-label">Nama Pasangan</label><input type="text" class="form-control" id="k_pasangan_nama" onchange="autoSave()"></div>
+                <div class="col-md-6"><label class="form-label">Pekerjaan Pasangan</label><input type="text" class="form-control" id="k_pasangan_pekerjaan" onchange="autoSave()"></div>
+            </div>
+
+            <!-- Data Ekonomi -->
+            <div class="section-title">💰 Data Ekonomi</div>
+            <div class="row g-2">
+                <div class="col-md-6"><label class="form-label">Penghasilan/Gaji per Bulan (Rp)</label><input type="number" class="form-control" id="k_gaji" placeholder="0" onchange="autoSave()"></div>
+                <div class="col-md-6"><label class="form-label">Penggunaan Listrik</label><select class="form-select" id="k_listrik" onchange="autoSave()">
+                    <option value="">Pilih</option>
+                    <option value="PLN">PLN</option>
+                    <option value="PLN + Genset">PLN + Genset</option>
+                    <option value="Genset">Genset</option>
+                    <option value="Solar Panel">Solar Panel</option>
+                    <option value="Tidak Ada">Tidak Ada</option>
+                </select></div>
+                <div class="col-md-6"><label class="form-label">Akses Internet</label><select class="form-select" id="k_internet" onchange="autoSave()">
+                    <option value="">Pilih</option>
+                    <option value="WiFi">WiFi</option>
+                    <option value="Mobile Data">Mobile Data</option>
+                    <option value="WiFi + Mobile Data">WiFi + Mobile Data</option>
+                    <option value="Tidak Ada">Tidak Ada</option>
+                </select></div>
+                <div class="col-md-6"><label class="form-label">Nomor Meter Listrik</label><input type="text" class="form-control" id="k_no_meter" onchange="autoSave()"></div>
+                <div class="col-md-6"><label class="form-label">Daya Listrik (VA)</label><select class="form-select" id="k_daya" onchange="autoSave()">
+                    <option value="">Pilih</option>
+                    <option value="450">450 VA</option>
+                    <option value="900">900 VA</option>
+                    <option value="1300">1300 VA</option>
+                    <option value="2200">2200 VA</option>
+                    <option value="3500">3500 VA</option>
+                    <option value="5500">5500 VA</option>
+                    <option value=">5500">> 5500 VA</option>
+                    <option value="Tidak Ada">Tidak Ada</option>
+                </select></div>
+            </div>
+
+            <!-- Pengeluaran -->
+            <div class="section-title">💸 Pengeluaran Keluarga</div>
+            <div class="row g-2">
+                <div class="col-md-6"><label class="form-label">Makanan per Minggu (Rp)</label><input type="number" class="form-control" id="k_makanan_minggu" placeholder="0" onchange="hitungPengeluaran(); autoSave()"></div>
+                <div class="col-md-6"><label class="form-label">= Tahunan Makanan (Rp)</label><input type="text" class="form-control" id="k_makanan_tahun" readonly></div>
+                <div class="col-md-6"><label class="form-label">Non-Makanan per Bulan (Rp)</label><input type="number" class="form-control" id="k_nonmakanan_bulan" placeholder="0" onchange="hitungPengeluaran(); autoSave()"></div>
+                <div class="col-md-6"><label class="form-label">= Tahunan Non-Makanan (Rp)</label><input type="text" class="form-control" id="k_nonmakanan_tahun" readonly></div>
+                <div class="col-md-6"><label class="form-label">Rutin Tahunan (Rp)</label><input type="number" class="form-control" id="k_rutin_tahun" placeholder="0" onchange="hitungPengeluaran(); autoSave()"></div>
+                <div class="col-md-6"><label class="form-label">Total Pengeluaran Tahunan (Rp)</label><input type="text" class="form-control fw-bold text-primary" id="k_total_pengeluaran" readonly></div>
+            </div>
+
+            <!-- Status Rumah -->
+            <div class="section-title">🏡 Status Rumah & Lahan</div>
+            <div class="row g-2">
+                <div class="col-md-6"><label class="form-label">Status Kepemilikan Rumah</label><select class="form-select" id="k_status_rumah" onchange="autoSave()">
+                    <option value="">Pilih</option>
+                    <option value="Milik Sendiri">Milik Sendiri</option>
+                    <option value="Kontrak/Sewa">Kontrak/Sewa</option>
+                    <option value="Menumpang">Menumpang</option>
+                    <option value="Dinas">Dinas</option>
+                    <option value="Lainnya">Lainnya</option>
+                </select></div>
+                <div class="col-md-3"><label class="form-label">Panjang Bangunan (m)</label><input type="number" class="form-control" id="k_p_bangunan" placeholder="0" onchange="hitungLuasBangunan(); autoSave()"></div>
+                <div class="col-md-3"><label class="form-label">Lebar Bangunan (m)</label><input type="number" class="form-control" id="k_l_bangunan" placeholder="0" onchange="hitungLuasBangunan(); autoSave()"></div>
+                <div class="col-md-6"><label class="form-label">Luas Bangunan (m²)</label><input type="text" class="form-control fw-bold" id="k_luas_bangunan" readonly></div>
+                <div class="col-md-3"><label class="form-label">Panjang Tanah (m)</label><input type="number" class="form-control" id="k_p_tanah" placeholder="0" onchange="hitungLuasTanah(); autoSave()"></div>
+                <div class="col-md-3"><label class="form-label">Lebar Tanah (m)</label><input type="number" class="form-control" id="k_l_tanah" placeholder="0" onchange="hitungLuasTanah(); autoSave()"></div>
+                <div class="col-md-6"><label class="form-label">Luas Tanah (m²)</label><input type="text" class="form-control fw-bold" id="k_luas_tanah" readonly></div>
+            </div>
+
+            <!-- Kepemilikan Aset -->
+            <div class="section-title">🚗 Kepemilikan Aset</div>
+            <div class="row g-2">
+                <div class="col-6 col-md-4"><div class="form-check"><input class="form-check-input" type="checkbox" id="k_aset_mobil" onchange="autoSave()"><label class="form-check-label" for="k_aset_mobil">Mobil</label></div></div>
+                <div class="col-6 col-md-4"><div class="form-check"><input class="form-check-input" type="checkbox" id="k_aset_motor" onchange="autoSave()"><label class="form-check-label" for="k_aset_motor">Sepeda Motor</label></div></div>
+                <div class="col-6 col-md-4"><div class="form-check"><input class="form-check-input" type="checkbox" id="k_aset_sepeda" onchange="autoSave()"><label class="form-check-label" for="k_aset_sepeda">Sepeda</label></div></div>
+                <div class="col-6 col-md-4"><div class="form-check"><input class="form-check-input" type="checkbox" id="k_aset_tv" onchange="autoSave()"><label class="form-check-label" for="k_aset_tv">TV</label></div></div>
+                <div class="col-6 col-md-4"><div class="form-check"><input class="form-check-input" type="checkbox" id="k_aset_kulkas" onchange="autoSave()"><label class="form-check-label" for="k_aset_kulkas">Kulkas</label></div></div>
+                <div class="col-6 col-md-4"><div class="form-check"><input class="form-check-input" type="checkbox" id="k_aset_ac" onchange="autoSave()"><label class="form-check-label" for="k_aset_ac">AC</label></div></div>
+                <div class="col-6 col-md-4"><div class="form-check"><input class="form-check-input" type="checkbox" id="k_aset_laptop" onchange="autoSave()"><label class="form-check-label" for="k_aset_laptop">Laptop/Komputer</label></div></div>
+                <div class="col-6 col-md-4"><div class="form-check"><input class="form-check-input" type="checkbox" id="k_aset_hewan" onchange="autoSave()"><label class="form-check-label" for="k_aset_hewan">Ternak/Unggas</label></div></div>
+                <div class="col-6 col-md-4"><div class="form-check"><input class="form-check-input" type="checkbox" id="k_aset_lainnya" onchange="autoSave()"><label class="form-check-label" for="k_aset_lainnya">Lainnya</label></div></div>
+            </div>
+
+            <!-- Anggota Keluarga Dinamis -->
+            <div class="section-title">👨‍👩‍👧‍👦 Anggota Keluarga Lainnya</div>
+            <div id="anggotaContainer"></div>
+            <button type="button" class="btn btn-outline-primary w-100 mb-3" onclick="tambahAnggota()">+ Tambah Anggota Keluarga</button>
+
+            <!-- Pertanyaan Usaha -->
+            <div class="section-title">🏪 Pertanyaan Usaha</div>
+            <div class="row g-2 mb-3">
+                <div class="col-12"><label class="form-label">Apakah ada anggota keluarga yang memiliki usaha?</label>
+                    <select class="form-select" id="k_ada_usaha" onchange="toggleDetailUsaha(); autoSave()">
+                        <option value="">Pilih</option>
+                        <option value="Ya">Ya</option>
+                        <option value="Tidak">Tidak</option>
+                    </select>
+                </div>
+                <div id="detailUsahaKeluarga" class="hidden col-12">
+                    <div class="row g-2">
+                        <div class="col-md-6"><label class="form-label">Jenis Usaha</label><input type="text" class="form-control" id="k_usaha_jenis" placeholder="Contoh: Warung, Pertanian" onchange="autoSave()"></div>
+                        <div class="col-md-6"><label class="form-label">Lokasi Usaha</label><select class="form-select" id="k_usaha_lokasi" onchange="autoSave()">
+                            <option value="">Pilih</option>
+                            <option value="Di Rumah">Di Rumah</option>
+                            <option value="Di Tempat Lain">Di Tempat Lain</option>
+                            <option value="Online">Online</option>
+                        </select></div>
+                        <div class="col-md-6"><label class="form-label">Jumlah Pekerja (Termasuk Pemilik)</label><input type="number" class="form-control" id="k_usaha_pekerja" onchange="autoSave()"></div>
+                        <div class="col-md-6"><label class="form-label">Omzet per Bulan (Rp)</label><input type="number" class="form-control" id="k_usaha_omzet" onchange="autoSave()"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Actions -->
+            <div class="d-grid gap-2 mb-5">
+                <button class="btn btn-success btn-action" onclick="kirimWhatsAppKeluarga()">📤 Kirim ke WhatsApp</button>
+                <button class="btn btn-warning btn-action" onclick="simpanDraft()">💾 Simpan Draft</button>
+                <button class="btn btn-danger btn-action" onclick="resetForm()">🗑️ Reset Form</button>
+            </div>
+        </div>
+
+        <!-- USAHA FORM -->
+        <div id="formUsaha" class="hidden">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <h4 class="m-0">🏭 Bangunan Khusus Usaha</h4>
+                <button class="btn btn-outline-secondary btn-sm" onclick="backToDrafts()">← Draft</button>
+            </div>
+
+            <!-- Identitas Usaha -->
+            <div class="section-title">🏢 Identitas Usaha</div>
+            <div class="row g-2">
+                <div class="col-md-6"><label class="form-label">Nama Komersial/Usaha</label><input type="text" class="form-control" id="u_nama" placeholder="Nama usaha/perusahaan" onchange="autoSave()"></div>
+                <div class="col-md-6"><label class="form-label">Nomor WA Usaha</label><input type="tel" class="form-control" id="u_wa" placeholder="08xxxxxxxxxx" onchange="autoSave()"></div>
+                <div class="col-md-6"><label class="form-label">NIB (Nomor Induk Berusaha)</label><input type="text" class="form-control" id="u_nib" placeholder="Jika ada" onchange="autoSave()"></div>
+                <div class="col-md-6"><label class="form-label">Koordinat GPS</label>
+                    <div class="input-group">
+                        <input type="text" class="form-control" id="u_gps" readonly placeholder="Klik tombol GPS">
+                        <button class="btn btn-outline-primary" type="button" onclick="getGPS('u_gps', 'u_maps_link')">📍 GPS</button>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label">Google Maps</label>
+                    <a id="u_maps_link" href="#" target="_blank" class="btn btn-outline-success w-100 disabled">🗺️ Buka Maps</a>
+                </div>
+                <div class="col-12"><label class="form-label">Alamat Lengkap Usaha</label><textarea class="form-control" id="u_alamat" rows="2" onchange="autoSave()"></textarea></div>
+            </div>
+
+            <!-- Pengusaha -->
+            <div class="section-title">👤 Pengusaha/Pemilik</div>
+            <div class="row g-2">
+                <div class="col-md-6"><label class="form-label">Nama Pengusaha</label><input type="text" class="form-control" id="u_pengusaha" onchange="autoSave()"></div>
+                <div class="col-md-6"><label class="form-label">Jenis Kelamin</label><select class="form-select" id="u_jk" onchange="autoSave()"><option value="">Pilih</option><option value="Laki-laki">Laki-laki</option><option value="Perempuan">Perempuan</option></select></div>
+                <div class="col-md-6"><label class="form-label">NIK</label><input type="text" class="form-control" id="u_nik" maxlength="16" onchange="autoSave()"></div>
+                <div class="col-md-6"><label class="form-label">Umur (Tahun)</label><input type="number" class="form-control" id="u_umur" onchange="autoSave()"></div>
+            </div>
+
+            <!-- Kegiatan Usaha -->
+            <div class="section-title">🏭 Kegiatan Usaha</div>
+            <div class="row g-2">
+                <div class="col-12"><label class="form-label">Kegiatan Utama Usaha</label><input type="text" class="form-control" id="u_kegiatan" placeholder="Contoh: Produksi Roti, Jasa Ojek Online, Pertanian Padi" onchange="autoSave()"></div>
+                <div class="col-md-6"><label class="form-label">Produksi/Output Utama</label><input type="text" class="form-control" id="u_produksi" placeholder="Contoh: 100 kg/hari, 50 unit/bulan" onchange="autoSave()"></div>
+                <div class="col-md-6"><label class="form-label">Satuan Produksi</label><input type="text" class="form-control" id="u_satuan" placeholder="kg, unit, liter, dll" onchange="autoSave()"></div>
+            </div>
+
+            <!-- Data Karyawan -->
+            <div class="section-title">👷 Data Karyawan</div>
+            <div class="row g-2">
+                <div class="col-md-4"><label class="form-label">Karyawan Pria</label><input type="number" class="form-control" id="u_karyawan_pria" placeholder="0" onchange="hitungTotalKaryawan(); autoSave()"></div>
+                <div class="col-md-4"><label class="form-label">Karyawan Wanita</label><input type="number" class="form-control" id="u_karyawan_wanita" placeholder="0" onchange="hitungTotalKaryawan(); autoSave()"></div>
+                <div class="col-md-4"><label class="form-label">Total Karyawan</label><input type="text" class="form-control fw-bold" id="u_karyawan_total" readonly></div>
+            </div>
+
+            <!-- Gaji Karyawan -->
+            <div class="section-title">💰 Gaji Karyawan</div>
+            <div class="row g-2">
+                <div class="col-md-6"><label class="form-label">Gaji Harian (Rp)</label><input type="number" class="form-control" id="u_gaji_harian" placeholder="0" onchange="hitungGaji(); autoSave()"></div>
+                <div class="col-md-6"><label class="form-label">= Mingguan (Rp)</label><input type="text" class="form-control" id="u_gaji_mingguan" readonly></div>
+                <div class="col-md-6"><label class="form-label">= Bulanan (Rp)</label><input type="text" class="form-control" id="u_gaji_bulanan" readonly></div>
+                <div class="col-md-6"><label class="form-label">= Tahunan (Rp)</label><input type="text" class="form-control fw-bold text-primary" id="u_gaji_tahunan" readonly></div>
+            </div>
+
+            <!-- Biaya & Omzet -->
+            <div class="section-title">📊 Biaya & Omzet</div>
+            <div class="row g-2 mb-3">
+                <div class="col-md-6"><label class="form-label">Biaya Produksi per Bulan (Rp)</label><input type="number" class="form-control" id="u_biaya_produksi" placeholder="0" onchange="hitungOmzet(); autoSave()"></div>
+                <div class="col-md-6"><label class="form-label">Biaya Operasional per Bulan (Rp)</label><input type="number" class="form-control" id="u_biaya_operasional" placeholder="0" onchange="hitungOmzet(); autoSave()"></div>
+                <div class="col-md-6"><label class="form-label">Omzet per Bulan (Rp)</label><input type="number" class="form-control" id="u_omzet_bulan" placeholder="0" onchange="hitungOmzet(); autoSave()"></div>
+                <div class="col-md-6"><label class="form-label">Omzet Tahunan (Rp)</label><input type="text" class="form-control fw-bold text-success" id="u_omzet_tahun" readonly></div>
+            </div>
+
+            <!-- Actions -->
+            <div class="d-grid gap-2 mb-5">
+                <button class="btn btn-success btn-action" onclick="kirimWhatsAppUsaha()">📤 Kirim ke WhatsApp</button>
+                <button class="btn btn-warning btn-action" onclick="simpanDraft()">💾 Simpan Draft</button>
+                <button class="btn btn-danger btn-action" onclick="resetForm()">🗑️ Reset Form</button>
+            </div>
+        </div>
+
+        <!-- Summary / Preview -->
+        <div id="summarySection" class="hidden">
+            <div class="summary-card">
+                <h5>📋 Ringkasan Data</h5>
+                <div id="summaryContent"></div>
             </div>
         </div>
     </div>
 
-    <!-- PAGE: HOME -->
-    <div class="page active" id="pageHome">
-        <div class="container py-4">
-            <div class="card">
-                <div class="card-body text-center py-4">
-                    <div style="font-size:3rem; margin-bottom:0.5rem;">&#127968;</div>
-                    <h5 class="card-title fw-bold">Selamat Datang</h5>
-                    <p class="card-text text-muted" style="font-size:0.9rem;">Aplikasi Pendataan Sensus Ekonomi 2026<br>Desa Sukadamai</p>
-                </div>
-            </div>
-            <div class="card">
-                <div class="card-header">Pilih Mode Pendataan</div>
-                <div class="card-body">
-                    <div class="mode-grid">
-                        <button class="btn btn-outline-primary btn-mode" id="btnModeKeluarga">
-                            <span class="icon">&#128106;</span>
-                            <span>Pendataan<br>Keluarga</span>
-                        </button>
-                        <button class="btn btn-outline-success btn-mode" id="btnModeBangunan">
-                            <span class="icon">&#127970;</span>
-                            <span>Bangunan Khusus<br>Usaha</span>
-                        </button>
-                    </div>
-                </div>
-            </div>
-            <div class="card" id="draftSection">
-                <div class="card-header">Draft Tersimpan</div>
-                <div class="card-body" id="draftList">
-                    <div class="empty-state"><div class="icon">&#128194;</div><p>Belum ada draft tersimpan</p></div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- PAGE: MODE KELUARGA -->
-    <div class="page" id="pageModeKeluarga">
-        <div class="container py-4">
-            <div class="card">
-                <div class="card-header">Pendataan Keluarga</div>
-                <div class="card-body">
-                    <div class="mode-grid">
-                        <button class="btn btn-outline-primary btn-mode" id="btnPrelist">
-                            <span class="icon">&#128203;</span><span>Prelist</span>
-                        </button>
-                        <button class="btn btn-outline-info btn-mode" id="btnAssignment">
-                            <span class="icon">&#10024;</span><span>Assignment Baru</span>
-                        </button>
-                    </div>
-                </div>
-            </div>
-            <div class="text-center mt-3"><button class="btn btn-secondary btn-kembali-home">Kembali</button></div>
-        </div>
-    </div>
-
-    <!-- PAGE: MODE BANGUNAN -->
-    <div class="page" id="pageModeBangunan">
-        <div class="container py-4">
-            <div class="card">
-                <div class="card-header">Bangunan Khusus Usaha</div>
-                <div class="card-body">
-                    <div class="mode-grid">
-                        <button class="btn btn-outline-primary btn-mode" id="btnPrelistBangunan">
-                            <span class="icon">&#128203;</span><span>Prelist</span>
-                        </button>
-                        <button class="btn btn-outline-info btn-mode" id="btnAssignmentBangunan">
-                            <span class="icon">&#10024;</span><span>Assignment Baru</span>
-                        </button>
-                    </div>
-                </div>
-            </div>
-            <div class="text-center mt-3"><button class="btn btn-secondary btn-kembali-home">Kembali</button></div>
-        </div>
-    </div>
-
-    <!-- PAGE: FORM BANGUNAN KHUSUS USAHA -->
-    <div class="page" id="pageFormBangunan">
-        <div class="container py-3">
-            <form id="bangunanForm" onsubmit="return false;">
-                <!-- DATA BANGUNAN USAHA -->
-                <div class="card">
-                    <div class="card-header">Data Bangunan Usaha</div>
-                    <div class="card-body">
-                        <div class="mb-3"><label class="form-label">Nomor Bangunan</label><input type="text" class="form-control" id="bnoBangunan" placeholder="Contoh: 001" onchange="autoSaveBangunan()"></div>
-                        <div class="mb-3"><label class="form-label">Koordinat GPS</label><div class="input-group"><input type="text" class="form-control" id="bkoordinat" placeholder="-6.xxx, 107.xxx" readonly><button class="btn btn-outline-primary gps-btn" type="button" id="btnGetGPSBangunan">Ambil GPS</button></div></div>
-                        <div class="mb-3" id="bgmapsContainer" style="display:none;"><label class="form-label">Google Maps</label><div class="d-flex gap-2"><a id="bgmapsLink" href="#" target="_blank" class="btn btn-outline-info btn-sm gmaps-btn">&#127760; Buka Google Maps</a><button type="button" class="btn btn-outline-secondary btn-sm gmaps-btn" id="btnCopyGmapsBangunan">&#128203; Copy Link</button></div></div>
-                        <div class="mb-3"><label class="form-label">Alamat Lengkap</label><textarea class="form-control" id="balamat" rows="2" placeholder="RT/RW, Dusun, Desa Sukadamai" onchange="autoSaveBangunan()"></textarea></div>
-                        <div class="mb-3"><label class="form-label">Nomor WhatsApp Usaha</label><input type="text" class="form-control" id="bnoWA" placeholder="08xxxxxxxxxx" oninput="this.value=this.value.replace(/\D/g,'');autoSaveBangunan()" onchange="autoSaveBangunan()"></div>
-                    </div>
-                </div>
-
-                <!-- DATA USAHA -->
-                <div class="card">
-                    <div class="card-header">Data Usaha</div>
-                    <div class="card-body">
-                        <div class="mb-3"><label class="form-label">Nama Komersial Usaha</label><input type="text" class="form-control" id="bnamaKomersial" placeholder="Nama usaha/jualan" onchange="autoSaveBangunan()"></div>
-                        <div class="mb-3"><label class="form-label">Memiliki NIB?</label><div class="radio-group"><input type="radio" class="btn-check" name="bnib" id="bnib_ya" value="Ya" onchange="autoSaveBangunan()"><label class="btn btn-outline-secondary" for="bnib_ya">Ya</label><input type="radio" class="btn-check" name="bnib" id="bnib_tidak" value="Tidak" onchange="autoSaveBangunan()"><label class="btn btn-outline-secondary" for="bnib_tidak">Tidak</label></div></div>
-                        <div class="mb-3"><label class="form-label">Nama Pengusaha</label><input type="text" class="form-control" id="bnamaPengusaha" placeholder="Nama pengusaha" onchange="autoSaveBangunan()"></div>
-                        <div class="mb-3"><label class="form-label">Jenis Kelamin Pengusaha</label><div class="radio-group"><input type="radio" class="btn-check" name="bjkPengusaha" id="bjkPeng_L" value="Laki-laki" onchange="autoSaveBangunan()"><label class="btn btn-outline-secondary" for="bjkPeng_L">Laki-laki</label><input type="radio" class="btn-check" name="bjkPengusaha" id="bjkPeng_P" value="Perempuan" onchange="autoSaveBangunan()"><label class="btn btn-outline-secondary" for="bjkPeng_P">Perempuan</label></div></div>
-                        <div class="mb-3"><label class="form-label">NIK Pengusaha</label><input type="text" class="form-control" id="bnikPengusaha" placeholder="16 digit" maxlength="16" oninput="this.value=this.value.replace(/\D/g,'');autoSaveBangunan()" onchange="autoSaveBangunan()"></div>
-                        <div class="mb-3"><label class="form-label">Umur Pengusaha</label><input type="number" class="form-control" id="bumurPengusaha" placeholder="Tahun" onchange="autoSaveBangunan()"></div>
-                        <div class="mb-3"><label class="form-label">Kegiatan Utama Usaha</label><input type="text" class="form-control" id="bkegiatanUtama" placeholder="Contoh: Warung, Pertanian, Jasa, dll" onchange="autoSaveBangunan()"></div>
-                        <div class="mb-3"><label class="form-label">Memproduksi Barang?</label><div class="radio-group"><input type="radio" class="btn-check" name="bproduksiBarang" id="bprod_ya" value="Ya" onchange="autoSaveBangunan()"><label class="btn btn-outline-secondary" for="bprod_ya">Ya</label><input type="radio" class="btn-check" name="bproduksiBarang" id="bprod_tidak" value="Tidak" onchange="autoSaveBangunan()"><label class="btn btn-outline-secondary" for="bprod_tidak">Tidak</label></div></div>
-                    </div>
-                </div>
-
-                <!-- PEMASUKAN LAIN USAHA -->
-                <div class="card">
-                    <div class="card-header">Pemasukan Lain Usaha</div>
-                    <div class="card-body">
-                        <div class="mb-3"><label class="form-label">Pemasukan Lain (selain omzet utama)</label><div class="input-group"><span class="input-group-text">Rp</span><input type="text" class="form-control rupiah-input" id="bpemasukanLain" placeholder="0" oninput="formatRupiah(this);autoSaveBangunan()" onchange="autoSaveBangunan()"></div><small class="text-muted">*Pemasukan lain dari usaha (sewa, jasa tambahan, dll)</small></div>
-                    </div>
-                </div>
-
-                <!-- JUMLAH KARYAWAN -->
-                <div class="card">
-                    <div class="card-header">Jumlah Karyawan</div>
-                    <div class="card-body">
-                        <div class="row g-2">
-                            <div class="col-4"><label class="form-label">Total Karyawan</label><input type="number" class="form-control" id="bjumlahKaryawan" placeholder="0" onchange="autoSaveBangunan()"></div>
-                            <div class="col-4"><label class="form-label">Pria</label><input type="number" class="form-control" id="bjumlahKaryawanPria" placeholder="0" onchange="autoSaveBangunan()"></div>
-                            <div class="col-4"><label class="form-label">Wanita</label><input type="number" class="form-control" id="bjumlahKaryawanWanita" placeholder="0" onchange="autoSaveBangunan()"></div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- UPAH GAJI KARYAWAN -->
-                <div class="card">
-                    <div class="card-header">Upah Gaji Total Karyawan</div>
-                    <div class="card-body">
-                        <div class="mb-3"><label class="form-label">Total Upah/Gaji Karyawan</label><div class="row g-2"><div class="col-7"><div class="input-group"><span class="input-group-text">Rp</span><input type="text" class="form-control rupiah-input" id="bupahGajiKaryawan" placeholder="0" oninput="formatRupiah(this);hitungTahunanBangunan();autoSaveBangunan()"></div></div><div class="col-5"><select class="form-select" id="bperiodeUpah" onchange="hitungTahunanBangunan();autoSaveBangunan()"><option value="hari">/ Hari</option><option value="minggu">/ Minggu</option><option value="bulan">/ Bulan</option><option value="tahun">/ Tahun</option></select></div></div><div class="mt-1"><small>Per Tahun: <span class="hasil-rupiah" id="bthnUpah">Rp 0</span></small></div></div>
-                    </div>
-                </div>
-
-                <!-- BIAYA & OMZET -->
-                <div class="card">
-                    <div class="card-header">Biaya & Omzet</div>
-                    <div class="card-body">
-                        <div class="mb-3"><label class="form-label">Biaya Produksi</label><div class="row g-2"><div class="col-7"><div class="input-group"><span class="input-group-text">Rp</span><input type="text" class="form-control rupiah-input" id="bbiayaProduksi" placeholder="0" oninput="formatRupiah(this);hitungTahunanBangunan();autoSaveBangunan()"></div></div><div class="col-5"><select class="form-select" id="bperiodeProduksi" onchange="hitungTahunanBangunan();autoSaveBangunan()"><option value="hari">/ Hari</option><option value="minggu">/ Minggu</option><option value="bulan">/ Bulan</option><option value="tahun">/ Tahun</option></select></div></div><div class="mt-1"><small>Per Tahun: <span class="hasil-rupiah" id="bthnProduksi">Rp 0</span></small></div></div>
-                        <div class="mb-3"><label class="form-label">Biaya Operasional</label><div class="row g-2"><div class="col-7"><div class="input-group"><span class="input-group-text">Rp</span><input type="text" class="form-control rupiah-input" id="bbiayaOperasional" placeholder="0" oninput="formatRupiah(this);hitungTahunanBangunan();autoSaveBangunan()"></div></div><div class="col-5"><select class="form-select" id="bperiodeOperasional" onchange="hitungTahunanBangunan();autoSaveBangunan()"><option value="hari">/ Hari</option><option value="minggu">/ Minggu</option><option value="bulan">/ Bulan</option><option value="tahun">/ Tahun</option></select></div></div><div class="mt-1"><small>Per Tahun: <span class="hasil-rupiah" id="bthnOperasional">Rp 0</span></small></div></div>
-                        <div class="mb-3"><label class="form-label">Omzet</label><div class="row g-2"><div class="col-7"><div class="input-group"><span class="input-group-text">Rp</span><input type="text" class="form-control rupiah-input" id="bomzet" placeholder="0" oninput="formatRupiah(this);hitungTahunanBangunan();autoSaveBangunan()"></div></div><div class="col-5"><select class="form-select" id="bperiodeOmzet" onchange="hitungTahunanBangunan();autoSaveBangunan()"><option value="hari">/ Hari</option><option value="minggu">/ Minggu</option><option value="bulan">/ Bulan</option><option value="tahun">/ Tahun</option></select></div></div><div class="mt-1"><small>Per Tahun: <span class="hasil-rupiah" id="bthnOmzet">Rp 0</span></small></div></div>
-                    </div>
-                </div>
-            </form>
-        </div>
-        <div class="nav-bottom">
-            <button class="btn btn-secondary btn-kembali-home">Kembali</button>
-            <button class="btn btn-warning" id="btnSaveDraftBangunan">Simpan Draft</button>
-            <button class="btn btn-success" id="btnKirimWABangunan">Kirim WA</button>
-        </div>
-    </div>
-
-    <!-- PAGE: FORM -->
-    <div class="page" id="pageForm">
-        <div class="container py-3">
-            <form id="mainForm" onsubmit="return false;">
-                <!-- DATA BANGUNAN -->
-                <div class="card">
-                    <div class="card-header">Data Bangunan</div>
-                    <div class="card-body">
-                        <div class="mb-3">
-                            <label class="form-label">Nomor Bangunan</label>
-                            <input type="text" class="form-control" id="noBangunan" placeholder="Contoh: 001" onchange="autoSave()">
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label">No Urut Keluarga</label>
-                            <input type="text" class="form-control" id="noUrutKeluarga" placeholder="Contoh: 001" onchange="autoSave()">
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label">Koordinat GPS</label>
-                            <div class="input-group">
-                                <input type="text" class="form-control" id="koordinat" placeholder="-6.xxx, 107.xxx" readonly>
-                                <button class="btn btn-outline-primary gps-btn" type="button" id="btnGetGPS">Ambil GPS</button>
-                            </div>
-                        </div>
-                        <div class="mb-3" id="gmapsContainer" style="display:none;">
-                            <label class="form-label">Google Maps</label>
-                            <div class="d-flex gap-2">
-                                <a id="gmapsLink" href="#" target="_blank" class="btn btn-outline-info btn-sm gmaps-btn">&#127760; Buka Google Maps</a>
-                                <button type="button" class="btn btn-outline-secondary btn-sm gmaps-btn" id="btnCopyGmaps">&#128203; Copy Link</button>
-                            </div>
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label">Alamat Lengkap</label>
-                            <textarea class="form-control" id="alamat" rows="2" placeholder="RT/RW, Dusun, Desa Sukadamai" onchange="autoSave()"></textarea>
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label">Nomor KK</label>
-                            <input type="text" class="form-control" id="noKK" placeholder="16 digit" maxlength="16" oninput="this.value=this.value.replace(/\D/g,'');autoSave()" onchange="autoSave()">
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label">Nomor WhatsApp</label>
-                            <input type="text" class="form-control" id="noWA" placeholder="08xxxxxxxxxx" oninput="this.value=this.value.replace(/\D/g,'');autoSave()" onchange="autoSave()">
-                        </div>
-                    </div>
-                </div>
-
-                <!-- DATA KEPALA KELUARGA -->
-                <div class="card">
-                    <div class="card-header">Data Kepala Keluarga</div>
-                    <div class="card-body">
-                        <div class="mb-3"><label class="form-label">Nama Lengkap</label><input type="text" class="form-control" id="namaKK" placeholder="Nama Kepala Keluarga" onchange="autoSave()"></div>
-                        <div class="mb-3"><label class="form-label">NIK</label><input type="text" class="form-control" id="nikKK" placeholder="16 digit" maxlength="16" oninput="this.value=this.value.replace(/\D/g,'');autoSave()" onchange="autoSave()"></div>
-                        <div class="mb-3"><label class="form-label">Tanggal Lahir</label><input type="date" class="form-control" id="tglLahirKK" onchange="autoSave()"></div>
-                        <div class="mb-3"><label class="form-label">Jenis Kelamin</label>
-                            <div class="radio-group"><input type="radio" class="btn-check" name="jkKK" id="jkKK_L" value="Laki-laki" onchange="autoSave()"><label class="btn btn-outline-secondary" for="jkKK_L">Laki-laki</label><input type="radio" class="btn-check" name="jkKK" id="jkKK_P" value="Perempuan" onchange="autoSave()"><label class="btn btn-outline-secondary" for="jkKK_P">Perempuan</label></div>
-                        </div>
-                        <div class="mb-3"><label class="form-label">Pendidikan Terakhir</label>
-                            <select class="form-select" id="pendidikanKK" onchange="autoSave()"><option value="">-- Pilih --</option><option value="Tidak/Belum Sekolah">Tidak/Belum Sekolah</option><option value="SD/Sederajat">SD/Sederajat</option><option value="SMP/Sederajat">SMP/Sederajat</option><option value="SMA/Sederajat">SMA/Sederajat</option><option value="D1/D2">D1/D2</option><option value="D3">D3</option><option value="S1/D4">S1/D4</option><option value="S2">S2</option><option value="S3">S3</option></select>
-                        </div>
-                        <div class="mb-3"><label class="form-label">Pekerjaan</label><input type="text" class="form-control" id="pekerjaanKK" placeholder="Contoh: Petani, Buruh, PNS, dll" onchange="autoSave()"></div>
-                        <div class="mb-3"><label class="form-label">Status Perkawinan</label>
-                            <select class="form-select" id="statusKawinKK" onchange="autoSave()"><option value="">-- Pilih --</option><option value="Belum Kawin">Belum Kawin</option><option value="Kawin">Kawin</option><option value="Cerai Hidup">Cerai Hidup</option><option value="Cerai Mati">Cerai Mati</option></select>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- DATA PASANGAN -->
-                <div class="card">
-                    <div class="card-header">Data Pasangan (Suami/Istri)</div>
-                    <div class="card-body">
-                        <div class="mb-3"><label class="form-label">Nama Suami/Istri</label><input type="text" class="form-control" id="namaPasangan" placeholder="Nama Pasangan" onchange="autoSave()"></div>
-                        <div class="mb-3"><label class="form-label">Pekerjaan Pasangan</label><input type="text" class="form-control" id="pekerjaanPasangan" placeholder="Contoh: IRT, Petani, dll" onchange="autoSave()"></div>
-                    </div>
-                </div>
-
-                <!-- DATA EKONOMI -->
-                <div class="card">
-                    <div class="card-header">Data Ekonomi</div>
-                    <div class="card-body">
-                        <div class="mb-3"><label class="form-label">Gaji/Upah Bulanan</label><div class="input-group"><span class="input-group-text">Rp</span><input type="text" class="form-control rupiah-input" id="gajiBulanan" placeholder="0" oninput="formatRupiah(this);autoSave()" onchange="autoSave()"></div></div>
-                        <div class="mb-3"><label class="form-label">Pengeluaran Listrik Bulanan</label><div class="input-group"><span class="input-group-text">Rp</span><input type="text" class="form-control rupiah-input" id="listrikBulanan" placeholder="0" oninput="formatRupiah(this);autoSave()" onchange="autoSave()"></div></div>
-                        <div class="mb-3"><label class="form-label">Pengeluaran Internet/WiFi Bulanan</label><div class="input-group"><span class="input-group-text">Rp</span><input type="text" class="form-control rupiah-input" id="pengeluaranInternet" placeholder="0" oninput="formatRupiah(this);autoSave()" onchange="autoSave()"></div></div>
-                        <div class="mb-3"><label class="form-label">Nomor Meter Listrik</label><input type="text" class="form-control" id="noMeter" placeholder="Nomor meter listrik" onchange="autoSave()"></div>
-                        <div class="mb-3"><label class="form-label">Daya Listrik (VA)</label>
-                            <select class="form-select" id="dayaListrik" onchange="autoSave()"><option value="">-- Pilih --</option><option value="450">450 VA</option><option value="900">900 VA</option><option value="1300">1300 VA</option><option value="2200">2200 VA</option><option value="3500">3500 VA</option><option value="5500">5500 VA</option><option value="6600">6600 VA</option><option value="Lainnya">Lainnya</option></select>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- PENGELUARAN KEBUTUHAN KELUARGA -->
-                <div class="card">
-                    <div class="card-header">Pengeluaran Kebutuhan Keluarga</div>
-                    <div class="card-body">
-                        <div class="mb-3">
-                            <label class="form-label">Pengeluaran Makanan (Per Minggu)</label>
-                            <div class="input-group">
-                                <span class="input-group-text">Rp</span>
-                                <input type="text" class="form-control rupiah-input" id="pengeluaranMakananMinggu" placeholder="0" oninput="formatRupiah(this);autoSave()" onchange="autoSave()">
-                            </div>
-                            <small class="text-muted">*Khusus untuk kebutuhan makanan keluarga per minggu</small>
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label">Pengeluaran Non-Makanan (Per Bulan)</label>
-                            <div class="input-group">
-                                <span class="input-group-text">Rp</span>
-                                <input type="text" class="form-control rupiah-input" id="pengeluaranNonMakananBulan" placeholder="0" oninput="formatRupiah(this);autoSave()" onchange="autoSave()">
-                            </div>
-                            <small class="text-muted">*Pengeluaran selain makanan per bulan (transportasi, pendidikan, kesehatan, dll)</small>
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label">Pengeluaran Rutin Khusus (Per Tahun)</label>
-                            <div class="input-group">
-                                <span class="input-group-text">Rp</span>
-                                <input type="text" class="form-control rupiah-input" id="pengeluaranRutinTahunan" placeholder="0" oninput="formatRupiah(this);autoSave()" onchange="autoSave()">
-                            </div>
-                            <small class="text-muted">*Pengeluaran rutin khusus tahunan (sekolah, zakat, THR, lebaran, dll)</small>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- STATUS KEPEMILIKAN RUMAH -->
-                <div class="card">
-                    <div class="card-header">Status Kepemilikan Rumah</div>
-                    <div class="card-body">
-                        <div class="radio-group">
-                            <input type="radio" class="btn-check" name="statusRumah" id="rumah_milik" value="Milik" onchange="autoSave()"><label class="btn btn-outline-secondary" for="rumah_milik">Milik</label>
-                            <input type="radio" class="btn-check" name="statusRumah" id="rumah_sewa" value="Sewa" onchange="autoSave()"><label class="btn btn-outline-secondary" for="rumah_sewa">Sewa</label>
-                            <input type="radio" class="btn-check" name="statusRumah" id="rumah_kontrak" value="Kontrak" onchange="autoSave()"><label class="btn btn-outline-secondary" for="rumah_kontrak">Kontrak</label>
-                            <input type="radio" class="btn-check" name="statusRumah" id="rumah_bebas" value="Bebas Sewa" onchange="autoSave()"><label class="btn btn-outline-secondary" for="rumah_bebas">Bebas Sewa</label>
-                            <input type="radio" class="btn-check" name="statusRumah" id="rumah_dinas" value="Rumah Dinas" onchange="autoSave()"><label class="btn btn-outline-secondary" for="rumah_dinas">Rumah Dinas</label>
-                            <input type="radio" class="btn-check" name="statusRumah" id="rumah_lain" value="Lainnya" onchange="autoSave()"><label class="btn btn-outline-secondary" for="rumah_lain">Lainnya</label>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- LUAS BANGUNAN -->
-                <div class="card">
-                    <div class="card-header">Luas Bangunan</div>
-                    <div class="card-body">
-                        <div class="row g-2">
-                            <div class="col-6"><label class="form-label">Panjang (m)</label><input type="number" step="0.01" class="form-control" id="panjangBangunan" placeholder="0" oninput="hitungLuasBangunan();autoSave()"></div>
-                            <div class="col-6"><label class="form-label">Lebar (m)</label><input type="number" step="0.01" class="form-control" id="lebarBangunan" placeholder="0" oninput="hitungLuasBangunan();autoSave()"></div>
-                        </div>
-                        <div class="mt-3"><label class="form-label">Luas Bangunan (m2)</label><input type="number" step="0.01" class="form-control" id="luasBangunan" placeholder="0" onchange="autoSave()"><small class="text-muted">*Dihitung otomatis, bisa diedit manual</small></div>
-                    </div>
-                </div>
-
-                <!-- LUAS TANAH -->
-                <div class="card">
-                    <div class="card-header">Luas Tanah</div>
-                    <div class="card-body">
-                        <div class="row g-2">
-                            <div class="col-6"><label class="form-label">Panjang (m)</label><input type="number" step="0.01" class="form-control" id="panjangTanah" placeholder="0" oninput="hitungLuasTanah();autoSave()"></div>
-                            <div class="col-6"><label class="form-label">Lebar (m)</label><input type="number" step="0.01" class="form-control" id="lebarTanah" placeholder="0" oninput="hitungLuasTanah();autoSave()"></div>
-                        </div>
-                        <div class="mt-3"><label class="form-label">Luas Tanah (m2)</label><input type="number" step="0.01" class="form-control" id="luasTanah" placeholder="0" onchange="autoSave()"><small class="text-muted">*Dihitung otomatis, bisa diedit manual</small></div>
-                    </div>
-                </div>
-
-                <!-- ANGGOTA KELUARGA -->
-                <div class="card">
-                    <div class="card-header d-flex justify-content-between align-items-center"><span>Anggota Keluarga</span><button type="button" class="btn btn-sm btn-primary" id="btnTambahAnggota">+ Tambah</button></div>
-                    <div class="card-body" id="anggotaContainer"><p class="text-muted text-center" id="anggotaEmpty">Belum ada anggota keluarga</p></div>
-                </div>
-
-                <!-- PERTANYAAN USAHA -->
-                <div class="card">
-                    <div class="card-header">Apakah Ada Usaha?</div>
-                    <div class="card-body">
-                        <div class="radio-group">
-                            <input type="radio" class="btn-check" name="adaUsaha" id="usaha_ya" value="Ya" onchange="toggleUsaha(true);autoSave()"><label class="btn btn-outline-success" for="usaha_ya">Ya, Ada Usaha</label>
-                            <input type="radio" class="btn-check" name="adaUsaha" id="usaha_tidak" value="Tidak" onchange="toggleUsaha(false);autoSave()"><label class="btn btn-outline-danger" for="usaha_tidak">Tidak Ada</label>
-                        </div>
-                        <div id="formUsaha" class="form-usaha-wrapper hidden fade-in">
-                            <span class="section-title">Form Usaha</span>
-                            <div class="mb-3 mt-3"><label class="form-label">Nama Komersial Usaha</label><input type="text" class="form-control" id="namaKomersial" placeholder="Nama usaha/jualan" onchange="autoSave()"></div>
-                            <div class="mb-3"><label class="form-label">Nomor WhatsApp Usaha</label><input type="text" class="form-control" id="waUsaha" placeholder="08xxxxxxxxxx" oninput="this.value=this.value.replace(/\D/g,'');autoSave()" onchange="autoSave()"></div>
-                            <div class="mb-3"><label class="form-label">Memiliki NIB?</label>
-                                <div class="radio-group"><input type="radio" class="btn-check" name="nib" id="nib_ya" value="Ya" onchange="autoSave()"><label class="btn btn-outline-secondary" for="nib_ya">Ya</label><input type="radio" class="btn-check" name="nib" id="nib_tidak" value="Tidak" onchange="autoSave()"><label class="btn btn-outline-secondary" for="nib_tidak">Tidak</label></div>
-                            </div>
-                            <div class="mb-3"><label class="form-label">Nama Pengusaha</label><input type="text" class="form-control" id="namaPengusaha" placeholder="Nama pengusaha" onchange="autoSave()"></div>
-                            <div class="mb-3"><label class="form-label">Jenis Kelamin Pengusaha</label>
-                                <div class="radio-group"><input type="radio" class="btn-check" name="jkPengusaha" id="jkPeng_L" value="Laki-laki" onchange="autoSave()"><label class="btn btn-outline-secondary" for="jkPeng_L">Laki-laki</label><input type="radio" class="btn-check" name="jkPengusaha" id="jkPeng_P" value="Perempuan" onchange="autoSave()"><label class="btn btn-outline-secondary" for="jkPeng_P">Perempuan</label></div>
-                            </div>
-                            <div class="mb-3"><label class="form-label">NIK Pengusaha</label><input type="text" class="form-control" id="nikPengusaha" placeholder="16 digit" maxlength="16" oninput="this.value=this.value.replace(/\D/g,'');autoSave()" onchange="autoSave()"></div>
-                            <div class="mb-3"><label class="form-label">Umur Pengusaha</label><input type="number" class="form-control" id="umurPengusaha" placeholder="Tahun" onchange="autoSave()"></div>
-                            <div class="mb-3"><label class="form-label">Kegiatan Utama Usaha</label><input type="text" class="form-control" id="kegiatanUtama" placeholder="Contoh: Warung, Pertanian, Jasa, dll" onchange="autoSave()"></div>
-                            <div class="mb-3"><label class="form-label">Memproduksi Barang?</label>
-                                <div class="radio-group"><input type="radio" class="btn-check" name="produksiBarang" id="prod_ya" value="Ya" onchange="autoSave()"><label class="btn btn-outline-secondary" for="prod_ya">Ya</label><input type="radio" class="btn-check" name="produksiBarang" id="prod_tidak" value="Tidak" onchange="autoSave()"><label class="btn btn-outline-secondary" for="prod_tidak">Tidak</label></div>
-                            </div>
-                            <div class="mt-4"><span class="section-title">Biaya & Omzet</span>
-                                <div class="mb-3 mt-3"><label class="form-label">Biaya Produksi</label><div class="row g-2"><div class="col-7"><div class="input-group"><span class="input-group-text">Rp</span><input type="text" class="form-control rupiah-input" id="biayaProduksi" placeholder="0" oninput="formatRupiah(this);hitungTahunan();autoSave()"></div></div><div class="col-5"><select class="form-select" id="periodeProduksi" onchange="hitungTahunan();autoSave()"><option value="hari">/ Hari</option><option value="minggu">/ Minggu</option><option value="bulan">/ Bulan</option><option value="tahun">/ Tahun</option></select></div></div><div class="mt-1"><small>Per Tahun: <span class="hasil-rupiah" id="thnProduksi">Rp 0</span></small></div></div>
-                                <div class="mb-3"><label class="form-label">Biaya Operasional</label><div class="row g-2"><div class="col-7"><div class="input-group"><span class="input-group-text">Rp</span><input type="text" class="form-control rupiah-input" id="biayaOperasional" placeholder="0" oninput="formatRupiah(this);hitungTahunan();autoSave()"></div></div><div class="col-5"><select class="form-select" id="periodeOperasional" onchange="hitungTahunan();autoSave()"><option value="hari">/ Hari</option><option value="minggu">/ Minggu</option><option value="bulan">/ Bulan</option><option value="tahun">/ Tahun</option></select></div></div><div class="mt-1"><small>Per Tahun: <span class="hasil-rupiah" id="thnOperasional">Rp 0</span></small></div></div>
-                                <div class="mb-3"><label class="form-label">Omzet</label><div class="row g-2"><div class="col-7"><div class="input-group"><span class="input-group-text">Rp</span><input type="text" class="form-control rupiah-input" id="omzet" placeholder="0" oninput="formatRupiah(this);hitungTahunan();autoSave()"></div></div><div class="col-5"><select class="form-select" id="periodeOmzet" onchange="hitungTahunan();autoSave()"><option value="hari">/ Hari</option><option value="minggu">/ Minggu</option><option value="bulan">/ Bulan</option><option value="tahun">/ Tahun</option></select></div></div><div class="mt-1"><small>Per Tahun: <span class="hasil-rupiah" id="thnOmzet">Rp 0</span></small></div></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </form>
-        </div>
-        <div class="nav-bottom">
-            <button class="btn btn-secondary btn-kembali-home">Kembali</button>
-            <button class="btn btn-warning" id="btnSaveDraft">Simpan Draft</button>
-            <button class="btn btn-success" id="btnKirimWA">Kirim WA</button>
-        </div>
+    <!-- Bottom Nav -->
+    <div class="nav-bottom d-flex justify-content-around">
+        <button class="btn btn-link text-decoration-none" onclick="backToMode()">
+            <div class="fs-4">🏠</div>
+            <small>Beranda</small>
+        </button>
+        <button class="btn btn-link text-decoration-none" onclick="showDrafts()">
+            <div class="fs-4">📁</div>
+            <small>Draft</small>
+        </button>
+        <button class="btn btn-link text-decoration-none" onclick="showForm()">
+            <div class="fs-4">➕</div>
+            <small>Baru</small>
+        </button>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-<script>
-        const DB_NAME = 'SensusEkonomi2026'; const DB_VERSION = 1; const STORE_NAME = 'drafts';
-        let db = null; let currentDraftId = null; let anggotaCount = 0;
-
-        function openDB() {
-            return new Promise((resolve, reject) => {
-                const request = indexedDB.open(DB_NAME, DB_VERSION);
-                request.onerror = () => reject(request.error);
-                request.onsuccess = () => { db = request.result; resolve(db); };
-                request.onupgradeneeded = (e) => {
-                    const database = e.target.result;
-                    if (!database.objectStoreNames.contains(STORE_NAME)) {
-                        database.createObjectStore(STORE_NAME, { keyPath: 'id', autoIncrement: true });
-                    }
-                };
-            });
-        }
-
-        async function saveToDB(data) {
-            if (!db) await openDB();
-            return new Promise((resolve, reject) => {
-                const tx = db.transaction(STORE_NAME, 'readwrite');
-                const store = tx.objectStore(STORE_NAME);
-                const req = store.put(data);
-                req.onsuccess = () => resolve(req.result);
-                req.onerror = () => reject(req.error);
-            });
-        }
-
-        async function getAllDrafts() {
-            if (!db) await openDB();
-            return new Promise((resolve, reject) => {
-                const tx = db.transaction(STORE_NAME, 'readonly');
-                const store = tx.objectStore(STORE_NAME);
-                const req = store.getAll();
-                req.onsuccess = () => resolve(req.result);
-                req.onerror = () => reject(req.error);
-            });
-        }
-
-        async function getDraft(id) {
-            if (!db) await openDB();
-            return new Promise((resolve, reject) => {
-                const tx = db.transaction(STORE_NAME, 'readonly');
-                const store = tx.objectStore(STORE_NAME);
-                const req = store.get(id);
-                req.onsuccess = () => resolve(req.result);
-                req.onerror = () => reject(req.error);
-            });
-        }
-
-        async function deleteDraft(id) {
-            if (!db) await openDB();
-            return new Promise((resolve, reject) => {
-                const tx = db.transaction(STORE_NAME, 'readwrite');
-                const store = tx.objectStore(STORE_NAME);
-                const req = store.delete(id);
-                req.onsuccess = () => resolve();
-                req.onerror = () => reject(req.error);
-            });
-        }
-
-        function goToPage(pageId) {
-            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-            document.getElementById(pageId).classList.add('active');
-            window.scrollTo(0, 0);
-        }
-
-        function goToMode(mode) {
-            if (mode === 'keluarga') goToPage('pageModeKeluarga');
-            else goToPage('pageModeBangunan');
-        }
-
-        function startForm(type) {
-            resetForm();
-            currentDraftId = null;
-            goToPage('pageForm');
-            showToast('Form baru siap diisi. Data akan auto-save.');
-        }
-
-        function resetForm() {
-            document.getElementById('mainForm').reset();
-            document.getElementById('anggotaContainer').innerHTML = '<p class="text-muted text-center" id="anggotaEmpty">Belum ada anggota keluarga</p>';
-            document.getElementById('formUsaha').classList.add('hidden');
-            document.getElementById('gmapsContainer').style.display = 'none';
-            anggotaCount = 0;
-            currentDraftId = null;
-            ['thnProduksi','thnOperasional','thnOmzet'].forEach(id => { document.getElementById(id).textContent = 'Rp 0'; });
-        }
-
-        function getRadioValue(name) {
-            const el = document.querySelector('input[name="' + name + '"]:checked');
-            return el ? el.value : '';
-        }
-
-        function setRadioValue(name, value) {
-            document.querySelectorAll('input[name="' + name + '"]').forEach(el => { el.checked = (el.value === value); });
-        }
-
-        function getFormData() {
-            const anggota = [];
-            document.querySelectorAll('.anggota-card').forEach(card => {
-                anggota.push({
-                    nama: card.querySelector('.ang-nama').value,
-                    nik: card.querySelector('.ang-nik').value,
-                    tglLahir: card.querySelector('.ang-tgl').value,
-                    pendidikan: card.querySelector('.ang-pendidikan').value,
-                    status: card.querySelector('.ang-status').value
-                });
-            });
-            return {
-                noBangunan: document.getElementById('noBangunan').value,
-                noUrutKeluarga: document.getElementById('noUrutKeluarga').value,
-                koordinat: document.getElementById('koordinat').value,
-                alamat: document.getElementById('alamat').value,
-                noKK: document.getElementById('noKK').value,
-                noWA: document.getElementById('noWA').value,
-                namaKK: document.getElementById('namaKK').value,
-                nikKK: document.getElementById('nikKK').value,
-                tglLahirKK: document.getElementById('tglLahirKK').value,
-                jkKK: getRadioValue('jkKK'),
-                pendidikanKK: document.getElementById('pendidikanKK').value,
-                pekerjaanKK: document.getElementById('pekerjaanKK').value,
-                statusKawinKK: document.getElementById('statusKawinKK').value,
-                namaPasangan: document.getElementById('namaPasangan').value,
-                pekerjaanPasangan: document.getElementById('pekerjaanPasangan').value,
-                gajiBulanan: document.getElementById('gajiBulanan').value,
-                listrikBulanan: document.getElementById('listrikBulanan').value,
-                pengeluaranInternet: document.getElementById('pengeluaranInternet').value,
-                noMeter: document.getElementById('noMeter').value,
-                dayaListrik: document.getElementById('dayaListrik').value,
-                pengeluaranMakananMinggu: document.getElementById('pengeluaranMakananMinggu').value,
-                pengeluaranNonMakananBulan: document.getElementById('pengeluaranNonMakananBulan').value,
-                pengeluaranRutinTahunan: document.getElementById('pengeluaranRutinTahunan').value,
-                statusRumah: getRadioValue('statusRumah'),
-                panjangBangunan: document.getElementById('panjangBangunan').value,
-                lebarBangunan: document.getElementById('lebarBangunan').value,
-                luasBangunan: document.getElementById('luasBangunan').value,
-                panjangTanah: document.getElementById('panjangTanah').value,
-                lebarTanah: document.getElementById('lebarTanah').value,
-                luasTanah: document.getElementById('luasTanah').value,
-                punyaMotor: getRadioValue('punyaMotor'),
-                hargaMotor: document.getElementById('hargaMotor').value,
-                punyaMobil: getRadioValue('punyaMobil'),
-                hargaMobil: document.getElementById('hargaMobil').value,
-                nilaiAsetTanah: document.getElementById('nilaiAsetTanah').value,
-                nilaiAsetBangunan: document.getElementById('nilaiAsetBangunan').value,
-                punyaAsetLain: getRadioValue('punyaAsetLain'),
-                punyaAC: getRadioValue('punyaAC'),
-                punyaKulkas: getRadioValue('punyaKulkas'),
-                anggota: anggota,
-                adaUsaha: getRadioValue('adaUsaha'),
-                namaKomersial: document.getElementById('namaKomersial').value,
-                waUsaha: document.getElementById('waUsaha').value,
-                nib: getRadioValue('nib'),
-                namaPengusaha: document.getElementById('namaPengusaha').value,
-                jkPengusaha: getRadioValue('jkPengusaha'),
-                nikPengusaha: document.getElementById('nikPengusaha').value,
-                umurPengusaha: document.getElementById('umurPengusaha').value,
-                kegiatanUtama: document.getElementById('kegiatanUtama').value,
-                produksiBarang: getRadioValue('produksiBarang'),
-                biayaProduksi: document.getElementById('biayaProduksi').value,
-                periodeProduksi: document.getElementById('periodeProduksi').value,
-                biayaOperasional: document.getElementById('biayaOperasional').value,
-                periodeOperasional: document.getElementById('periodeOperasional').value,
-                omzet: document.getElementById('omzet').value,
-                periodeOmzet: document.getElementById('periodeOmzet').value,
-                updatedAt: new Date().toISOString()
-            };
-        }
-
-        function setFormData(data) {
-            document.getElementById('noBangunan').value = data.noBangunan || '';
-            document.getElementById('noUrutKeluarga').value = data.noUrutKeluarga || '';
-            document.getElementById('koordinat').value = data.koordinat || '';
-            document.getElementById('alamat').value = data.alamat || '';
-            document.getElementById('noKK').value = data.noKK || '';
-            document.getElementById('noWA').value = data.noWA || '';
-            document.getElementById('namaKK').value = data.namaKK || '';
-            document.getElementById('nikKK').value = data.nikKK || '';
-            document.getElementById('tglLahirKK').value = data.tglLahirKK || '';
-            setRadioValue('jkKK', data.jkKK || '');
-            document.getElementById('pendidikanKK').value = data.pendidikanKK || '';
-            document.getElementById('pekerjaanKK').value = data.pekerjaanKK || '';
-            document.getElementById('statusKawinKK').value = data.statusKawinKK || '';
-            document.getElementById('namaPasangan').value = data.namaPasangan || '';
-            document.getElementById('pekerjaanPasangan').value = data.pekerjaanPasangan || '';
-            document.getElementById('gajiBulanan').value = data.gajiBulanan || '';
-            document.getElementById('listrikBulanan').value = data.listrikBulanan || '';
-            document.getElementById('pengeluaranInternet').value = data.pengeluaranInternet || '';
-            document.getElementById('noMeter').value = data.noMeter || '';
-            document.getElementById('dayaListrik').value = data.dayaListrik || '';
-            document.getElementById('pengeluaranMakananMinggu').value = data.pengeluaranMakananMinggu || '';
-            document.getElementById('pengeluaranNonMakananBulan').value = data.pengeluaranNonMakananBulan || '';
-            document.getElementById('pengeluaranRutinTahunan').value = data.pengeluaranRutinTahunan || '';
-            setRadioValue('statusRumah', data.statusRumah || '');
-            document.getElementById('panjangBangunan').value = data.panjangBangunan || '';
-            document.getElementById('lebarBangunan').value = data.lebarBangunan || '';
-            document.getElementById('luasBangunan').value = data.luasBangunan || '';
-            document.getElementById('panjangTanah').value = data.panjangTanah || '';
-            document.getElementById('lebarTanah').value = data.lebarTanah || '';
-            document.getElementById('luasTanah').value = data.luasTanah || '';
-            setRadioValue('punyaMotor', data.punyaMotor || '');
-            document.getElementById('hargaMotor').value = data.hargaMotor || '';
-            setRadioValue('punyaMobil', data.punyaMobil || '');
-            document.getElementById('hargaMobil').value = data.hargaMobil || '';
-            document.getElementById('nilaiAsetTanah').value = data.nilaiAsetTanah || '';
-            document.getElementById('nilaiAsetBangunan').value = data.nilaiAsetBangunan || '';
-            setRadioValue('punyaAsetLain', data.punyaAsetLain || '');
-            setRadioValue('punyaAC', data.punyaAC || '');
-            setRadioValue('punyaKulkas', data.punyaKulkas || '');
-            document.getElementById('anggotaContainer').innerHTML = '';
-            anggotaCount = 0;
-            if (data.anggota && data.anggota.length > 0) { data.anggota.forEach(a => tambahAnggota(a)); }
-            else { document.getElementById('anggotaContainer').innerHTML = '<p class="text-muted text-center" id="anggotaEmpty">Belum ada anggota keluarga</p>'; }
-            setRadioValue('adaUsaha', data.adaUsaha || '');
-            if (data.adaUsaha === 'Ya') document.getElementById('formUsaha').classList.remove('hidden');
-            else document.getElementById('formUsaha').classList.add('hidden');
-            document.getElementById('namaKomersial').value = data.namaKomersial || '';
-            document.getElementById('waUsaha').value = data.waUsaha || '';
-            setRadioValue('nib', data.nib || '');
-            document.getElementById('namaPengusaha').value = data.namaPengusaha || '';
-            setRadioValue('jkPengusaha', data.jkPengusaha || '');
-            document.getElementById('nikPengusaha').value = data.nikPengusaha || '';
-            document.getElementById('umurPengusaha').value = data.umurPengusaha || '';
-            document.getElementById('kegiatanUtama').value = data.kegiatanUtama || '';
-            setRadioValue('produksiBarang', data.produksiBarang || '');
-            document.getElementById('biayaProduksi').value = data.biayaProduksi || '';
-            document.getElementById('periodeProduksi').value = data.periodeProduksi || 'bulan';
-            document.getElementById('biayaOperasional').value = data.biayaOperasional || '';
-            document.getElementById('periodeOperasional').value = data.periodeOperasional || 'bulan';
-            document.getElementById('omzet').value = data.omzet || '';
-            document.getElementById('periodeOmzet').value = data.periodeOmzet || 'bulan';
-            hitungTahunan();
-            updateGmapsLink(data.koordinat || '');
-        }
-
-        let saveTimeout = null;
-        function autoSave() {
-            if (saveTimeout) clearTimeout(saveTimeout);
-            saveTimeout = setTimeout(async () => {
-                const data = getFormData();
-                if (currentDraftId) data.id = currentDraftId;
-                if (data.noBangunan || data.namaKK || data.noKK || data.noUrutKeluarga) {
-                    const id = await saveToDB(data);
-                    currentDraftId = id;
-                    showAutoSave();
-                }
-            }, 1000);
-        }
-
-        function showAutoSave() {
-            const el = document.getElementById('autoSaveIndicator');
-            el.style.display = 'block';
-            setTimeout(() => { el.style.display = 'none'; }, 2000);
-        }
-
-        async function saveDraft() {
-            const data = getFormData();
-            if (currentDraftId) data.id = currentDraftId;
-            const id = await saveToDB(data);
-            currentDraftId = id;
-            showToast('Draft berhasil disimpan!');
-            renderDraftList();
-        }
-
-        async function renderDraftList() {
-            const drafts = await getAllDrafts();
-            const container = document.getElementById('draftList');
-            if (drafts.length === 0) {
-                container.innerHTML = '<div class="empty-state"><div class="icon">&#128194;</div><p>Belum ada draft tersimpan</p></div>';
-                return;
-            }
-            container.innerHTML = drafts.map(d => {
-                const date = new Date(d.updatedAt).toLocaleString('id-ID');
-                const title = d.noBangunan ? 'Bangunan #' + d.noBangunan : (d.namaKK ? d.namaKK : 'Draft Tanpa Nama');
-                return '<div class="draft-item"><div class="draft-info"><div class="draft-title">' + title + '</div><div class="draft-date">' + date + '</div></div><div class="draft-actions"><button class="btn btn-primary btn-draft-action" onclick="loadDraft(' + d.id + ')">Lanjutkan</button><button class="btn btn-danger btn-draft-action" onclick="hapusDraft(' + d.id + ')">Hapus</button></div></div>';
-            }).join('');
-        }
-
-        async function loadDraft(id) {
-            const draft = await getDraft(id);
-            if (!draft) { showToast('Draft tidak ditemukan!', 'danger'); return; }
-            resetForm();
-            currentDraftId = draft.id;
-            setFormData(draft);
-            goToPage('pageForm');
-            showToast('Draft berhasil dimuat!');
-        }
-
-        async function hapusDraft(id) {
-            if (!confirm('Yakin ingin menghapus draft ini?')) return;
-            await deleteDraft(id);
-            renderDraftList();
-            showToast('Draft dihapus!');
-        }
-
-        function tambahAnggota(data) {
-            const container = document.getElementById('anggotaContainer');
-            const emptyMsg = document.getElementById('anggotaEmpty');
-            if (emptyMsg) emptyMsg.remove();
-            anggotaCount++;
-            const div = document.createElement('div');
-            div.className = 'anggota-card fade-in';
-            div.innerHTML = '<button type="button" class="btn btn-outline-danger btn-sm btn-remove-anggota" onclick="hapusAnggota(this)">x</button>' +
-                '<div class="mb-2"><label class="form-label">Nama</label><input type="text" class="form-control ang-nama" placeholder="Nama anggota" value="' + (data ? data.nama : '') + '" onchange="autoSave()"></div>' +
-                '<div class="mb-2"><label class="form-label">NIK</label><input type="text" class="form-control ang-nik" placeholder="16 digit" maxlength="16" value="' + (data ? data.nik : '') + '" oninput="this.value=this.value.replace(/\D/g,\'\')" onchange="autoSave()"></div>' +
-                '<div class="mb-2"><label class="form-label">Tanggal Lahir</label><input type="date" class="form-control ang-tgl" value="' + (data ? data.tglLahir : '') + '" onchange="autoSave()"></div>' +
-                '<div class="mb-2"><label class="form-label">Pendidikan</label><select class="form-select ang-pendidikan" onchange="autoSave()"><option value="">-- Pilih --</option><option value="Tidak/Belum Sekolah" ' + (data && data.pendidikan === 'Tidak/Belum Sekolah' ? 'selected' : '') + '>Tidak/Belum Sekolah</option><option value="SD/Sederajat" ' + (data && data.pendidikan === 'SD/Sederajat' ? 'selected' : '') + '>SD/Sederajat</option><option value="SMP/Sederajat" ' + (data && data.pendidikan === 'SMP/Sederajat' ? 'selected' : '') + '>SMP/Sederajat</option><option value="SMA/Sederajat" ' + (data && data.pendidikan === 'SMA/Sederajat' ? 'selected' : '') + '>SMA/Sederajat</option><option value="D1/D2" ' + (data && data.pendidikan === 'D1/D2' ? 'selected' : '') + '>D1/D2</option><option value="D3" ' + (data && data.pendidikan === 'D3' ? 'selected' : '') + '>D3</option><option value="S1/D4" ' + (data && data.pendidikan === 'S1/D4' ? 'selected' : '') + '>S1/D4</option><option value="S2" ' + (data && data.pendidikan === 'S2' ? 'selected' : '') + '>S2</option><option value="S3" ' + (data && data.pendidikan === 'S3' ? 'selected' : '') + '>S3</option></select></div>' +
-                '<div><label class="form-label">Status dalam Keluarga</label><select class="form-select ang-status" onchange="autoSave()"><option value="">-- Pilih --</option><option value="Kepala Keluarga" ' + (data && data.status === 'Kepala Keluarga' ? 'selected' : '') + '>Kepala Keluarga</option><option value="Suami" ' + (data && data.status === 'Suami' ? 'selected' : '') + '>Suami</option><option value="Istri" ' + (data && data.status === 'Istri' ? 'selected' : '') + '>Istri</option><option value="Anak" ' + (data && data.status === 'Anak' ? 'selected' : '') + '>Anak</option><option value="Orang Tua" ' + (data && data.status === 'Orang Tua' ? 'selected' : '') + '>Orang Tua</option><option value="Menantu" ' + (data && data.status === 'Menantu' ? 'selected' : '') + '>Menantu</option><option value="Cucu" ' + (data && data.status === 'Cucu' ? 'selected' : '') + '>Cucu</option><option value="Saudara" ' + (data && data.status === 'Saudara' ? 'selected' : '') + '>Saudara</option><option value="Lainnya" ' + (data && data.status === 'Lainnya' ? 'selected' : '') + '>Lainnya</option></select></div>';
-            container.appendChild(div);
-            autoSave();
-        }
-
-        function hapusAnggota(btn) {
-            btn.closest('.anggota-card').remove();
-            const container = document.getElementById('anggotaContainer');
-            if (container.children.length === 0) {
-                container.innerHTML = '<p class="text-muted text-center" id="anggotaEmpty">Belum ada anggota keluarga</p>';
-            }
-            autoSave();
-        }
-
-        function hitungLuasBangunan() {
-            const p = parseFloat(document.getElementById('panjangBangunan').value) || 0;
-            const l = parseFloat(document.getElementById('lebarBangunan').value) || 0;
-            document.getElementById('luasBangunan').value = (p * l).toFixed(2);
-        }
-
-        function hitungLuasTanah() {
-            const p = parseFloat(document.getElementById('panjangTanah').value) || 0;
-            const l = parseFloat(document.getElementById('lebarTanah').value) || 0;
-            document.getElementById('luasTanah').value = (p * l).toFixed(2);
-        }
-
-        function updateGmapsLink(koordinat) {
-            const container = document.getElementById('gmapsContainer');
-            const link = document.getElementById('gmapsLink');
-            if (koordinat && koordinat.includes(',')) {
-                const parts = koordinat.split(',');
-                if (parts.length === 2) {
-                    const lat = parts[0].trim();
-                    const lng = parts[1].trim();
-                    const gmapsUrl = 'https://www.google.com/maps?q=' + lat + ',' + lng;
-                    link.href = gmapsUrl;
-                    container.style.display = 'block';
-                } else {
-                    container.style.display = 'none';
-                }
-            } else {
-                container.style.display = 'none';
-            }
-        }
-
-        function copyGmapsLink() {
-            const link = document.getElementById('gmapsLink').href;
-            if (navigator.clipboard) {
-                navigator.clipboard.writeText(link).then(() => showToast('Link Google Maps disalin!'));
-            } else {
-                const ta = document.createElement('textarea');
-                ta.value = link;
-                document.body.appendChild(ta);
-                ta.select();
-                document.execCommand('copy');
-                document.body.removeChild(ta);
-                showToast('Link Google Maps disalin!');
-            }
-        }
-
-        function getGPS() {
-            const btn = document.querySelector('.gps-btn');
-            btn.textContent = 'Mengambil...';
-            btn.disabled = true;
-            if (!navigator.geolocation) {
-                showToast('GPS tidak didukung di perangkat ini', 'danger');
-                btn.textContent = 'Ambil GPS'; btn.disabled = false; return;
-            }
-            navigator.geolocation.getCurrentPosition(
-                (pos) => {
-                    const lat = pos.coords.latitude.toFixed(6);
-                    const lng = pos.coords.longitude.toFixed(6);
-                    const koordinat = lat + ', ' + lng;
-                    document.getElementById('koordinat').value = koordinat;
-                    updateGmapsLink(koordinat);
-                    autoSave();
-                    btn.textContent = 'GPS OK';
-                    setTimeout(() => { btn.textContent = 'Ambil GPS'; btn.disabled = false; }, 2000);
-                },
-                (err) => { showToast('Gagal ambil GPS: ' + err.message, 'danger'); btn.textContent = 'Ambil GPS'; btn.disabled = false; },
-                { enableHighAccuracy: true, timeout: 15000, maximumAge: 0 }
-            );
-        }
-
-        function toggleUsaha(show) {
-            const el = document.getElementById('formUsaha');
-            if (show) el.classList.remove('hidden');
-            else el.classList.add('hidden');
-        }
-
-        function formatRupiah(el) {
-            let val = el.value.replace(/[^0-9]/g, '');
-            if (val === '') { el.value = ''; return; }
-            el.value = parseInt(val).toLocaleString('id-ID');
-        }
-
-        function parseRupiah(str) { return parseInt((str || '').replace(/[^0-9]/g, '')) || 0; }
-        function formatRupiahStr(num) { return 'Rp ' + num.toLocaleString('id-ID'); }
-
-        function hitungTahunan() {
-            const periodeMap = { hari: 365, minggu: 52, bulan: 12, tahun: 1 };
-            const bp = parseRupiah(document.getElementById('biayaProduksi').value);
-            const pp = periodeMap[document.getElementById('periodeProduksi').value] || 12;
-            document.getElementById('thnProduksi').textContent = formatRupiahStr(bp * pp);
-            const bo = parseRupiah(document.getElementById('biayaOperasional').value);
-            const po = periodeMap[document.getElementById('periodeOperasional').value] || 12;
-            document.getElementById('thnOperasional').textContent = formatRupiahStr(bo * po);
-            const om = parseRupiah(document.getElementById('omzet').value);
-            const pom = periodeMap[document.getElementById('periodeOmzet').value] || 12;
-            document.getElementById('thnOmzet').textContent = formatRupiahStr(om * pom);
-        }
-
-        function showToast(msg, type) {
-            type = type || 'success';
-            const toastEl = document.getElementById('liveToast');
-            toastEl.className = 'toast align-items-center text-white bg-' + type + ' border-0';
-            document.getElementById('toastBody').textContent = msg;
-            const toast = new bootstrap.Toast(toastEl, { delay: 3000 });
-            toast.show();
-        }
-
-        async function kirimWhatsApp() {
-            const data = getFormData();
-            let msg = '*SENSUS EKONOMI 2026 - DESA SUKADAMAI*\n';
-            msg += '=======================================\n\n';
-            msg += '*DATA BANGUNAN*\n';
-            msg += 'Nomor Bangunan: ' + (data.noBangunan || '-') + '\n';
-            msg += 'No Urut Keluarga: ' + (data.noUrutKeluarga || '-') + '\n';
-            msg += 'Koordinat GPS: ' + (data.koordinat || '-') + '\n';
-            if (data.koordinat && data.koordinat.includes(',')) {
-                const parts = data.koordinat.split(',');
-                if (parts.length === 2) {
-                    msg += 'Google Maps: https://www.google.com/maps?q=' + parts[0].trim() + ',' + parts[1].trim() + '\n';
-                }
-            }
-            msg += 'Alamat: ' + (data.alamat || '-') + '\n';
-            msg += 'Nomor KK: ' + (data.noKK || '-') + '\n';
-            msg += 'Nomor WA: ' + (data.noWA || '-') + '\n\n';
-            msg += '*DATA KEPALA KELUARGA*\n';
-            msg += 'Nama: ' + (data.namaKK || '-') + '\n';
-            msg += 'NIK: ' + (data.nikKK || '-') + '\n';
-            msg += 'Tgl Lahir: ' + (data.tglLahirKK || '-') + '\n';
-            msg += 'Jenis Kelamin: ' + (data.jkKK || '-') + '\n';
-            msg += 'Pendidikan: ' + (data.pendidikanKK || '-') + '\n';
-            msg += 'Pekerjaan: ' + (data.pekerjaanKK || '-') + '\n';
-            msg += 'Status Kawin: ' + (data.statusKawinKK || '-') + '\n\n';
-            msg += '*DATA PASANGAN*\n';
-            msg += 'Nama: ' + (data.namaPasangan || '-') + '\n';
-            msg += 'Pekerjaan: ' + (data.pekerjaanPasangan || '-') + '\n\n';
-            msg += '*DATA EKONOMI*\n';
-            msg += 'Gaji/Upah Bulanan: ' + (data.gajiBulanan || 'Rp 0') + '\n';
-            msg += 'Pengeluaran Listrik: ' + (data.listrikBulanan || 'Rp 0') + '\n';
-            msg += 'Pengeluaran Internet/WiFi: ' + (data.pengeluaranInternet || 'Rp 0') + '\n';
-            msg += 'Nomor Meter: ' + (data.noMeter || '-') + '\n';
-            msg += 'Daya Listrik: ' + (data.dayaListrik ? data.dayaListrik + ' VA' : '-') + '\n\n';
-            msg += '*PENGELUARAN KEBUTUHAN KELUARGA*\n';
-            msg += 'Makanan (Per Minggu): ' + (data.pengeluaranMakananMinggu || 'Rp 0') + '\n';
-            msg += 'Non-Makanan (Per Bulan): ' + (data.pengeluaranNonMakananBulan || 'Rp 0') + '\n';
-            msg += 'Rutin Khusus (Per Tahun): ' + (data.pengeluaranRutinTahunan || 'Rp 0') + '\n\n';
-            msg += '*STATUS RUMAH*\n';
-            msg += 'Status: ' + (data.statusRumah || '-') + '\n\n';
-            msg += '*LUAS BANGUNAN*\n';
-            msg += 'Panjang: ' + (data.panjangBangunan || '0') + ' m\n';
-            msg += 'Lebar: ' + (data.lebarBangunan || '0') + ' m\n';
-            msg += 'Luas: ' + (data.luasBangunan || '0') + ' m2\n\n';
-            msg += '*LUAS TANAH*\n';
-            msg += 'Panjang: ' + (data.panjangTanah || '0') + ' m\n';
-            msg += 'Lebar: ' + (data.lebarTanah || '0') + ' m\n';
-            msg += 'Luas: ' + (data.luasTanah || '0') + ' m2\n\n';
-            msg += '*KEPEMILIKAN ASET*\n';
-            msg += 'Sepeda Motor: ' + (data.punyaMotor || '-') + ' | Nilai: ' + (data.hargaMotor || 'Rp 0') + '\n';
-            msg += 'Mobil: ' + (data.punyaMobil || '-') + ' | Nilai: ' + (data.hargaMobil || 'Rp 0') + '\n';
-            msg += 'Nilai Aset Tanah: ' + (data.nilaiAsetTanah || 'Rp 0') + '\n';
-            msg += 'Nilai Aset Bangunan: ' + (data.nilaiAsetBangunan || 'Rp 0') + '\n';
-            msg += 'Aset Tanah/Bangunan Lain: ' + (data.punyaAsetLain || '-') + '\n';
-            msg += 'Memiliki AC: ' + (data.punyaAC || '-') + '\n';
-            msg += 'Memiliki Kulkas: ' + (data.punyaKulkas || '-') + '\n\n';
-            msg += '*ANGGOTA KELUARGA*\n';
-            if (data.anggota && data.anggota.length > 0) {
-                data.anggota.forEach((a, i) => {
-                    msg += (i + 1) + '. ' + (a.nama || '-') + ' | NIK: ' + (a.nik || '-') + ' | Status: ' + (a.status || '-') + '\n';
-                });
-            } else { msg += 'Tidak ada anggota tambahan\n'; }
-            msg += '\n';
-            msg += '*USAHA*\n';
-            msg += 'Ada Usaha: ' + (data.adaUsaha || '-') + '\n';
-            if (data.adaUsaha === 'Ya') {
-                msg += 'Nama Komersial: ' + (data.namaKomersial || '-') + '\n';
-                msg += 'WA Usaha: ' + (data.waUsaha || '-') + '\n';
-                msg += 'NIB: ' + (data.nib || '-') + '\n';
-                msg += 'Nama Pengusaha: ' + (data.namaPengusaha || '-') + '\n';
-                msg += 'JK Pengusaha: ' + (data.jkPengusaha || '-') + '\n';
-                msg += 'NIK Pengusaha: ' + (data.nikPengusaha || '-') + '\n';
-                msg += 'Umur: ' + (data.umurPengusaha || '-') + ' th\n';
-                msg += 'Kegiatan Utama: ' + (data.kegiatanUtama || '-') + '\n';
-                msg += 'Produksi Barang: ' + (data.produksiBarang || '-') + '\n';
-                const periodeMap = { hari: 365, minggu: 52, bulan: 12, tahun: 1 };
-                const bp = parseRupiah(data.biayaProduksi); const pp = periodeMap[data.periodeProduksi] || 12;
-                const bo = parseRupiah(data.biayaOperasional); const po = periodeMap[data.periodeOperasional] || 12;
-                const om = parseRupiah(data.omzet); const pom = periodeMap[data.periodeOmzet] || 12;
-                msg += 'Biaya Produksi/thn: Rp ' + (bp * pp).toLocaleString('id-ID') + '\n';
-                msg += 'Biaya Operasional/thn: Rp ' + (bo * po).toLocaleString('id-ID') + '\n';
-                msg += 'Omzet/thn: Rp ' + (om * pom).toLocaleString('id-ID') + '\n';
-            }
-            msg += '\n=======================================\n';
-            msg += 'Dikirim via Aplikasi Sensus Ekonomi 2026';
-
-            const waUrl = 'https://wa.me/6285791111335?text=' + encodeURIComponent(msg);
-            window.open(waUrl, '_blank');
-
-            if (currentDraftId) {
-                await deleteDraft(currentDraftId);
-                currentDraftId = null;
-                resetForm();
-                renderDraftList();
-                showToast('Draft otomatis dihapus setelah kirim WA');
-            }
-        }
-
-        // ============================================================
-        // BANGUNAN KHUSUS USAHA FUNCTIONS
-        // ============================================================
-        let currentDraftBangunanId = null;
-        let saveTimeoutBangunan = null;
-
-        function startFormBangunan(type) {
-            resetFormBangunan();
-            currentDraftBangunanId = null;
-            goToPage('pageFormBangunan');
-            showToast('Form Bangunan Usaha baru siap diisi.');
-        }
-
-        function resetFormBangunan() {
-            document.getElementById('bangunanForm').reset();
-            currentDraftBangunanId = null;
-            ['bthnUpah','bthnProduksi','bthnOperasional','bthnOmzet'].forEach(id => { document.getElementById(id).textContent = 'Rp 0'; });
-            document.getElementById('bgmapsContainer').style.display = 'none';
-        }
-
-        function getFormDataBangunan() {
-            return {
-                noBangunan: document.getElementById('bnoBangunan').value,
-                koordinat: document.getElementById('bkoordinat').value,
-                alamat: document.getElementById('balamat').value,
-                noWA: document.getElementById('bnoWA').value,
-                namaKomersial: document.getElementById('bnamaKomersial').value,
-                nib: getRadioValue('bnib'),
-                namaPengusaha: document.getElementById('bnamaPengusaha').value,
-                jkPengusaha: getRadioValue('bjkPengusaha'),
-                nikPengusaha: document.getElementById('bnikPengusaha').value,
-                umurPengusaha: document.getElementById('bumurPengusaha').value,
-                kegiatanUtama: document.getElementById('bkegiatanUtama').value,
-                produksiBarang: getRadioValue('bproduksiBarang'),
-                pemasukanLain: document.getElementById('bpemasukanLain').value,
-                jumlahKaryawan: document.getElementById('bjumlahKaryawan').value,
-                jumlahKaryawanPria: document.getElementById('bjumlahKaryawanPria').value,
-                jumlahKaryawanWanita: document.getElementById('bjumlahKaryawanWanita').value,
-                upahGajiKaryawan: document.getElementById('bupahGajiKaryawan').value,
-                periodeUpah: document.getElementById('bperiodeUpah').value,
-                biayaProduksi: document.getElementById('bbiayaProduksi').value,
-                periodeProduksi: document.getElementById('bperiodeProduksi').value,
-                biayaOperasional: document.getElementById('bbiayaOperasional').value,
-                periodeOperasional: document.getElementById('bperiodeOperasional').value,
-                omzet: document.getElementById('bomzet').value,
-                periodeOmzet: document.getElementById('bperiodeOmzet').value,
-                updatedAt: new Date().toISOString()
-            };
-        }
-
-        function setFormDataBangunan(data) {
-            document.getElementById('bnoBangunan').value = data.noBangunan || '';
-            document.getElementById('bkoordinat').value = data.koordinat || '';
-            document.getElementById('balamat').value = data.alamat || '';
-            document.getElementById('bnoWA').value = data.noWA || '';
-            document.getElementById('bnamaKomersial').value = data.namaKomersial || '';
-            setRadioValue('bnib', data.nib || '');
-            document.getElementById('bnamaPengusaha').value = data.namaPengusaha || '';
-            setRadioValue('bjkPengusaha', data.jkPengusaha || '');
-            document.getElementById('bnikPengusaha').value = data.nikPengusaha || '';
-            document.getElementById('bumurPengusaha').value = data.umurPengusaha || '';
-            document.getElementById('bkegiatanUtama').value = data.kegiatanUtama || '';
-            setRadioValue('bproduksiBarang', data.produksiBarang || '');
-            document.getElementById('bpemasukanLain').value = data.pemasukanLain || '';
-            document.getElementById('bjumlahKaryawan').value = data.jumlahKaryawan || '';
-            document.getElementById('bjumlahKaryawanPria').value = data.jumlahKaryawanPria || '';
-            document.getElementById('bjumlahKaryawanWanita').value = data.jumlahKaryawanWanita || '';
-            document.getElementById('bupahGajiKaryawan').value = data.upahGajiKaryawan || '';
-            document.getElementById('bperiodeUpah').value = data.periodeUpah || 'bulan';
-            document.getElementById('bbiayaProduksi').value = data.biayaProduksi || '';
-            document.getElementById('bperiodeProduksi').value = data.periodeProduksi || 'bulan';
-            document.getElementById('bbiayaOperasional').value = data.biayaOperasional || '';
-            document.getElementById('bperiodeOperasional').value = data.periodeOperasional || 'bulan';
-            document.getElementById('bomzet').value = data.omzet || '';
-            document.getElementById('bperiodeOmzet').value = data.periodeOmzet || 'bulan';
-            hitungTahunanBangunan();
-            updateGmapsLinkBangunan(data.koordinat || '');
-        }
-
-        function autoSaveBangunan() {
-            if (saveTimeoutBangunan) clearTimeout(saveTimeoutBangunan);
-            saveTimeoutBangunan = setTimeout(async () => {
-                const data = getFormDataBangunan();
-                if (currentDraftBangunanId) data.id = currentDraftBangunanId;
-                if (data.noBangunan || data.namaKomersial) {
-                    const id = await saveToDB(data);
-                    currentDraftBangunanId = id;
-                    showAutoSave();
-                }
-            }, 1000);
-        }
-
-        async function saveDraftBangunan() {
-            const data = getFormDataBangunan();
-            if (currentDraftBangunanId) data.id = currentDraftBangunanId;
-            const id = await saveToDB(data);
-            currentDraftBangunanId = id;
-            showToast('Draft Bangunan berhasil disimpan!');
-            renderDraftList();
-        }
-
-        function getGPSBangunan() {
-            const btn = document.querySelectorAll('.gps-btn')[1];
-            btn.textContent = 'Mengambil...';
-            btn.disabled = true;
-            if (!navigator.geolocation) {
-                showToast('GPS tidak didukung', 'danger');
-                btn.textContent = 'Ambil GPS'; btn.disabled = false; return;
-            }
-            navigator.geolocation.getCurrentPosition(
-                (pos) => {
-                    const lat = pos.coords.latitude.toFixed(6);
-                    const lng = pos.coords.longitude.toFixed(6);
-                    const koordinat = lat + ', ' + lng;
-                    document.getElementById('bkoordinat').value = koordinat;
-                    updateGmapsLinkBangunan(koordinat);
-                    autoSaveBangunan();
-                    btn.textContent = 'GPS OK';
-                    setTimeout(() => { btn.textContent = 'Ambil GPS'; btn.disabled = false; }, 2000);
-                },
-                (err) => { showToast('Gagal ambil GPS: ' + err.message, 'danger'); btn.textContent = 'Ambil GPS'; btn.disabled = false; },
-                { enableHighAccuracy: true, timeout: 15000, maximumAge: 0 }
-            );
-        }
-
-        function updateGmapsLinkBangunan(koordinat) {
-            const container = document.getElementById('bgmapsContainer');
-            const link = document.getElementById('bgmapsLink');
-            if (koordinat && koordinat.includes(',')) {
-                const parts = koordinat.split(',');
-                if (parts.length === 2) {
-                    const lat = parts[0].trim();
-                    const lng = parts[1].trim();
-                    const gmapsUrl = 'https://www.google.com/maps?q=' + lat + ',' + lng;
-                    link.href = gmapsUrl;
-                    container.style.display = 'block';
-                } else { container.style.display = 'none'; }
-            } else { container.style.display = 'none'; }
-        }
-
-        function copyGmapsLinkBangunan() {
-            const link = document.getElementById('bgmapsLink').href;
-            if (navigator.clipboard) {
-                navigator.clipboard.writeText(link).then(() => showToast('Link Google Maps disalin!'));
-            } else {
-                const ta = document.createElement('textarea');
-                ta.value = link;
-                document.body.appendChild(ta);
-                ta.select();
-                document.execCommand('copy');
-                document.body.removeChild(ta);
-                showToast('Link Google Maps disalin!');
-            }
-        }
-
-        function hitungTahunanBangunan() {
-            const periodeMap = { hari: 365, minggu: 52, bulan: 12, tahun: 1 };
-            const up = parseRupiah(document.getElementById('bupahGajiKaryawan').value);
-            const pup = periodeMap[document.getElementById('bperiodeUpah').value] || 12;
-            document.getElementById('bthnUpah').textContent = formatRupiahStr(up * pup);
-            const bp = parseRupiah(document.getElementById('bbiayaProduksi').value);
-            const pp = periodeMap[document.getElementById('bperiodeProduksi').value] || 12;
-            document.getElementById('bthnProduksi').textContent = formatRupiahStr(bp * pp);
-            const bo = parseRupiah(document.getElementById('bbiayaOperasional').value);
-            const po = periodeMap[document.getElementById('bperiodeOperasional').value] || 12;
-            document.getElementById('bthnOperasional').textContent = formatRupiahStr(bo * po);
-            const om = parseRupiah(document.getElementById('bomzet').value);
-            const pom = periodeMap[document.getElementById('bperiodeOmzet').value] || 12;
-            document.getElementById('bthnOmzet').textContent = formatRupiahStr(om * pom);
-        }
-
-        async function kirimWhatsAppBangunan() {
-            const data = getFormDataBangunan();
-            let msg = '*SENSUS EKONOMI 2026 - BANGUNAN KHUSUS USAHA*
-';
-            msg += 'DESA SUKADAMAI
-';
-            msg += '=======================================
-
-';
-            msg += '*DATA BANGUNAN USAHA*
-';
-            msg += 'Nomor Bangunan: ' + (data.noBangunan || '-') + '
-';
-            msg += 'Koordinat GPS: ' + (data.koordinat || '-') + '
-';
-            if (data.koordinat && data.koordinat.includes(',')) {
-                const parts = data.koordinat.split(',');
-                if (parts.length === 2) {
-                    msg += 'Google Maps: https://www.google.com/maps?q=' + parts[0].trim() + ',' + parts[1].trim() + '
-';
-                }
-            }
-            msg += 'Alamat: ' + (data.alamat || '-') + '
-';
-            msg += 'Nomor WA: ' + (data.noWA || '-') + '
-
-';
-            msg += '*DATA USAHA*
-';
-            msg += 'Nama Komersial: ' + (data.namaKomersial || '-') + '
-';
-            msg += 'NIB: ' + (data.nib || '-') + '
-';
-            msg += 'Nama Pengusaha: ' + (data.namaPengusaha || '-') + '
-';
-            msg += 'JK Pengusaha: ' + (data.jkPengusaha || '-') + '
-';
-            msg += 'NIK Pengusaha: ' + (data.nikPengusaha || '-') + '
-';
-            msg += 'Umur: ' + (data.umurPengusaha || '-') + ' th
-';
-            msg += 'Kegiatan Utama: ' + (data.kegiatanUtama || '-') + '
-';
-            msg += 'Produksi Barang: ' + (data.produksiBarang || '-') + '
-
-';
-            msg += '*PEMASUKAN LAIN*
-';
-            msg += 'Pemasukan Lain: ' + (data.pemasukanLain || 'Rp 0') + '
-
-';
-            msg += '*JUMLAH KARYAWAN*
-';
-            msg += 'Total: ' + (data.jumlahKaryawan || '0') + '
-';
-            msg += 'Pria: ' + (data.jumlahKaryawanPria || '0') + '
-';
-            msg += 'Wanita: ' + (data.jumlahKaryawanWanita || '0') + '
-
-';
-            msg += '*UPAH GAJI KARYAWAN*
-';
-            const periodeMap = { hari: 365, minggu: 52, bulan: 12, tahun: 1 };
-            const up = parseRupiah(data.upahGajiKaryawan); const pup = periodeMap[data.periodeUpah] || 12;
-            msg += 'Upah: ' + (data.upahGajiKaryawan || 'Rp 0') + ' / ' + (data.periodeUpah || 'bulan') + '
-';
-            msg += 'Per Tahun: Rp ' + (up * pup).toLocaleString('id-ID') + '
-
-';
-            msg += '*BIAYA & OMZET*
-';
-            const bp = parseRupiah(data.biayaProduksi); const pp = periodeMap[data.periodeProduksi] || 12;
-            const bo = parseRupiah(data.biayaOperasional); const po = periodeMap[data.periodeOperasional] || 12;
-            const om = parseRupiah(data.omzet); const pom = periodeMap[data.periodeOmzet] || 12;
-            msg += 'Biaya Produksi/thn: Rp ' + (bp * pp).toLocaleString('id-ID') + '
-';
-            msg += 'Biaya Operasional/thn: Rp ' + (bo * po).toLocaleString('id-ID') + '
-';
-            msg += 'Omzet/thn: Rp ' + (om * pom).toLocaleString('id-ID') + '
-';
-            msg += '
-=======================================
-';
-            msg += 'Dikirim via Aplikasi Sensus Ekonomi 2026';
-
-            const waUrl = 'https://wa.me/6285791111335?text=' + encodeURIComponent(msg);
-            window.open(waUrl, '_blank');
-
-            if (currentDraftBangunanId) {
-                await deleteDraft(currentDraftBangunanId);
-                currentDraftBangunanId = null;
-                resetFormBangunan();
-                renderDraftList();
-                showToast('Draft Bangunan otomatis dihapus');
-            }
-        }
-
-        document.addEventListener('DOMContentLoaded', async () => {
-            await openDB();
-            renderDraftList();
-
-            // Event listeners for navigation buttons (fix for PWA standalone mode)
-            document.getElementById('btnModeKeluarga')?.addEventListener('click', () => goToMode('keluarga'));
-            document.getElementById('btnModeBangunan')?.addEventListener('click', () => goToMode('bangunan'));
-            document.getElementById('btnPrelist')?.addEventListener('click', () => startForm('prelist'));
-            document.getElementById('btnAssignment')?.addEventListener('click', () => startForm('assignment'));
-            document.getElementById('btnPrelistBangunan')?.addEventListener('click', () => startFormBangunan('prelist'));
-            document.getElementById('btnAssignmentBangunan')?.addEventListener('click', () => startFormBangunan('assignment'));
-
-            // Kembali buttons
-            document.querySelectorAll('.btn-kembali-home').forEach(btn => {
-                btn.addEventListener('click', () => goToPage('pageHome'));
-            });
-
-            // Form action buttons
-            document.getElementById('btnSaveDraft')?.addEventListener('click', saveDraft);
-            document.getElementById('btnKirimWA')?.addEventListener('click', kirimWhatsApp);
-            document.getElementById('btnSaveDraftBangunan')?.addEventListener('click', saveDraftBangunan);
-            document.getElementById('btnKirimWABangunan')?.addEventListener('click', kirimWhatsAppBangunan);
-
-            // GPS and other buttons
-            document.getElementById('btnGetGPS')?.addEventListener('click', getGPS);
-            document.getElementById('btnCopyGmaps')?.addEventListener('click', copyGmapsLink);
-            document.getElementById('btnGetGPSBangunan')?.addEventListener('click', getGPSBangunan);
-            document.getElementById('btnCopyGmapsBangunan')?.addEventListener('click', copyGmapsLinkBangunan);
-            document.getElementById('btnTambahAnggota')?.addEventListener('click', tambahAnggota);
-        });
-    </script>
-    <script>
-        if ('serviceWorker' in navigator) {
-            navigator.serviceWorker.register('./service-worker.js')
-                .then((reg) => console.log('SW registered:', reg.scope))
-                .catch((err) => console.log('SW registration failed:', err));
-        }
-    </script>
+    <script src="app.js"></script>
 </body>
 </html>
