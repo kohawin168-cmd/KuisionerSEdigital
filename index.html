@@ -3,3038 +3,744 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Simple Sensus Ekonomi 2026</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+    <meta name="theme-color" content="#0d6efd">
+    <title>Sensus Ekonomi 2026 - Desa Sukadamai</title>
+    <link rel="manifest" href="manifest.json">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="apple-touch-icon" href="icon-192.png">
     <style>
-        :root {
-            --primary-color: #1a5f7a;
-            --secondary-color: #57c5b6;
-            --accent-color: #159895;
-            --bg-color: #f0f4f8;
-            --card-bg: #ffffff;
-            --text-dark: #2c3e50;
-            --text-muted: #6c757d;
-            --border-color: #e0e6ed;
-            --success-color: #28a745;
-            --warning-color: #ffc107;
-            --danger-color: #dc3545;
-        }
-
-        * {
-            -webkit-tap-highlight-color: transparent;
-        }
-
-        body {
-            background: linear-gradient(135deg, #f0f4f8 0%, #e8f4f8 100%);
-            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
-            min-height: 100vh;
-            color: var(--text-dark);
-            padding-bottom: 40px;
-        }
-
-        .app-header {
-            background: linear-gradient(135deg, var(--primary-color) 0%, var(--accent-color) 100%);
-            color: white;
-            padding: 20px 0;
-            box-shadow: 0 4px 20px rgba(26, 95, 122, 0.3);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .app-header::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            right: -10%;
-            width: 300px;
-            height: 300px;
-            background: rgba(255,255,255,0.1);
-            border-radius: 50%;
-        }
-
-        .app-header h1 {
-            font-size: 1.5rem;
-            font-weight: 700;
-            margin: 0;
-            position: relative;
-            z-index: 1;
-        }
-
-        .app-header p {
-            opacity: 0.9;
-            margin: 5px 0 0 0;
-            font-size: 0.9rem;
-            position: relative;
-            z-index: 1;
-        }
-
-        .warning-banner {
-            background: linear-gradient(90deg, #fff3cd 0%, #ffeaa7 100%);
-            border-left: 5px solid var(--warning-color);
-            padding: 15px 20px;
-            margin: 20px 15px;
-            border-radius: 12px;
-            box-shadow: 0 2px 10px rgba(255, 193, 7, 0.2);
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            animation: pulse 2s infinite;
-        }
-
-        @keyframes pulse {
-            0%, 100% { box-shadow: 0 2px 10px rgba(255, 193, 7, 0.2); }
-            50% { box-shadow: 0 4px 20px rgba(255, 193, 7, 0.4); }
-        }
-
-        .warning-banner i {
-            font-size: 1.5rem;
-            color: #856404;
-        }
-
-        .warning-banner strong {
-            color: #856404;
-            font-size: 0.95rem;
-            line-height: 1.4;
-        }
-
-        .mode-card {
-            background: var(--card-bg);
-            border-radius: 16px;
-            padding: 25px 20px;
-            margin: 15px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
-            border: 2px solid transparent;
-            transition: all 0.3s ease;
-            cursor: pointer;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .mode-card:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 25px rgba(0,0,0,0.12);
-            border-color: var(--secondary-color);
-        }
-
-        .mode-card::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 5px;
-            height: 100%;
-            background: var(--secondary-color);
-            opacity: 0;
-            transition: opacity 0.3s;
-        }
-
-        .mode-card:hover::after {
-            opacity: 1;
-        }
-
-        .mode-icon {
-            width: 60px;
-            height: 60px;
-            border-radius: 14px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.8rem;
-            margin-bottom: 15px;
-        }
-
-        .mode-icon.family {
-            background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
-            color: #1976d2;
-        }
-
-        .mode-icon.business {
-            background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);
-            color: #388e3c;
-        }
-
-        .mode-card h3 {
-            font-size: 1.1rem;
-            font-weight: 700;
-            margin-bottom: 8px;
-            color: var(--text-dark);
-        }
-
-        .mode-card p {
-            color: var(--text-muted);
-            font-size: 0.85rem;
-            margin: 0;
-            line-height: 1.5;
-        }
-
-        .form-section {
-            display: none;
-            animation: fadeIn 0.4s ease;
-        }
-
-        .form-section.active {
-            display: block;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .form-card {
-            background: var(--card-bg);
-            border-radius: 16px;
-            padding: 20px;
-            margin: 15px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
-        }
-
-        .section-title {
-            font-size: 1rem;
-            font-weight: 700;
-            color: var(--primary-color);
-            margin-bottom: 15px;
-            padding-bottom: 10px;
-            border-bottom: 2px solid var(--border-color);
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .form-label {
-            font-weight: 600;
-            font-size: 0.85rem;
-            color: var(--text-dark);
-            margin-bottom: 6px;
-        }
-
-        .form-control, .form-select {
-            border-radius: 10px;
-            border: 2px solid var(--border-color);
-            padding: 12px 15px;
-            font-size: 0.9rem;
-            transition: all 0.3s;
-            background: #fafbfc;
-        }
-
-        .form-control:focus, .form-select:focus {
-            border-color: var(--secondary-color);
-            box-shadow: 0 0 0 3px rgba(87, 197, 182, 0.2);
-            background: white;
-        }
-
-        .input-group-text {
-            background: var(--primary-color);
-            color: white;
-            border: none;
-            border-radius: 10px 0 0 10px;
-            font-weight: 600;
-        }
-
-        .btn-back {
-            background: transparent;
-            border: 2px solid var(--border-color);
-            color: var(--text-muted);
-            border-radius: 10px;
-            padding: 10px 20px;
-            font-weight: 600;
-            transition: all 0.3s;
-        }
-
-        .btn-back:hover {
-            border-color: var(--text-dark);
-            color: var(--text-dark);
-        }
-
-        .btn-submit {
-            background: linear-gradient(135deg, var(--primary-color) 0%, var(--accent-color) 100%);
-            border: none;
-            color: white;
-            border-radius: 12px;
-            padding: 14px 30px;
-            font-weight: 700;
-            font-size: 1rem;
-            box-shadow: 0 4px 15px rgba(26, 95, 122, 0.3);
-            transition: all 0.3s;
-            width: 100%;
-        }
-
-        .btn-submit:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(26, 95, 122, 0.4);
-        }
-
-        .btn-submit:active {
-            transform: translateY(0);
-        }
-
-        .conditional-field {
-            display: none;
-            animation: slideDown 0.3s ease;
-        }
-
-        .conditional-field.show {
-            display: block;
-        }
-
-        @keyframes slideDown {
-            from { opacity: 0; max-height: 0; }
-            to { opacity: 1; max-height: 200px; }
-        }
-
-        .photo-preview {
-            width: 100%;
-            height: 200px;
-            border: 2px dashed var(--border-color);
-            border-radius: 12px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            transition: all 0.3s;
-            background: #fafbfc;
-            overflow: hidden;
-            position: relative;
-        }
-
-        .photo-preview:hover {
-            border-color: var(--secondary-color);
-            background: #f0f9ff;
-        }
-
-        .photo-preview img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            display: none;
-        }
-
-        .photo-preview.has-image img {
-            display: block;
-        }
-
-        .photo-preview.has-image .photo-placeholder {
-            display: none;
-        }
-
-        .photo-placeholder {
-            text-align: center;
-            color: var(--text-muted);
-        }
-
-        .photo-placeholder i {
-            font-size: 2.5rem;
-            margin-bottom: 8px;
-            color: var(--secondary-color);
-        }
-
-        .photo-placeholder span {
-            font-size: 0.85rem;
-            font-weight: 500;
-        }
-
-        .coord-display {
-            background: linear-gradient(135deg, #e3f2fd 0%, #f3e5f5 100%);
-            border-radius: 10px;
-            padding: 12px 15px;
-            font-family: 'Courier New', monospace;
-            font-size: 0.8rem;
-            color: var(--primary-color);
-            border: 1px solid #bbdefb;
-            word-break: break-all;
-        }
-
-        .coord-display i {
-            color: var(--success-color);
-            margin-right: 5px;
-        }
-
-        .badge-custom {
-            background: linear-gradient(135deg, var(--secondary-color) 0%, var(--accent-color) 100%);
-            color: white;
-            padding: 4px 10px;
-            border-radius: 20px;
-            font-size: 0.75rem;
-            font-weight: 600;
-        }
-
-        .radio-group {
-            display: flex;
-            gap: 10px;
-        }
-
-        .radio-btn {
-            flex: 1;
-            padding: 12px;
-            border: 2px solid var(--border-color);
-            border-radius: 10px;
-            text-align: center;
-            cursor: pointer;
-            transition: all 0.3s;
-            font-weight: 600;
-            font-size: 0.9rem;
-        }
-
-        .radio-btn.selected {
-            border-color: var(--secondary-color);
-            background: rgba(87, 197, 182, 0.1);
-            color: var(--primary-color);
-        }
-
-        .radio-btn i {
-            display: block;
-            font-size: 1.3rem;
-            margin-bottom: 5px;
-        }
-
-        .progress-bar-custom {
-            height: 6px;
-            background: var(--border-color);
-            border-radius: 3px;
-            overflow: hidden;
-            margin-bottom: 20px;
-        }
-
-        .progress-bar-custom .progress-fill {
-            height: 100%;
-            background: linear-gradient(90deg, var(--secondary-color) 0%, var(--accent-color) 100%);
-            border-radius: 3px;
-            transition: width 0.5s ease;
-        }
-
-        .footer-text {
-            text-align: center;
-            color: var(--text-muted);
-            font-size: 0.75rem;
-            margin-top: 30px;
-            padding: 0 20px;
-        }
-
-        .floating-btn {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            background: var(--primary-color);
-            color: white;
-            border: none;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.3rem;
-            z-index: 1000;
-            transition: all 0.3s;
-        }
-
-        .floating-btn:hover {
-            transform: scale(1.1);
-        }
-
-        @media (max-width: 576px) {
-            .app-header h1 {
-                font-size: 1.3rem;
-            }
-            .mode-card {
-                margin: 10px;
-                padding: 20px 15px;
-            }
-            .form-card {
-                margin: 10px;
-                padding: 15px;
-            }
-        }
-
-        .spin {
-            animation: spin 1s linear infinite;
-        }
-        @keyframes spin {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
-        }
-
-        .anggota-row {
-            transition: all 0.3s ease;
-        }
-        .anggota-row:hover {
-            border-color: var(--secondary-color) !important;
-            box-shadow: 0 2px 8px rgba(87, 197, 182, 0.15);
-        }
-
-        /* OCR Progress Overlay */
-        .ocr-overlay {
-            position: fixed;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background: rgba(0,0,0,0.85);
-            z-index: 9999;
-            display: none;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            color: white;
-        }
-        .ocr-overlay.active {
-            display: flex;
-        }
-        .ocr-overlay .spinner-border {
-            width: 3rem; height: 3rem;
-        }
-        .ocr-overlay h4 {
-            margin-top: 20px;
-            font-weight: 600;
-        }
-        .ocr-overlay .progress {
-            width: 80%;
-            max-width: 400px;
-            margin-top: 15px;
-            height: 8px;
-            background: rgba(255,255,255,0.2);
-        }
-        .ocr-overlay .progress-bar {
-            background: var(--secondary-color);
-            transition: width 0.3s;
-        }
-        .ocr-overlay .status-text {
-            margin-top: 10px;
-            font-size: 0.9rem;
-            opacity: 0.8;
-        }
-        .ocr-overlay .preview-img {
-            max-width: 200px;
-            max-height: 150px;
-            border-radius: 8px;
-            margin-bottom: 15px;
-            border: 2px solid rgba(255,255,255,0.3);
-        }
-
-        /* OCR Result Stats */
-        .ocr-stats {
-            background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);
-            border-radius: 10px;
-            padding: 12px 15px;
-            margin-bottom: 15px;
-            border-left: 4px solid var(--success-color);
-        }
-        .ocr-stats .stat-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-size: 0.85rem;
-            margin-bottom: 4px;
-        }
-        .ocr-stats .stat-item:last-child {
-            margin-bottom: 0;
-        }
-        .ocr-stats .stat-value {
-            font-weight: 700;
-            color: var(--success-color);
-        }
-        .ocr-stats .stat-label {
-            color: var(--text-muted);
-        }
+        :root { --primary: #0d6efd; --secondary: #6c757d; --success: #198754; --warning: #ffc107; --danger: #dc3545; --info: #0dcaf0; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #f0f2f5; padding-bottom: 80px; }
+        .banner { background: linear-gradient(135deg, #0d6efd 0%, #0a58ca 100%); color: white; padding: 1.2rem 1rem; text-align: center; box-shadow: 0 2px 8px rgba(0,0,0,0.15); position: sticky; top: 0; z-index: 1000; }
+        .banner h1 { font-size: 1.15rem; margin: 0; font-weight: 700; letter-spacing: 0.5px; }
+        .banner p { font-size: 0.8rem; margin: 0.3rem 0 0 0; opacity: 0.9; }
+        .card { border: none; border-radius: 14px; box-shadow: 0 2px 12px rgba(0,0,0,0.06); margin-bottom: 1rem; overflow: hidden; }
+        .card-header { background: #fff; border-bottom: 2px solid #e9ecef; font-weight: 700; font-size: 0.95rem; padding: 0.85rem 1.1rem; color: #0d6efd; }
+        .form-label { font-weight: 600; font-size: 0.85rem; color: #495057; margin-bottom: 0.3rem; }
+        .form-control, .form-select { border-radius: 10px; border: 1.5px solid #dee2e6; font-size: 0.9rem; padding: 0.55rem 0.85rem; }
+        .form-control:focus, .form-select:focus { border-color: #0d6efd; box-shadow: 0 0 0 0.2rem rgba(13,110,253,0.15); }
+        .btn { border-radius: 10px; font-weight: 600; padding: 0.6rem 1.2rem; font-size: 0.9rem; }
+        .btn-lg { padding: 0.85rem 1.5rem; font-size: 1rem; }
+        .btn-mode { height: 100px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0.4rem; font-size: 0.95rem; }
+        .btn-mode .icon { font-size: 1.6rem; }
+        .section-title { background: #e7f1ff; color: #0d6efd; padding: 0.5rem 1rem; border-radius: 8px; font-weight: 700; font-size: 0.85rem; margin-bottom: 1rem; display: inline-block; }
+        .anggota-card { background: #f8f9fa; border-radius: 12px; padding: 1rem; margin-bottom: 0.8rem; border: 1.5px solid #e9ecef; position: relative; }
+        .btn-remove-anggota { position: absolute; top: 0.5rem; right: 0.5rem; padding: 0.2rem 0.5rem; font-size: 0.75rem; }
+        .draft-item { background: #fff; border-radius: 12px; padding: 1rem; margin-bottom: 0.7rem; border: 1.5px solid #dee2e6; display: flex; justify-content: space-between; align-items: center; }
+        .draft-info { flex: 1; }
+        .draft-info .draft-title { font-weight: 700; color: #212529; font-size: 0.95rem; }
+        .draft-info .draft-date { font-size: 0.78rem; color: #6c757d; }
+        .draft-actions { display: flex; gap: 0.4rem; }
+        .btn-draft-action { padding: 0.4rem 0.7rem; font-size: 0.78rem; border-radius: 8px; }
+        .hidden { display: none !important; }
+        .fade-in { animation: fadeIn 0.3s ease-in; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        .gps-btn { padding: 0.4rem 0.7rem; font-size: 0.8rem; }
+        .empty-state { text-align: center; padding: 2rem 1rem; color: #6c757d; }
+        .empty-state .icon { font-size: 3rem; margin-bottom: 0.5rem; opacity: 0.4; }
+        .nav-bottom { position: fixed; bottom: 0; left: 0; right: 0; background: #fff; border-top: 1px solid #dee2e6; padding: 0.6rem 1rem; display: flex; justify-content: space-between; align-items: center; z-index: 1000; box-shadow: 0 -2px 10px rgba(0,0,0,0.05); }
+        .nav-bottom .btn { flex: 1; margin: 0 0.3rem; }
+        .page { display: none; }
+        .page.active { display: block; }
+        .mode-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.8rem; }
+        .input-group-text { border-radius: 10px 0 0 10px; background: #e9ecef; border: 1.5px solid #dee2e6; border-right: none; font-size: 0.85rem; font-weight: 600; }
+        .input-group .form-control { border-radius: 0 10px 10px 0; }
+        .radio-group { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+        .radio-group .btn-check + .btn { border-radius: 8px; font-size: 0.82rem; padding: 0.4rem 0.8rem; }
+        .radio-group .btn-check:checked + .btn { background-color: #0d6efd; color: white; border-color: #0d6efd; }
+        .auto-save-indicator { position: fixed; top: 80px; right: 10px; background: rgba(25,135,84,0.9); color: white; padding: 0.3rem 0.7rem; border-radius: 20px; font-size: 0.75rem; font-weight: 600; z-index: 1050; display: none; animation: pulse 2s infinite; }
+        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.6; } }
+        .hasil-rupiah { font-weight: 700; color: #198754; font-size: 1rem; }
+        .form-usaha-wrapper { background: #fffbeb; border: 2px dashed #ffc107; border-radius: 14px; padding: 1.2rem; margin-top: 1rem; }
+        .form-usaha-wrapper .section-title { background: #fff3cd; color: #856404; }
+        .toast-container { z-index: 1060; }
+        .toast { border-radius: 10px; }
     </style>
+<base target="_blank">
 </head>
 <body>
-    <!-- OCR Processing Overlay -->
-    <div id="ocrOverlay" class="ocr-overlay">
-        <img id="ocrPreviewImg" class="preview-img" src="" alt="Preview">
-        <div class="spinner-border text-light" role="status">
-            <span class="visually-hidden">Loading...</span>
-        </div>
-        <h4>Memproses Kartu Keluarga...</h4>
-        <div class="progress">
-            <div id="ocrProgressBar" class="progress-bar" role="progressbar" style="width: 0%"></div>
-        </div>
-        <div id="ocrStatusText" class="status-text">Mempersiapkan gambar...</div>
+    <div class="banner">
+        <h1>KUISIONER SINGKAT PCL</h1>
+        <p>SENSUS EKONOMI 2026 - DESA SUKADAMAI</p>
     </div>
-
-    <!-- Header -->
-    <div class="app-header text-center">
-        <div class="container">
-            <h1><i class="bi bi-graph-up-arrow me-2"></i>Simple Sensus Ekonomi 2026</h1>
-            <p>Pendataan Ekonomi Keluarga & Usaha</p>
-        </div>
-    </div>
-
-    <!-- Warning Banner -->
-    <div class="warning-banner">
-        <i class="bi bi-exclamation-triangle-fill"></i>
-        <strong>WAJIB TAGGING DAN FOTO RUMAH DEPAN DAN RUANG TAMU!</strong>
-    </div>
-
-    <!-- Home Page -->
-    <div id="homePage" class="container">
-        <div class="row g-0">
-            <div class="col-12">
-                <div class="mode-card" onclick="showForm('family')">
-                    <div class="mode-icon family">
-                        <i class="bi bi-people-fill"></i>
-                    </div>
-                    <h3>Mode Pendataan Keluarga</h3>
-                    <p>Pendataan data ekonomi keluarga termasuk kepemilikan aset, penghasilan, pendidikan, dan usaha keluarga.</p>
-                </div>
-            </div>
-            <div class="col-12">
-                <div class="mode-card" onclick="showForm('business')">
-                    <div class="mode-icon business">
-                        <i class="bi bi-building"></i>
-                    </div>
-                    <h3>Mode Bangunan Khusus Usaha</h3>
-                    <p>Pendataan data usaha pada bangunan khusus komersial atau industri.</p>
-                </div>
+    <div class="auto-save-indicator" id="autoSaveIndicator">Tersimpan</div>
+    <div class="toast-container position-fixed top-0 end-0 p-3" style="margin-top:80px;">
+        <div id="liveToast" class="toast align-items-center text-white bg-success border-0" role="alert">
+            <div class="d-flex">
+                <div class="toast-body" id="toastBody">Berhasil!</div>
+                <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button>
             </div>
         </div>
     </div>
 
-    <!-- Mode 1: Pendataan Keluarga -->
-    <div id="familyForm" class="form-section">
-        <div class="container">
-            <div class="d-flex justify-content-between align-items-center mb-3 px-3">
-                <button class="btn-back" onclick="goHome()">
-                    <i class="bi bi-arrow-left me-1"></i> Kembali
-                </button>
-                <span class="badge-custom">Mode Keluarga</span>
+    <!-- PAGE: HOME -->
+    <div class="page active" id="pageHome">
+        <div class="container py-4">
+            <div class="card">
+                <div class="card-body text-center py-4">
+                    <div style="font-size:3rem; margin-bottom:0.5rem;">&#127968;</div>
+                    <h5 class="card-title fw-bold">Selamat Datang</h5>
+                    <p class="card-text text-muted" style="font-size:0.9rem;">Aplikasi Pendataan Sensus Ekonomi 2026<br>Desa Sukadamai</p>
+                </div>
             </div>
-
-            <div class="progress-bar-custom mx-3">
-                <div class="progress-fill" id="familyProgress" style="width: 10%"></div>
-            </div>
-
-            <form id="formKeluarga" onsubmit="return submitFamily(event)">
-                <!-- Data Dasar -->
-                <div class="form-card">
-                    <div class="section-title">
-                        <i class="bi bi-person-vcard"></i> Data Dasar Keluarga
-                    </div>
-                    <div class="row g-3">
-                        <div class="col-md-6">
-                            <label class="form-label">Nomor Urut Bangunan</label>
-                            <input type="number" class="form-control" id="f_no_bangunan" placeholder="Contoh: 001">
-                        </div>
-                        <div class="col-md-6">
-                            <label class="form-label">Nomor Urut Keluarga</label>
-                            <input type="number" class="form-control" id="f_no_keluarga" placeholder="Contoh: 01">
-                        </div>
-                        <div class="col-12">
-                            <label class="form-label">Nama Kepala Keluarga</label>
-                            <input type="text" class="form-control" id="f_nama_kk" placeholder="Nama lengkap kepala keluarga">
-                        </div>
-                        <div class="col-12">
-                            <label class="form-label">Nomor Kartu Keluarga</label>
-                            <input type="text" class="form-control" id="f_no_kk" placeholder="16 digit nomor KK" maxlength="16">
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Sumber Data -->
-                <div class="form-card mt-3">
-                    <div class="section-title">
-                        <i class="bi bi-database"></i> Sumber Data
-                    </div>
-                    <label class="form-label">Pilih sumber data keluarga:</label>
-                    <div class="radio-group mb-3">
-                        <div class="radio-btn" onclick="selectSumberData('prelist')" id="btnSumberPrelist">
-                            <i class="bi bi-file-earmark-text"></i>
-                            Prelist
-                        </div>
-                        <div class="radio-btn" onclick="selectSumberData('assignment')" id="btnSumberAssignment">
-                            <i class="bi bi-plus-circle"></i>
-                            Assignment Baru
-                        </div>
-                    </div>
-                    <input type="hidden" id="f_sumber_data" value="">
-
-                    <!-- Assignment Baru: Foto KK + OCR Scan -->
-                    <div id="fieldAssignmentBaru" class="conditional-field">
-                        <div class="mb-3">
-                            <label class="form-label">Foto Kartu Keluarga <span class="text-danger">*</span></label>
-                            <div class="photo-preview" onclick="document.getElementById('f_foto_kk').click()">
-                                <img id="previewKK" alt="Preview">
-                                <div class="photo-placeholder">
-                                    <i class="bi bi-camera-fill"></i>
-                                    <span>Klik untuk ambil foto KK</span>
-                                </div>
-                            </div>
-                            <input type="file" id="f_foto_kk" accept="image/*" capture="environment" style="display:none" onchange="handleKKUpload(this)">
-                        </div>
-
-                        <!-- OCR Results -->
-                        <div id="ocrResult" class="conditional-field">
-                            <!-- OCR Stats -->
-                            <div id="ocrStats" class="ocr-stats" style="display:none;">
-                                <div class="stat-item">
-                                    <span class="stat-label"><i class="bi bi-check-circle-fill me-1 text-success"></i>Akurasi OCR</span>
-                                    <span class="stat-value" id="ocrAccuracy">0%</span>
-                                </div>
-                                <div class="stat-item">
-                                    <span class="stat-label"><i class="bi bi-people-fill me-1 text-primary"></i>Anggota Terdeteksi</span>
-                                    <span class="stat-value" id="ocrAnggotaCount">0</span>
-                                </div>
-                                <div class="stat-item">
-                                    <span class="stat-label"><i class="bi bi-card-text me-1 text-info"></i>No. KK Valid</span>
-                                    <span class="stat-value" id="ocrKKValid">-</span>
-                                </div>
-                            </div>
-
-                            <div class="alert alert-info" style="font-size:0.85rem;">
-                                <i class="bi bi-info-circle-fill me-2"></i>
-                                <strong>Data terdeteksi dari KK:</strong> Periksa dan sesuaikan jika perlu.
-                            </div>
-                            <div class="row g-3">
-                                <div class="col-12">
-                                    <label class="form-label">No. Kartu Keluarga</label>
-                                    <input type="text" class="form-control" id="f_no_kk_ocr" placeholder="16 digit nomor KK" maxlength="16">
-                                </div>
-                                <div class="col-12">
-                                    <label class="form-label">Nama Kepala Keluarga</label>
-                                    <input type="text" class="form-control" id="f_nama_kk_ocr" placeholder="Nama lengkap kepala keluarga">
-                                </div>
-                                <div class="col-12">
-                                    <label class="form-label">Alamat</label>
-                                    <textarea class="form-control" id="f_alamat_kk_ocr" rows="2" placeholder="Alamat lengkap"></textarea>
-                                </div>
-                                <div class="col-12">
-                                    <label class="form-label">RT / RW</label>
-                                    <div class="row g-2">
-                                        <div class="col-6">
-                                            <input type="text" class="form-control" id="f_rt_kk_ocr" placeholder="RT">
-                                        </div>
-                                        <div class="col-6">
-                                            <input type="text" class="form-control" id="f_rw_kk_ocr" placeholder="RW">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-12">
-                                    <label class="form-label">Kode Pos</label>
-                                    <input type="text" class="form-control" id="f_kodepos_kk_ocr" placeholder="Kode pos" maxlength="5">
-                                </div>
-                                <div class="col-12">
-                                    <label class="form-label">Desa/Kelurahan</label>
-                                    <input type="text" class="form-control" id="f_desa_kk_ocr" placeholder="Desa/Kelurahan">
-                                </div>
-                                <div class="col-12">
-                                    <label class="form-label">Kecamatan</label>
-                                    <input type="text" class="form-control" id="f_kecamatan_kk_ocr" placeholder="Kecamatan">
-                                </div>
-                                <div class="col-12">
-                                    <label class="form-label">Kabupaten/Kota</label>
-                                    <input type="text" class="form-control" id="f_kabupaten_kk_ocr" placeholder="Kabupaten/Kota">
-                                </div>
-                                <div class="col-12">
-                                    <label class="form-label">Provinsi</label>
-                                    <input type="text" class="form-control" id="f_provinsi_kk_ocr" placeholder="Provinsi">
-                                </div>
-                                <div class="col-md-6">
-                                    <label class="form-label">Tanggal Dikeluarkan</label>
-                                    <input type="date" class="form-control" id="f_tgl_kk_ocr">
-                                </div>
-                            </div>
-
-                            <!-- Anggota Keluarga dari OCR -->
-                            <div class="mt-4">
-                                <div class="section-title" style="border-bottom:2px solid var(--border-color); padding-bottom:10px;">
-                                    <i class="bi bi-people"></i> Anggota Keluarga (OCR)
-                                </div>
-                                <div id="anggotaKeluargaOCR">
-                                    <!-- Dynamic rows will be inserted here -->
-                                </div>
-                                <button type="button" class="btn btn-outline-primary w-100 mt-2" onclick="tambahAnggotaOCR()">
-                                    <i class="bi bi-plus-lg me-1"></i> Tambah Anggota Keluarga
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Pekerjaan & Penghasilan -->
-                <div class="form-card mt-3">
-                    <div class="section-title">
-                        <i class="bi bi-briefcase"></i> Pekerjaan & Penghasilan
-                    </div>
-                    <div class="row g-3">
-                        <div class="col-12">
-                            <label class="form-label">Pekerjaan Kepala Keluarga</label>
-                            <input type="text" class="form-control" id="f_pekerjaan_kk" placeholder="Contoh: Pegawai Swasta, Petani, Wiraswasta">
-                        </div>
-                        <div class="col-12">
-                            <label class="form-label">Pekerjaan Istri/Anggota Keluarga Lainnya</label>
-                            <input type="text" class="form-control" id="f_pekerjaan_istri" placeholder="Contoh: IRT, Buruh, Pegawai">
-                        </div>
-                        <div class="col-md-6">
-                            <label class="form-label">Penghasilan/Bulan Kepala Keluarga (Rp)</label>
-                            <div class="input-group">
-                                <span class="input-group-text">Rp</span>
-                                <input type="number" class="form-control" id="f_penghasilan_kk" placeholder="5000000">
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <label class="form-label">Penghasilan Istri/Anggota (Rp)</label>
-                            <div class="input-group">
-                                <span class="input-group-text">Rp</span>
-                                <input type="number" class="form-control" id="f_penghasilan_anggota" placeholder="2000000">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Kepemilikan -->
-                <div class="form-card mt-3">
-                    <div class="section-title">
-                        <i class="bi bi-house-door"></i> Kepemilikan Aset
-                    </div>
-
-                    <!-- Rumah -->
-                    <div class="mb-3">
-                        <label class="form-label">A. Kepemilikan Rumah</label>
-                        <select class="form-select" id="f_rumah" onchange="toggleRumah()">
-                            <option value="" selected disabled>Pilih status rumah...</option>
-                            <option value="Milik">Milik Sendiri</option>
-                            <option value="Sewa">Sewa/Kontrak</option>
-                        </select>
-                        <div id="fieldRumahMilik" class="conditional-field mt-2">
-                            <label class="form-label">Jenis Surat</label>
-                            <select class="form-select" id="f_jenis_surat">
-                                <option value="SHM">SHM (Sertifikat Hak Milik)</option>
-                                <option value="SKGR">SKGR (Sertifikat Konversi Girik/Roya)</option>
-                                <option value="Lainnya">Lainnya</option>
-                            </select>
-                        </div>
-                        <div id="fieldRumahSewa" class="conditional-field mt-2">
-                            <label class="form-label">Nilai Sewa per Bulan (Rp)</label>
-                            <div class="input-group">
-                                <span class="input-group-text">Rp</span>
-                                <input type="number" class="form-control" id="f_sewa_bulan" placeholder="1000000">
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Luas Tanah -->
-                    <div class="mb-3">
-                        <label class="form-label">B. Luas Tanah (m²)</label>
-                        <div class="row g-2">
-                            <div class="col-4">
-                                <label class="form-label" style="font-size:0.75rem; color:var(--text-muted);">Panjang (m)</label>
-                                <input type="number" class="form-control" id="f_tanah_panjang" min="0" step="0.1" placeholder="0" oninput="hitungLuasTanah()">
-                            </div>
-                            <div class="col-4">
-                                <label class="form-label" style="font-size:0.75rem; color:var(--text-muted);">Lebar (m)</label>
-                                <input type="number" class="form-control" id="f_tanah_lebar" min="0" step="0.1" placeholder="0" oninput="hitungLuasTanah()">
-                            </div>
-                            <div class="col-4">
-                                <label class="form-label" style="font-size:0.75rem; color:var(--text-muted);">Luas (m²)</label>
-                                <input type="number" class="form-control" id="f_tanah_luas" min="0" step="0.1" placeholder="0" readonly style="background:#e9ecef; font-weight:700;">
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Luas Bangunan -->
-                    <div class="mb-3">
-                        <label class="form-label">C. Luas Bangunan (m²)</label>
-                        <div class="row g-2">
-                            <div class="col-4">
-                                <label class="form-label" style="font-size:0.75rem; color:var(--text-muted);">Panjang (m)</label>
-                                <input type="number" class="form-control" id="f_bangunan_panjang" min="0" step="0.1" placeholder="0" oninput="hitungLuasBangunan()">
-                            </div>
-                            <div class="col-4">
-                                <label class="form-label" style="font-size:0.75rem; color:var(--text-muted);">Lebar (m)</label>
-                                <input type="number" class="form-control" id="f_bangunan_lebar" min="0" step="0.1" placeholder="0" oninput="hitungLuasBangunan()">
-                            </div>
-                            <div class="col-4">
-                                <label class="form-label" style="font-size:0.75rem; color:var(--text-muted);">Luas (m²)</label>
-                                <input type="number" class="form-control" id="f_bangunan_luas" min="0" step="0.1" placeholder="0" readonly style="background:#e9ecef; font-weight:700;">
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Motor -->
-                    <div class="mb-3">
-                        <label class="form-label">D. Sepeda Motor</label>
-                        <div class="row g-2 mb-2">
-                            <div class="col-6">
-                                <label class="form-label" style="font-size:0.75rem; color:var(--text-muted);">Jumlah Unit</label>
-                                <input type="number" class="form-control" id="f_motor" min="0" placeholder="0" value="0">
-                            </div>
-                            <div class="col-6">
-                                <label class="form-label" style="font-size:0.75rem; color:var(--text-muted);">Nilai per Unit</label>
-                                <select class="form-select" id="f_motor_harga">
-                                    <option value="" disabled selected>Pilih range harga...</option>
-                                    <option value="Rendah (3-4 Juta)">Rendah: Rp 3.000.000 - 4.000.000</option>
-                                    <option value="Sedang (5-6 Juta)">Sedang: Rp 5.000.000 - 6.000.000</option>
-                                    <option value="Menengah (9-10 Juta)">Menengah: Rp 9.000.000 - 10.000.000</option>
-                                    <option value="Tinggi (10-15 Juta)">Tinggi: Rp 10.000.000 - 15.000.000</option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Mobil -->
-                    <div class="mb-3">
-                        <label class="form-label">E. Mobil</label>
-                        <div class="row g-2 mb-2">
-                            <div class="col-6">
-                                <label class="form-label" style="font-size:0.75rem; color:var(--text-muted);">Jumlah Unit</label>
-                                <input type="number" class="form-control" id="f_mobil" min="0" placeholder="0" value="0">
-                            </div>
-                            <div class="col-6">
-                                <label class="form-label" style="font-size:0.75rem; color:var(--text-muted);">Perkiraan Harga per Unit (Rp)</label>
-                                <div class="input-group">
-                                    <span class="input-group-text">Rp</span>
-                                    <input type="number" class="form-control" id="f_mobil_harga" placeholder="150000000">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Kulkas -->
-                    <div class="mb-3">
-                        <label class="form-label">F. Kulkas (Jumlah Unit)</label>
-                        <input type="number" class="form-control" id="f_kulkas" min="0" placeholder="0" value="0">
-                    </div>
-
-                    <!-- AC -->
-                    <div class="mb-3">
-                        <label class="form-label">G. AC (Jumlah Unit)</label>
-                        <input type="number" class="form-control" id="f_ac" min="0" placeholder="0" value="0">
-                    </div>
-                </div>
-
-                <!-- Pengeluaran -->
-                <div class="form-card mt-3">
-                    <div class="section-title">
-                        <i class="bi bi-cash-stack"></i> Pengeluaran Rutin
-                    </div>
-                    <div class="row g-3">
-                        <div class="col-md-6">
-                            <label class="form-label">A. Listrik per Bulan (Rp)</label>
-                            <div class="input-group">
-                                <span class="input-group-text">Rp</span>
-                                <input type="number" class="form-control" id="f_listrik" placeholder="250000">
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <label class="form-label">Nomor Meter PLN</label>
-                            <input type="text" class="form-control" id="f_no_meter_pln" placeholder="Contoh: 12345678901">
-                        </div>
-                        <div class="col-md-6">
-                            <label class="form-label">Daya Meter (Watt)</label>
-                            <select class="form-select" id="f_daya_meter">
-                                <option value="" disabled selected>Pilih daya...</option>
-                                <option value="450">450 VA</option>
-                                <option value="900">900 VA</option>
-                                <option value="1300">1.300 VA</option>
-                                <option value="2200">2.200 VA</option>
-                                <option value="3300">3.300 VA</option>
-                                <option value="4500">4.500 VA</option>
-                            </select>
-                        </div>
-                        <div class="col-md-6">
-                            <label class="form-label">B. WiFi/Internet per Bulan (Rp)</label>
-                            <div class="input-group">
-                                <span class="input-group-text">Rp</span>
-                                <input type="number" class="form-control" id="f_internet" placeholder="300000">
-                            </div>
-                        </div>
-                        <div class="col-12">
-                            <label class="form-label">C. Pengeluaran Rutin per Tahun (Rp)</label>
-                            <div class="input-group">
-                                <span class="input-group-text">Rp</span>
-                                <input type="number" class="form-control" id="f_pengeluaran_tahun" placeholder="50000000">
-                            </div>
-                            <div class="form-text">Termasuk pendidikan, kesehatan, transportasi, dll.</div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Pendidikan -->
-                <div class="form-card mt-3">
-                    <div class="section-title">
-                        <i class="bi bi-mortarboard"></i> Pendidikan Terakhir
-                    </div>
-                    <div class="row g-3">
-                        <div class="col-md-6">
-                            <label class="form-label">A. Kepala Keluarga</label>
-                            <select class="form-select" id="f_pendidikan_kk">
-                                <option value="" disabled selected>Pilih...</option>
-                                <option value="Tidak Sekolah">Tidak Sekolah</option>
-                                <option value="SD">SD/Sederajat</option>
-                                <option value="SMP">SMP/Sederajat</option>
-                                <option value="SMA">SMA/Sederajat</option>
-                                <option value="D1/D2">D1/D2</option>
-                                <option value="D3">D3</option>
-                                <option value="S1">S1</option>
-                                <option value="S2">S2</option>
-                                <option value="S3">S3</option>
-                            </select>
-                        </div>
-                        <div class="col-md-6">
-                            <label class="form-label">B. Istri</label>
-                            <select class="form-select" id="f_pendidikan_istri">
-                                <option value="" disabled selected>Pilih...</option>
-                                <option value="Tidak Ada">Tidak Ada</option>
-                                <option value="Tidak Sekolah">Tidak Sekolah</option>
-                                <option value="SD">SD/Sederajat</option>
-                                <option value="SMP">SMP/Sederajat</option>
-                                <option value="SMA">SMA/Sederajat</option>
-                                <option value="D1/D2">D1/D2</option>
-                                <option value="D3">D3</option>
-                                <option value="S1">S1</option>
-                                <option value="S2">S2</option>
-                                <option value="S3">S3</option>
-                            </select>
-                        </div>
-                        <div class="col-md-6">
-                            <label class="form-label">C. Anak 1</label>
-                            <select class="form-select" id="f_pendidikan_anak1">
-                                <option value="" disabled selected>Pilih...</option>
-                                <option value="Tidak Ada">Tidak Ada</option>
-                                <option value="Belum Sekolah">Belum Sekolah</option>
-                                <option value="TK">TK</option>
-                                <option value="SD">SD</option>
-                                <option value="SMP">SMP</option>
-                                <option value="SMA">SMA</option>
-                                <option value="D1/D2">D1/D2</option>
-                                <option value="D3">D3</option>
-                                <option value="S1">S1</option>
-                                <option value="S2">S2</option>
-                            </select>
-                        </div>
-                        <div class="col-md-6">
-                            <label class="form-label">D. Anak 2</label>
-                            <select class="form-select" id="f_pendidikan_anak2">
-                                <option value="" disabled selected>Pilih...</option>
-                                <option value="Tidak Ada">Tidak Ada</option>
-                                <option value="Belum Sekolah">Belum Sekolah</option>
-                                <option value="TK">TK</option>
-                                <option value="SD">SD</option>
-                                <option value="SMP">SMP</option>
-                                <option value="SMA">SMA</option>
-                                <option value="D1/D2">D1/D2</option>
-                                <option value="D3">D3</option>
-                                <option value="S1">S1</option>
-                                <option value="S2">S2</option>
-                            </select>
-                        </div>
-                        <div class="col-md-6">
-                            <label class="form-label">E. Anak 3</label>
-                            <select class="form-select" id="f_pendidikan_anak3">
-                                <option value="" disabled selected>Pilih...</option>
-                                <option value="Tidak Ada">Tidak Ada</option>
-                                <option value="Belum Sekolah">Belum Sekolah</option>
-                                <option value="TK">TK</option>
-                                <option value="SD">SD</option>
-                                <option value="SMP">SMP</option>
-                                <option value="SMA">SMA</option>
-                                <option value="D1/D2">D1/D2</option>
-                                <option value="D3">D3</option>
-                                <option value="S1">S1</option>
-                            </select>
-                        </div>
-                        <div class="col-md-6">
-                            <label class="form-label">F. Anak 4</label>
-                            <select class="form-select" id="f_pendidikan_anak4">
-                                <option value="" disabled selected>Pilih...</option>
-                                <option value="Tidak Ada">Tidak Ada</option>
-                                <option value="Belum Sekolah">Belum Sekolah</option>
-                                <option value="TK">TK</option>
-                                <option value="SD">SD</option>
-                                <option value="SMP">SMP</option>
-                                <option value="SMA">SMA</option>
-                                <option value="D1/D2">D1/D2</option>
-                                <option value="D3">D3</option>
-                                <option value="S1">S1</option>
-                            </select>
-                        </div>
-                        <div class="col-md-6">
-                            <label class="form-label">G. Anak 5</label>
-                            <select class="form-select" id="f_pendidikan_anak5">
-                                <option value="" disabled selected>Pilih...</option>
-                                <option value="Tidak Ada">Tidak Ada</option>
-                                <option value="Belum Sekolah">Belum Sekolah</option>
-                                <option value="TK">TK</option>
-                                <option value="SD">SD</option>
-                                <option value="SMP">SMP</option>
-                                <option value="SMA">SMA</option>
-                                <option value="D1/D2">D1/D2</option>
-                                <option value="D3">D3</option>
-                                <option value="S1">S1</option>
-                            </select>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Usaha Keluarga -->
-                <div class="form-card mt-3">
-                    <div class="section-title">
-                        <i class="bi bi-shop"></i> Usaha Keluarga
-                    </div>
-                    <label class="form-label">Apakah keluarga ini memiliki usaha?</label>
-                    <div class="radio-group mb-3">
-                        <div class="radio-btn" onclick="selectUsaha('tidak')" id="btnUsahaTidak">
-                            <i class="bi bi-x-circle"></i>
-                            Tidak
-                        </div>
-                        <div class="radio-btn" onclick="selectUsaha('ya')" id="btnUsahaYa">
-                            <i class="bi bi-check-circle"></i>
-                            Ya
-                        </div>
-                    </div>
-                    <input type="hidden" id="f_punya_usaha" value="">
-
-                    <div id="fieldUsaha" class="conditional-field">
-                        <div class="row g-3">
-                            <div class="col-12">
-                                <label class="form-label">Nama Usaha</label>
-                                <input type="text" class="form-control" id="f_nama_usaha" placeholder="Nama usaha">
-                            </div>
-                            <div class="col-12">
-                                <label class="form-label">Jenis Usaha</label>
-                                <input type="text" class="form-control" id="f_jenis_usaha" placeholder="Contoh: Warung, Konveksi, Bengkel">
-                            </div>
-                            <div class="col-md-6">
-                                <label class="form-label">Tahun Mulai Usaha</label>
-                                <input type="number" class="form-control" id="f_tahun_usaha" min="1900" max="2026" placeholder="2020">
-                            </div>
-                            <div class="col-md-6">
-                                <label class="form-label">Biaya Produksi/Tahun (Rp)</label>
-                                <div class="input-group">
-                                    <span class="input-group-text">Rp</span>
-                                    <input type="number" class="form-control" id="f_biaya_produksi" placeholder="10000000">
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <label class="form-label">Biaya Operasional/Tahun (Rp)</label>
-                                <div class="input-group">
-                                    <span class="input-group-text">Rp</span>
-                                    <input type="number" class="form-control" id="f_biaya_operasional" placeholder="5000000">
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <label class="form-label">Nilai Produksi/Tahun (Rp)</label>
-                                <div class="input-group">
-                                    <span class="input-group-text">Rp</span>
-                                    <input type="number" class="form-control" id="f_nilai_produksi" placeholder="50000000">
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <label class="form-label">Jumlah Pekerja</label>
-                                <input type="number" class="form-control" id="f_pekerja_total" min="1" placeholder="1">
-                            </div>
-                            <div class="col-md-6">
-                                <label class="form-label">Pekerja Wanita</label>
-                                <input type="number" class="form-control" id="f_pekerja_wanita" min="0" placeholder="0">
-                            </div>
-                            <div class="col-md-6">
-                                <label class="form-label">Pekerja Pria</label>
-                                <input type="number" class="form-control" id="f_pekerja_pria" min="0" placeholder="0">
-                            </div>
-                            <div class="col-md-6">
-                                <label class="form-label">Pekerja yang Digaji</label>
-                                <input type="number" class="form-control" id="f_pekerja_gaji" min="0" placeholder="0">
-                            </div>
-                            <div class="col-12">
-                                <label class="form-label">Penanggung Jawab/Pemilik Usaha</label>
-                                <input type="text" class="form-control" id="f_pemilik_usaha" placeholder="Nama pemilik usaha">
-                            </div>
-                            <div class="col-12">
-                                <label class="form-label">Lokasi Usaha (jika di luar tempat tinggal)</label>
-                                <input type="text" class="form-control" id="f_lokasi_usaha" placeholder="Alamat lengkap lokasi usaha">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Lokasi & Foto -->
-                <div class="form-card mt-3">
-                    <div class="section-title">
-                        <i class="bi bi-geo-alt"></i> Lokasi & Dokumentasi
-                    </div>
-
-                    <div class="mb-3">
-                        <label class="form-label">Koordinat Lokasi <span class="text-danger">*</span></label>
-                        <button type="button" class="btn btn-outline-primary w-100 mb-2" onclick="getLocation('family')">
-                            <i class="bi bi-geo-fill me-2"></i>Ambil Lokasi Realtime
+            <div class="card">
+                <div class="card-header">Pilih Mode Pendataan</div>
+                <div class="card-body">
+                    <div class="mode-grid">
+                        <button class="btn btn-outline-primary btn-mode" onclick="goToMode('keluarga')">
+                            <span class="icon">&#128106;</span>
+                            <span>Pendataan<br>Keluarga</span>
                         </button>
-                        <div id="coordFamily" class="coord-display" style="display:none;">
-                            <i class="bi bi-check-circle-fill"></i>
-                            <span id="coordFamilyText"></span>
-                        </div>
-                        <input type="hidden" id="f_lat">
-                        <input type="hidden" id="f_long">
+                        <button class="btn btn-outline-success btn-mode" onclick="goToMode('bangunan')">
+                            <span class="icon">&#127970;</span>
+                            <span>Bangunan Khusus<br>Usaha</span>
+                        </button>
                     </div>
+                </div>
+            </div>
+            <div class="card" id="draftSection">
+                <div class="card-header">Draft Tersimpan</div>
+                <div class="card-body" id="draftList">
+                    <div class="empty-state"><div class="icon">&#128194;</div><p>Belum ada draft tersimpan</p></div>
+                </div>
+            </div>
+        </div>
+    </div>
 
-                    <div class="mb-3">
-                        <label class="form-label">Foto Rumah Tampak Depan <span class="text-danger">*</span></label>
-                        <div class="photo-preview" onclick="document.getElementById('f_foto_rumah').click()">
-                            <img id="previewRumah" alt="Preview">
-                            <div class="photo-placeholder">
-                                <i class="bi bi-house-door-fill"></i>
-                                <span>Klik untuk foto rumah depan</span>
-                            </div>
-                        </div>
-                        <input type="file" id="f_foto_rumah" accept="image/*" capture="environment" style="display:none" onchange="previewImage(this, 'previewRumah')">
+    <!-- PAGE: MODE KELUARGA -->
+    <div class="page" id="pageModeKeluarga">
+        <div class="container py-4">
+            <div class="card">
+                <div class="card-header">Pendataan Keluarga</div>
+                <div class="card-body">
+                    <div class="mode-grid">
+                        <button class="btn btn-outline-primary btn-mode" onclick="startForm('prelist')">
+                            <span class="icon">&#128203;</span><span>Prelist</span>
+                        </button>
+                        <button class="btn btn-outline-info btn-mode" onclick="startForm('assignment')">
+                            <span class="icon">&#10024;</span><span>Assignment Baru</span>
+                        </button>
                     </div>
+                </div>
+            </div>
+            <div class="text-center mt-3"><button class="btn btn-secondary" onclick="goToPage('pageHome')">Kembali</button></div>
+        </div>
+    </div>
 
-                    <div class="mb-3">
-                        <label class="form-label">Foto Ruang Tamu <span class="text-danger">*</span></label>
-                        <div class="photo-preview" onclick="document.getElementById('f_foto_ruang').click()">
-                            <img id="previewRuang" alt="Preview">
-                            <div class="photo-placeholder">
-                                <i class="bi bi-door-open-fill"></i>
-                                <span>Klik untuk foto ruang tamu</span>
-                            </div>
-                        </div>
-                        <input type="file" id="f_foto_ruang" accept="image/*" capture="environment" style="display:none" onchange="previewImage(this, 'previewRuang')">
+    <!-- PAGE: MODE BANGUNAN -->
+    <div class="page" id="pageModeBangunan">
+        <div class="container py-4">
+            <div class="card">
+                <div class="card-header">Bangunan Khusus Usaha</div>
+                <div class="card-body"><p class="text-muted text-center">Fitur ini sedang dalam pengembangan.</p></div>
+            </div>
+            <div class="text-center mt-3"><button class="btn btn-secondary" onclick="goToPage('pageHome')">Kembali</button></div>
+        </div>
+    </div>
+
+    <!-- PAGE: FORM -->
+    <div class="page" id="pageForm">
+        <div class="container py-3">
+            <form id="mainForm" onsubmit="return false;">
+                <!-- DATA BANGUNAN -->
+                <div class="card">
+                    <div class="card-header">Data Bangunan</div>
+                    <div class="card-body">
+                        <div class="mb-3"><label class="form-label">Nomor Bangunan</label><input type="text" class="form-control" id="noBangunan" placeholder="Contoh: 001" onchange="autoSave()"></div>
+                        <div class="mb-3"><label class="form-label">Koordinat GPS</label><div class="input-group"><input type="text" class="form-control" id="koordinat" placeholder="-6.xxx, 107.xxx" readonly><button class="btn btn-outline-primary gps-btn" type="button" onclick="getGPS()">Ambil GPS</button></div></div>
+                        <div class="mb-3"><label class="form-label">Alamat Lengkap</label><textarea class="form-control" id="alamat" rows="2" placeholder="RT/RW, Dusun, Desa Sukadamai" onchange="autoSave()"></textarea></div>
+                        <div class="mb-3"><label class="form-label">Nomor KK</label><input type="text" class="form-control" id="noKK" placeholder="16 digit" maxlength="16" oninput="this.value=this.value.replace(/\D/g,'');autoSave()" onchange="autoSave()"></div>
+                        <div class="mb-3"><label class="form-label">Nomor WhatsApp</label><input type="text" class="form-control" id="noWA" placeholder="08xxxxxxxxxx" oninput="this.value=this.value.replace(/\D/g,'');autoSave()" onchange="autoSave()"></div>
                     </div>
                 </div>
 
-                <div class="px-3 mt-4 mb-5">
-                    <button type="submit" class="btn-submit">
-                        <i class="bi bi-whatsapp me-2"></i>Kirim Data via WhatsApp
-                    </button>
+                <!-- DATA KEPALA KELUARGA -->
+                <div class="card">
+                    <div class="card-header">Data Kepala Keluarga</div>
+                    <div class="card-body">
+                        <div class="mb-3"><label class="form-label">Nama Lengkap</label><input type="text" class="form-control" id="namaKK" placeholder="Nama Kepala Keluarga" onchange="autoSave()"></div>
+                        <div class="mb-3"><label class="form-label">NIK</label><input type="text" class="form-control" id="nikKK" placeholder="16 digit" maxlength="16" oninput="this.value=this.value.replace(/\D/g,'');autoSave()" onchange="autoSave()"></div>
+                        <div class="mb-3"><label class="form-label">Tanggal Lahir</label><input type="date" class="form-control" id="tglLahirKK" onchange="autoSave()"></div>
+                        <div class="mb-3"><label class="form-label">Jenis Kelamin</label>
+                            <div class="radio-group"><input type="radio" class="btn-check" name="jkKK" id="jkKK_L" value="Laki-laki" onchange="autoSave()"><label class="btn btn-outline-secondary" for="jkKK_L">Laki-laki</label><input type="radio" class="btn-check" name="jkKK" id="jkKK_P" value="Perempuan" onchange="autoSave()"><label class="btn btn-outline-secondary" for="jkKK_P">Perempuan</label></div>
+                        </div>
+                        <div class="mb-3"><label class="form-label">Pendidikan Terakhir</label>
+                            <select class="form-select" id="pendidikanKK" onchange="autoSave()"><option value="">-- Pilih --</option><option value="Tidak/Belum Sekolah">Tidak/Belum Sekolah</option><option value="SD/Sederajat">SD/Sederajat</option><option value="SMP/Sederajat">SMP/Sederajat</option><option value="SMA/Sederajat">SMA/Sederajat</option><option value="D1/D2">D1/D2</option><option value="D3">D3</option><option value="S1/D4">S1/D4</option><option value="S2">S2</option><option value="S3">S3</option></select>
+                        </div>
+                        <div class="mb-3"><label class="form-label">Pekerjaan</label><input type="text" class="form-control" id="pekerjaanKK" placeholder="Contoh: Petani, Buruh, PNS, dll" onchange="autoSave()"></div>
+                        <div class="mb-3"><label class="form-label">Status Perkawinan</label>
+                            <select class="form-select" id="statusKawinKK" onchange="autoSave()"><option value="">-- Pilih --</option><option value="Belum Kawin">Belum Kawin</option><option value="Kawin">Kawin</option><option value="Cerai Hidup">Cerai Hidup</option><option value="Cerai Mati">Cerai Mati</option></select>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- DATA PASANGAN -->
+                <div class="card">
+                    <div class="card-header">Data Pasangan (Suami/Istri)</div>
+                    <div class="card-body">
+                        <div class="mb-3"><label class="form-label">Nama Suami/Istri</label><input type="text" class="form-control" id="namaPasangan" placeholder="Nama Pasangan" onchange="autoSave()"></div>
+                        <div class="mb-3"><label class="form-label">Pekerjaan Pasangan</label><input type="text" class="form-control" id="pekerjaanPasangan" placeholder="Contoh: IRT, Petani, dll" onchange="autoSave()"></div>
+                    </div>
+                </div>
+
+                <!-- DATA EKONOMI -->
+                <div class="card">
+                    <div class="card-header">Data Ekonomi</div>
+                    <div class="card-body">
+                        <div class="mb-3"><label class="form-label">Gaji/Upah Bulanan</label><div class="input-group"><span class="input-group-text">Rp</span><input type="text" class="form-control rupiah-input" id="gajiBulanan" placeholder="0" oninput="formatRupiah(this);autoSave()" onchange="autoSave()"></div></div>
+                        <div class="mb-3"><label class="form-label">Pengeluaran Listrik Bulanan</label><div class="input-group"><span class="input-group-text">Rp</span><input type="text" class="form-control rupiah-input" id="listrikBulanan" placeholder="0" oninput="formatRupiah(this);autoSave()" onchange="autoSave()"></div></div>
+                        <div class="mb-3"><label class="form-label">Nomor Meter Listrik</label><input type="text" class="form-control" id="noMeter" placeholder="Nomor meter listrik" onchange="autoSave()"></div>
+                        <div class="mb-3"><label class="form-label">Daya Listrik (VA)</label>
+                            <select class="form-select" id="dayaListrik" onchange="autoSave()"><option value="">-- Pilih --</option><option value="450">450 VA</option><option value="900">900 VA</option><option value="1300">1300 VA</option><option value="2200">2200 VA</option><option value="3500">3500 VA</option><option value="5500">5500 VA</option><option value="6600">6600 VA</option><option value="Lainnya">Lainnya</option></select>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- STATUS KEPEMILIKAN RUMAH -->
+                <div class="card">
+                    <div class="card-header">Status Kepemilikan Rumah</div>
+                    <div class="card-body">
+                        <div class="radio-group">
+                            <input type="radio" class="btn-check" name="statusRumah" id="rumah_milik" value="Milik" onchange="autoSave()"><label class="btn btn-outline-secondary" for="rumah_milik">Milik</label>
+                            <input type="radio" class="btn-check" name="statusRumah" id="rumah_sewa" value="Sewa" onchange="autoSave()"><label class="btn btn-outline-secondary" for="rumah_sewa">Sewa</label>
+                            <input type="radio" class="btn-check" name="statusRumah" id="rumah_kontrak" value="Kontrak" onchange="autoSave()"><label class="btn btn-outline-secondary" for="rumah_kontrak">Kontrak</label>
+                            <input type="radio" class="btn-check" name="statusRumah" id="rumah_bebas" value="Bebas Sewa" onchange="autoSave()"><label class="btn btn-outline-secondary" for="rumah_bebas">Bebas Sewa</label>
+                            <input type="radio" class="btn-check" name="statusRumah" id="rumah_dinas" value="Rumah Dinas" onchange="autoSave()"><label class="btn btn-outline-secondary" for="rumah_dinas">Rumah Dinas</label>
+                            <input type="radio" class="btn-check" name="statusRumah" id="rumah_lain" value="Lainnya" onchange="autoSave()"><label class="btn btn-outline-secondary" for="rumah_lain">Lainnya</label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- LUAS BANGUNAN -->
+                <div class="card">
+                    <div class="card-header">Luas Bangunan</div>
+                    <div class="card-body">
+                        <div class="row g-2">
+                            <div class="col-6"><label class="form-label">Panjang (m)</label><input type="number" step="0.01" class="form-control" id="panjangBangunan" placeholder="0" oninput="hitungLuasBangunan();autoSave()"></div>
+                            <div class="col-6"><label class="form-label">Lebar (m)</label><input type="number" step="0.01" class="form-control" id="lebarBangunan" placeholder="0" oninput="hitungLuasBangunan();autoSave()"></div>
+                        </div>
+                        <div class="mt-3"><label class="form-label">Luas Bangunan (m2)</label><input type="number" step="0.01" class="form-control" id="luasBangunan" placeholder="0" onchange="autoSave()"><small class="text-muted">*Dihitung otomatis, bisa diedit manual</small></div>
+                    </div>
+                </div>
+
+                <!-- LUAS TANAH -->
+                <div class="card">
+                    <div class="card-header">Luas Tanah</div>
+                    <div class="card-body">
+                        <div class="row g-2">
+                            <div class="col-6"><label class="form-label">Panjang (m)</label><input type="number" step="0.01" class="form-control" id="panjangTanah" placeholder="0" oninput="hitungLuasTanah();autoSave()"></div>
+                            <div class="col-6"><label class="form-label">Lebar (m)</label><input type="number" step="0.01" class="form-control" id="lebarTanah" placeholder="0" oninput="hitungLuasTanah();autoSave()"></div>
+                        </div>
+                        <div class="mt-3"><label class="form-label">Luas Tanah (m2)</label><input type="number" step="0.01" class="form-control" id="luasTanah" placeholder="0" onchange="autoSave()"><small class="text-muted">*Dihitung otomatis, bisa diedit manual</small></div>
+                    </div>
+                </div>
+
+                <!-- ANGGOTA KELUARGA -->
+                <div class="card">
+                    <div class="card-header d-flex justify-content-between align-items-center"><span>Anggota Keluarga</span><button type="button" class="btn btn-sm btn-primary" onclick="tambahAnggota()">+ Tambah</button></div>
+                    <div class="card-body" id="anggotaContainer"><p class="text-muted text-center" id="anggotaEmpty">Belum ada anggota keluarga</p></div>
+                </div>
+
+                <!-- PERTANYAAN USAHA -->
+                <div class="card">
+                    <div class="card-header">Apakah Ada Usaha?</div>
+                    <div class="card-body">
+                        <div class="radio-group">
+                            <input type="radio" class="btn-check" name="adaUsaha" id="usaha_ya" value="Ya" onchange="toggleUsaha(true);autoSave()"><label class="btn btn-outline-success" for="usaha_ya">Ya, Ada Usaha</label>
+                            <input type="radio" class="btn-check" name="adaUsaha" id="usaha_tidak" value="Tidak" onchange="toggleUsaha(false);autoSave()"><label class="btn btn-outline-danger" for="usaha_tidak">Tidak Ada</label>
+                        </div>
+                        <div id="formUsaha" class="form-usaha-wrapper hidden fade-in">
+                            <span class="section-title">Form Usaha</span>
+                            <div class="mb-3 mt-3"><label class="form-label">Nama Komersial Usaha</label><input type="text" class="form-control" id="namaKomersial" placeholder="Nama usaha/jualan" onchange="autoSave()"></div>
+                            <div class="mb-3"><label class="form-label">Nomor WhatsApp Usaha</label><input type="text" class="form-control" id="waUsaha" placeholder="08xxxxxxxxxx" oninput="this.value=this.value.replace(/\D/g,'');autoSave()" onchange="autoSave()"></div>
+                            <div class="mb-3"><label class="form-label">Memiliki NIB?</label>
+                                <div class="radio-group"><input type="radio" class="btn-check" name="nib" id="nib_ya" value="Ya" onchange="autoSave()"><label class="btn btn-outline-secondary" for="nib_ya">Ya</label><input type="radio" class="btn-check" name="nib" id="nib_tidak" value="Tidak" onchange="autoSave()"><label class="btn btn-outline-secondary" for="nib_tidak">Tidak</label></div>
+                            </div>
+                            <div class="mb-3"><label class="form-label">Nama Pengusaha</label><input type="text" class="form-control" id="namaPengusaha" placeholder="Nama pengusaha" onchange="autoSave()"></div>
+                            <div class="mb-3"><label class="form-label">Jenis Kelamin Pengusaha</label>
+                                <div class="radio-group"><input type="radio" class="btn-check" name="jkPengusaha" id="jkPeng_L" value="Laki-laki" onchange="autoSave()"><label class="btn btn-outline-secondary" for="jkPeng_L">Laki-laki</label><input type="radio" class="btn-check" name="jkPengusaha" id="jkPeng_P" value="Perempuan" onchange="autoSave()"><label class="btn btn-outline-secondary" for="jkPeng_P">Perempuan</label></div>
+                            </div>
+                            <div class="mb-3"><label class="form-label">NIK Pengusaha</label><input type="text" class="form-control" id="nikPengusaha" placeholder="16 digit" maxlength="16" oninput="this.value=this.value.replace(/\D/g,'');autoSave()" onchange="autoSave()"></div>
+                            <div class="mb-3"><label class="form-label">Umur Pengusaha</label><input type="number" class="form-control" id="umurPengusaha" placeholder="Tahun" onchange="autoSave()"></div>
+                            <div class="mb-3"><label class="form-label">Kegiatan Utama Usaha</label><input type="text" class="form-control" id="kegiatanUtama" placeholder="Contoh: Warung, Pertanian, Jasa, dll" onchange="autoSave()"></div>
+                            <div class="mb-3"><label class="form-label">Memproduksi Barang?</label>
+                                <div class="radio-group"><input type="radio" class="btn-check" name="produksiBarang" id="prod_ya" value="Ya" onchange="autoSave()"><label class="btn btn-outline-secondary" for="prod_ya">Ya</label><input type="radio" class="btn-check" name="produksiBarang" id="prod_tidak" value="Tidak" onchange="autoSave()"><label class="btn btn-outline-secondary" for="prod_tidak">Tidak</label></div>
+                            </div>
+                            <div class="mt-4"><span class="section-title">Biaya & Omzet</span>
+                                <div class="mb-3 mt-3"><label class="form-label">Biaya Produksi</label><div class="row g-2"><div class="col-7"><div class="input-group"><span class="input-group-text">Rp</span><input type="text" class="form-control rupiah-input" id="biayaProduksi" placeholder="0" oninput="formatRupiah(this);hitungTahunan();autoSave()"></div></div><div class="col-5"><select class="form-select" id="periodeProduksi" onchange="hitungTahunan();autoSave()"><option value="hari">/ Hari</option><option value="minggu">/ Minggu</option><option value="bulan">/ Bulan</option><option value="tahun">/ Tahun</option></select></div></div><div class="mt-1"><small>Per Tahun: <span class="hasil-rupiah" id="thnProduksi">Rp 0</span></small></div></div>
+                                <div class="mb-3"><label class="form-label">Biaya Operasional</label><div class="row g-2"><div class="col-7"><div class="input-group"><span class="input-group-text">Rp</span><input type="text" class="form-control rupiah-input" id="biayaOperasional" placeholder="0" oninput="formatRupiah(this);hitungTahunan();autoSave()"></div></div><div class="col-5"><select class="form-select" id="periodeOperasional" onchange="hitungTahunan();autoSave()"><option value="hari">/ Hari</option><option value="minggu">/ Minggu</option><option value="bulan">/ Bulan</option><option value="tahun">/ Tahun</option></select></div></div><div class="mt-1"><small>Per Tahun: <span class="hasil-rupiah" id="thnOperasional">Rp 0</span></small></div></div>
+                                <div class="mb-3"><label class="form-label">Omzet</label><div class="row g-2"><div class="col-7"><div class="input-group"><span class="input-group-text">Rp</span><input type="text" class="form-control rupiah-input" id="omzet" placeholder="0" oninput="formatRupiah(this);hitungTahunan();autoSave()"></div></div><div class="col-5"><select class="form-select" id="periodeOmzet" onchange="hitungTahunan();autoSave()"><option value="hari">/ Hari</option><option value="minggu">/ Minggu</option><option value="bulan">/ Bulan</option><option value="tahun">/ Tahun</option></select></div></div><div class="mt-1"><small>Per Tahun: <span class="hasil-rupiah" id="thnOmzet">Rp 0</span></small></div></div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </form>
         </div>
-    </div>
-
-    <!-- Mode 2: Bangunan Khusus Usaha -->
-    <div id="businessForm" class="form-section">
-        <div class="container">
-            <div class="d-flex justify-content-between align-items-center mb-3 px-3">
-                <button class="btn-back" onclick="goHome()">
-                    <i class="bi bi-arrow-left me-1"></i> Kembali
-                </button>
-                <span class="badge-custom">Mode Bangunan Usaha</span>
-            </div>
-
-            <div class="progress-bar-custom mx-3">
-                <div class="progress-fill" id="businessProgress" style="width: 10%"></div>
-            </div>
-
-            <form id="formUsaha" onsubmit="return submitBusiness(event)">
-                <div class="form-card">
-                    <div class="section-title">
-                        <i class="bi bi-building"></i> Data Bangunan & Usaha
-                    </div>
-                    <div class="row g-3">
-                        <div class="col-12">
-                            <label class="form-label">Nomor Urut Bangunan</label>
-                            <input type="number" class="form-control" id="b_no_bangunan" placeholder="Contoh: 001">
-                        </div>
-                        <div class="col-12">
-                            <label class="form-label">Nama Usaha</label>
-                            <input type="text" class="form-control" id="b_nama_usaha" placeholder="Nama lengkap usaha">
-                        </div>
-                        <div class="col-12">
-                            <label class="form-label">Jenis Usaha</label>
-                            <input type="text" class="form-control" id="b_jenis_usaha" placeholder="Contoh: Restoran, Toko Kelontong, Bengkel">
-                        </div>
-                        <div class="col-md-6">
-                            <label class="form-label">Tahun Mulai Usaha</label>
-                            <input type="number" class="form-control" id="b_tahun_usaha" min="1900" max="2026" placeholder="2020">
-                        </div>
-                        <div class="col-md-6">
-                            <label class="form-label">Biaya Produksi/Tahun (Rp)</label>
-                            <div class="input-group">
-                                <span class="input-group-text">Rp</span>
-                                <input type="number" class="form-control" id="b_biaya_produksi" placeholder="50000000">
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <label class="form-label">Biaya Operasional/Tahun (Rp)</label>
-                            <div class="input-group">
-                                <span class="input-group-text">Rp</span>
-                                <input type="number" class="form-control" id="b_biaya_operasional" placeholder="20000000">
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <label class="form-label">Nilai Produksi/Tahun (Rp)</label>
-                            <div class="input-group">
-                                <span class="input-group-text">Rp</span>
-                                <input type="number" class="form-control" id="b_nilai_produksi" placeholder="100000000">
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <label class="form-label">Jumlah Pekerja</label>
-                            <input type="number" class="form-control" id="b_pekerja_total" min="1" placeholder="5">
-                        </div>
-                        <div class="col-md-6">
-                            <label class="form-label">Pekerja Wanita</label>
-                            <input type="number" class="form-control" id="b_pekerja_wanita" min="0" placeholder="2">
-                        </div>
-                        <div class="col-md-6">
-                            <label class="form-label">Pekerja Pria</label>
-                            <input type="number" class="form-control" id="b_pekerja_pria" min="0" placeholder="3">
-                        </div>
-                        <div class="col-md-6">
-                            <label class="form-label">Pekerja yang Digaji</label>
-                            <input type="number" class="form-control" id="b_pekerja_gaji" min="0" placeholder="4">
-                        </div>
-                        <div class="col-12">
-                            <label class="form-label">Penanggung Jawab/Pemilik Usaha</label>
-                            <input type="text" class="form-control" id="b_pemilik" placeholder="Nama pemilik usaha">
-                        </div>
-                        <div class="col-md-6">
-                            <label class="form-label">NIK Pemilik</label>
-                            <input type="text" class="form-control" id="b_nik" placeholder="16 digit NIK">
-                        </div>
-                        <div class="col-md-6">
-                            <label class="form-label">Umur Pemilik</label>
-                            <input type="number" class="form-control" id="b_umur" min="1" max="120" placeholder="35">
-                        </div>
-                        <div class="col-12">
-                            <label class="form-label">Lokasi Usaha (jika di luar tempat tinggal)</label>
-                            <input type="text" class="form-control" id="b_lokasi" placeholder="Alamat lengkap lokasi usaha">
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Lokasi -->
-                <div class="form-card mt-3">
-                    <div class="section-title">
-                        <i class="bi bi-geo-alt"></i> Lokasi
-                    </div>
-
-                    <div class="mb-3">
-                        <label class="form-label">Koordinat Lokasi <span class="text-danger">*</span></label>
-                        <button type="button" class="btn btn-outline-primary w-100 mb-2" onclick="getLocation('business')">
-                            <i class="bi bi-geo-fill me-2"></i>Ambil Lokasi Realtime
-                        </button>
-                        <div id="coordBusiness" class="coord-display" style="display:none;">
-                            <i class="bi bi-check-circle-fill"></i>
-                            <span id="coordBusinessText"></span>
-                        </div>
-                        <input type="hidden" id="b_lat">
-                        <input type="hidden" id="b_long">
-                    </div>
-                </div>
-
-                <div class="px-3 mt-4 mb-5">
-                    <button type="submit" class="btn-submit">
-                        <i class="bi bi-whatsapp me-2"></i>Kirim Data via WhatsApp
-                    </button>
-                </div>
-            </form>
+        <div class="nav-bottom">
+            <button class="btn btn-secondary" onclick="goToPage('pageHome')">Kembali</button>
+            <button class="btn btn-warning" onclick="saveDraft()">Simpan Draft</button>
+            <button class="btn btn-success" onclick="kirimWhatsApp()">Kirim WA</button>
         </div>
     </div>
 
-    <div class="footer-text">
-        <i class="bi bi-shield-check me-1"></i>Simple Sensus Ekonomi 2026 - Data dijaga kerahasiaannya
-    </div>
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script>
+        const DB_NAME = 'SensusEkonomi2026'; const DB_VERSION = 1; const STORE_NAME = 'drafts';
+        let db = null; let currentDraftId = null; let anggotaCount = 0;
 
-        // ============================================================
-        // KONFIGURASI & CONSTANTA
-        // ============================================================
-        const WHATSAPP_NUMBER = "6285791111335";
-
-        // Mapping koreksi karakter OCR yang sering salah
-        const OCR_CORRECTION_MAP = {
-            'O': '0', 'o': '0', 'Q': '0', 'D': '0',
-            'I': '1', 'l': '1', 'i': '1', 'L': '1', '|': '1', '!': '1',
-            'S': '5', 's': '5', '$': '5',
-            'B': '8', 'g': '8', 'G': '6',
-            'Z': '2', 'z': '2',
-            'A': '4', 'a': '4', '@': '4',
-            'T': '7', 't': '7',
-            'b': '6'
-        };
-
-        // Daftar provinsi Indonesia untuk validasi
-        const PROVINSI_CODES = {
-            '11': 'Aceh', '12': 'Sumatera Utara', '13': 'Sumatera Barat',
-            '14': 'Riau', '15': 'Jambi', '16': 'Sumatera Selatan',
-            '17': 'Bengkulu', '18': 'Lampung', '19': 'Kep. Bangka Belitung',
-            '21': 'Kep. Riau', '31': 'DKI Jakarta', '32': 'Jawa Barat',
-            '33': 'Jawa Tengah', '34': 'DI Yogyakarta', '35': 'Jawa Timur',
-            '36': 'Banten', '51': 'Bali', '52': 'Nusa Tenggara Barat',
-            '53': 'Nusa Tenggara Timur', '61': 'Kalimantan Barat',
-            '62': 'Kalimantan Tengah', '63': 'Kalimantan Selatan',
-            '64': 'Kalimantan Timur', '65': 'Kalimantan Utara',
-            '71': 'Sulawesi Utara', '72': 'Sulawesi Tengah',
-            '73': 'Sulawesi Selatan', '74': 'Sulawesi Tenggara',
-            '75': 'Gorontalo', '76': 'Sulawesi Barat',
-            '81': 'Maluku', '82': 'Maluku Utara',
-            '91': 'Papua', '92': 'Papua Barat'
-        };
-
-        // ============================================================
-        // IMAGE PREPROCESSING ENGINE (Canvas-based)
-        // ============================================================
-
-        class ImagePreprocessor {
-            constructor() {
-                this.canvas = document.createElement('canvas');
-                this.ctx = this.canvas.getContext('2d', { willReadFrequently: true });
-            }
-
-            async preprocess(imageSrc) {
-                return new Promise((resolve, reject) => {
-                    const img = new Image();
-                    img.onload = () => {
-                        try {
-                            const processed = this._processImage(img);
-                            resolve(processed);
-                        } catch (err) {
-                            reject(err);
-                        }
-                    };
-                    img.onerror = reject;
-                    img.src = imageSrc;
-                });
-            }
-
-            _processImage(img) {
-                // 1. Resize ke resolusi optimal (min 1500px lebar untuk OCR)
-                const targetWidth = Math.max(img.width, 1500);
-                const targetHeight = Math.round((targetWidth / img.width) * img.height);
-
-                this.canvas.width = targetWidth;
-                this.canvas.height = targetHeight;
-
-                // 2. Draw original
-                this.ctx.drawImage(img, 0, 0, targetWidth, targetHeight);
-
-                // 3. Get image data
-                let imageData = this.ctx.getImageData(0, 0, targetWidth, targetHeight);
-                let data = imageData.data;
-
-                // 4. Grayscale dengan weighted average (luminance)
-                for (let i = 0; i < data.length; i += 4) {
-                    const gray = 0.299 * data[i] + 0.587 * data[i + 1] + 0.114 * data[i + 2];
-                    data[i] = gray;
-                    data[i + 1] = gray;
-                    data[i + 2] = gray;
-                }
-
-                // 5. Contrast enhancement (histogram stretching)
-                imageData = this._enhanceContrast(imageData);
-
-                // 6. Noise reduction (median filter 3x3)
-                imageData = this._medianFilter(imageData, targetWidth, targetHeight);
-
-                // 7. Adaptive threshold (Otsu-like)
-                imageData = this._adaptiveThreshold(imageData, targetWidth, targetHeight);
-
-                // 8. Deskew detection & correction
-                imageData = this._deskew(imageData, targetWidth, targetHeight);
-
-                // 9. Put back to canvas
-                this.ctx.putImageData(imageData, 0, 0);
-
-                // 10. Sharpening (unsharp mask)
-                this._sharpen(targetWidth, targetHeight);
-
-                return this.canvas.toDataURL('image/png');
-            }
-
-            _enhanceContrast(imageData) {
-                const data = imageData.data;
-                let min = 255, max = 0;
-
-                // Find min/max
-                for (let i = 0; i < data.length; i += 4) {
-                    const val = data[i];
-                    if (val < min) min = val;
-                    if (val > max) max = val;
-                }
-
-                // Stretch
-                const range = max - min;
-                if (range === 0) return imageData;
-
-                for (let i = 0; i < data.length; i += 4) {
-                    const normalized = ((data[i] - min) / range) * 255;
-                    const enhanced = this._sigmoidContrast(normalized);
-                    data[i] = enhanced;
-                    data[i + 1] = enhanced;
-                    data[i + 2] = enhanced;
-                }
-
-                return imageData;
-            }
-
-            _sigmoidContrast(value) {
-                // Sigmoid contrast enhancement for better text separation
-                const factor = 1.5; // contrast factor
-                const normalized = (value / 255) - 0.5;
-                const enhanced = (normalized * factor) + 0.5;
-                return Math.max(0, Math.min(255, enhanced * 255));
-            }
-
-            _medianFilter(imageData, width, height) {
-                const data = imageData.data;
-                const output = new Uint8ClampedArray(data.length);
-
-                for (let y = 1; y < height - 1; y++) {
-                    for (let x = 1; x < width - 1; x++) {
-                        const idx = (y * width + x) * 4;
-                        const neighbors = [];
-
-                        for (let dy = -1; dy <= 1; dy++) {
-                            for (let dx = -1; dx <= 1; dx++) {
-                                const nIdx = ((y + dy) * width + (x + dx)) * 4;
-                                neighbors.push(data[nIdx]);
-                            }
-                        }
-
-                        neighbors.sort((a, b) => a - b);
-                        const median = neighbors[4]; // middle of 9
-
-                        output[idx] = median;
-                        output[idx + 1] = median;
-                        output[idx + 2] = median;
-                        output[idx + 3] = data[idx + 3];
+        function openDB() {
+            return new Promise((resolve, reject) => {
+                const request = indexedDB.open(DB_NAME, DB_VERSION);
+                request.onerror = () => reject(request.error);
+                request.onsuccess = () => { db = request.result; resolve(db); };
+                request.onupgradeneeded = (e) => {
+                    const database = e.target.result;
+                    if (!database.objectStoreNames.contains(STORE_NAME)) {
+                        database.createObjectStore(STORE_NAME, { keyPath: 'id', autoIncrement: true });
                     }
-                }
-
-                // Copy edges
-                for (let i = 0; i < data.length; i++) {
-                    if (output[i] === 0 && i % 4 !== 3) {
-                        output[i] = data[i];
-                    }
-                }
-
-                imageData.data.set(output);
-                return imageData;
-            }
-
-            _adaptiveThreshold(imageData, width, height) {
-                const data = imageData.data;
-                const blockSize = 25; // block size for local threshold
-                const c = 10; // constant to subtract from mean
-
-                const output = new Uint8ClampedArray(data.length);
-
-                for (let y = 0; y < height; y++) {
-                    for (let x = 0; x < width; x++) {
-                        const idx = (y * width + x) * 4;
-
-                        // Calculate local mean
-                        let sum = 0, count = 0;
-                        const halfBlock = Math.floor(blockSize / 2);
-
-                        for (let dy = -halfBlock; dy <= halfBlock; dy++) {
-                            for (let dx = -halfBlock; dx <= halfBlock; dx++) {
-                                const ny = Math.max(0, Math.min(height - 1, y + dy));
-                                const nx = Math.max(0, Math.min(width - 1, x + dx));
-                                sum += data[(ny * width + nx) * 4];
-                                count++;
-                            }
-                        }
-
-                        const threshold = (sum / count) - c;
-                        const val = data[idx] < threshold ? 0 : 255;
-
-                        output[idx] = val;
-                        output[idx + 1] = val;
-                        output[idx + 2] = val;
-                        output[idx + 3] = 255;
-                    }
-                }
-
-                imageData.data.set(output);
-                return imageData;
-            }
-
-            _deskew(imageData, width, height) {
-                // Simple deskew using projection profile
-                // Detect skew angle by finding the angle with maximum variance
-                const data = imageData.data;
-                let bestAngle = 0;
-                let maxVariance = 0;
-
-                // Test angles from -5 to 5 degrees
-                for (let angle = -5; angle <= 5; angle += 0.5) {
-                    const variance = this._calculateProjectionVariance(data, width, height, angle);
-                    if (variance > maxVariance) {
-                        maxVariance = variance;
-                        bestAngle = angle;
-                    }
-                }
-
-                if (Math.abs(bestAngle) > 0.5) {
-                    return this._rotateImageData(imageData, width, height, bestAngle);
-                }
-
-                return imageData;
-            }
-
-            _calculateProjectionVariance(data, width, height, angle) {
-                const rad = angle * Math.PI / 180;
-                const cos = Math.cos(rad);
-                const sin = Math.sin(rad);
-                const projections = new Array(width).fill(0);
-
-                for (let y = 0; y < height; y += 2) {
-                    for (let x = 0; x < width; x += 2) {
-                        const nx = Math.round(x * cos - y * sin);
-                        const ny = Math.round(x * sin + y * cos);
-
-                        if (nx >= 0 && nx < width && ny >= 0 && ny < height) {
-                            const idx = (ny * width + nx) * 4;
-                            if (data[idx] < 128) {
-                                projections[nx]++;
-                            }
-                        }
-                    }
-                }
-
-                const mean = projections.reduce((a, b) => a + b, 0) / projections.length;
-                const variance = projections.reduce((a, b) => a + Math.pow(b - mean, 2), 0) / projections.length;
-                return variance;
-            }
-
-            _rotateImageData(imageData, width, height, angle) {
-                const rad = angle * Math.PI / 180;
-                const cos = Math.cos(rad);
-                const sin = Math.sin(rad);
-                const cx = width / 2;
-                const cy = height / 2;
-
-                const newCanvas = document.createElement('canvas');
-                newCanvas.width = width;
-                newCanvas.height = height;
-                const newCtx = newCanvas.getContext('2d');
-
-                newCtx.translate(cx, cy);
-                newCtx.rotate(-rad);
-                newCtx.translate(-cx, -cy);
-
-                const tempCanvas = document.createElement('canvas');
-                tempCanvas.width = width;
-                tempCanvas.height = height;
-                tempCanvas.getContext('2d').putImageData(imageData, 0, 0);
-
-                newCtx.drawImage(tempCanvas, 0, 0);
-
-                return newCtx.getImageData(0, 0, width, height);
-            }
-
-            _sharpen(width, height) {
-                // Unsharp mask sharpening
-                const imageData = this.ctx.getImageData(0, 0, width, height);
-                const data = imageData.data;
-                const output = new Uint8ClampedArray(data.length);
-
-                // Gaussian blur kernel 3x3 (simplified)
-                const kernel = [
-                    0, -1, 0,
-                    -1, 5, -1,
-                    0, -1, 0
-                ];
-
-                for (let y = 1; y < height - 1; y++) {
-                    for (let x = 1; x < width - 1; x++) {
-                        const idx = (y * width + x) * 4;
-                        let r = 0, g = 0, b = 0;
-
-                        for (let ky = -1; ky <= 1; ky++) {
-                            for (let kx = -1; kx <= 1; kx++) {
-                                const nIdx = ((y + ky) * width + (x + kx)) * 4;
-                                const kVal = kernel[(ky + 1) * 3 + (kx + 1)];
-                                r += data[nIdx] * kVal;
-                                g += data[nIdx + 1] * kVal;
-                                b += data[nIdx + 2] * kVal;
-                            }
-                        }
-
-                        output[idx] = Math.max(0, Math.min(255, r));
-                        output[idx + 1] = Math.max(0, Math.min(255, g));
-                        output[idx + 2] = Math.max(0, Math.min(255, b));
-                        output[idx + 3] = data[idx + 3];
-                    }
-                }
-
-                imageData.data.set(output);
-                this.ctx.putImageData(imageData, 0, 0);
-            }
-        }
-
-        // ============================================================
-        // OCR TEXT CORRECTION & VALIDATION ENGINE
-        // ============================================================
-
-        class TextCorrector {
-            static correctNumber(text, expectedLength = 16) {
-                if (!text) return '';
-
-                let corrected = text.toString().trim();
-
-                // Remove all non-alphanumeric characters first
-                corrected = corrected.replace(/[^A-Za-z0-9]/g, '');
-
-                // Apply character correction mapping
-                let result = '';
-                for (let char of corrected) {
-                    result += OCR_CORRECTION_MAP[char] || char;
-                }
-
-                // Keep only digits
-                result = result.replace(/\D/g, '');
-
-                // Validate length
-                if (result.length !== expectedLength) {
-                    // Try to fix common concatenation issues
-                    if (result.length > expectedLength) {
-                        // Might have merged numbers, try splitting
-                        const possible = this._trySplitNumber(result, expectedLength);
-                        if (possible) return possible;
-                    }
-                }
-
-                return result;
-            }
-
-            static _trySplitNumber(numStr, expectedLength) {
-                // Try to find a valid NIK/KK by splitting at likely boundaries
-                for (let i = expectedLength; i < numStr.length; i++) {
-                    const candidate = numStr.substring(i - expectedLength, i);
-                    if (this.isValidNIK(candidate) || this.isValidKK(candidate)) {
-                        return candidate;
-                    }
-                }
-                return numStr.substring(0, expectedLength);
-            }
-
-            static isValidNIK(nik) {
-                if (!nik || nik.length !== 16) return false;
-
-                const provCode = nik.substring(0, 2);
-                if (!PROVINSI_CODES[provCode]) return false;
-
-                // Check date portion (DDMMYY)
-                const day = parseInt(nik.substring(6, 8));
-                const month = parseInt(nik.substring(8, 10));
-                const year = parseInt(nik.substring(10, 12));
-
-                // Day can be 01-31 (male) or 41-71 (female)
-                const actualDay = day > 40 ? day - 40 : day;
-                if (actualDay < 1 || actualDay > 31) return false;
-                if (month < 1 || month > 12) return false;
-                if (year < 0 || year > 99) return false;
-
-                return true;
-            }
-
-            static isValidKK(kk) {
-                if (!kk || kk.length !== 16) return false;
-
-                // KK format: ppDDSS ddmmyy ssss
-                const provCode = kk.substring(0, 2);
-                if (!PROVINSI_CODES[provCode]) return false;
-
-                const day = parseInt(kk.substring(6, 8));
-                const month = parseInt(kk.substring(8, 10));
-                const year = parseInt(kk.substring(10, 12));
-
-                if (day < 1 || day > 31) return false;
-                if (month < 1 || month > 12) return false;
-                if (year < 0 || year > 99) return false;
-
-                return true;
-            }
-
-            static correctDate(dateStr) {
-                if (!dateStr) return '';
-
-                // Try various date formats
-                const patterns = [
-                    /(\d{1,2})[\s\-\/\.](\d{1,2})[\s\-\/\.](\d{4})/,  // DD-MM-YYYY
-                    /(\d{1,2})[\s\-\/\.](\d{1,2})[\s\-\/\.](\d{2})/,    // DD-MM-YY
-                    /(\d{4})[\s\-\/\.](\d{1,2})[\s\-\/\.](\d{1,2})/,    // YYYY-MM-DD
-                ];
-
-                for (let pattern of patterns) {
-                    const match = dateStr.match(pattern);
-                    if (match) {
-                        let d, m, y;
-                        if (match[1].length === 4) {
-                            y = match[1];
-                            m = match[2].padStart(2, '0');
-                            d = match[3].padStart(2, '0');
-                        } else {
-                            d = match[1].padStart(2, '0');
-                            m = match[2].padStart(2, '0');
-                            y = match[3].length === 2 ? '20' + match[3] : match[3];
-                        }
-
-                        // Validate
-                        const day = parseInt(d);
-                        const month = parseInt(m);
-                        const year = parseInt(y);
-
-                        if (day >= 1 && day <= 31 && month >= 1 && month <= 12 && year >= 1900 && year <= 2099) {
-                            return `${y}-${m}-${d}`;
-                        }
-                    }
-                }
-
-                return '';
-            }
-
-            static cleanName(name) {
-                if (!name) return '';
-
-                // Remove common OCR artifacts
-                let cleaned = name
-                    .replace(/[|!@#$%^&*()_+=\[\]{};':"\|,.<>\/?0-9]/g, '')
-                    .replace(/\s+/g, ' ')
-                    .trim();
-
-                // Capitalize each word
-                cleaned = cleaned.toLowerCase().replace(/\w/g, l => l.toUpperCase());
-
-                // Remove single characters (likely noise)
-                cleaned = cleaned.split(' ').filter(w => w.length > 1).join(' ');
-
-                return cleaned;
-            }
-        }
-
-        // ============================================================
-        // ADVANCED KK PARSER ENGINE
-        // ============================================================
-
-        class KKParser {
-            constructor() {
-                this.reset();
-            }
-
-            reset() {
-                this.data = {
-                    noKK: '',
-                    namaKK: '',
-                    alamat: '',
-                    rt: '',
-                    rw: '',
-                    kodePos: '',
-                    desa: '',
-                    kecamatan: '',
-                    kabupaten: '',
-                    provinsi: '',
-                    tglDikeluarkan: '',
-                    anggota: []
                 };
-                this.rawLines = [];
-                this.confidence = 0;
-            }
-
-            parse(rawText, words = []) {
-                this.reset();
-                this.rawLines = rawText.split('\n').map(l => l.trim()).filter(l => l.length > 0);
-
-                // Extract with multiple strategies
-                this._extractNoKK();
-                this._extractNamaKK();
-                this._extractAlamat();
-                this._extractRTRW();
-                this._extractWilayah();
-                this._extractTanggal();
-                this._extractAnggota(words);
-
-                // Calculate overall confidence
-                this._calculateConfidence();
-
-                return this.data;
-            }
-
-            _extractNoKK() {
-                // Strategy 1: Look for explicit "No KK" or "Nomor KK" labels
-                const labelPatterns = [
-                    /(?:No\.?|Nomor)\s*(?:KK|Kartu\s*Keluarga)[\s:]*([0-9OIl\s]{10,20})/i,
-                    /(?:No\.?|Nomor)[\s:]*([0-9OIl\s]{14,18})\s*(?:KK|Kartu)/i,
-                ];
-
-                for (let line of this.rawLines) {
-                    for (let pattern of labelPatterns) {
-                        const match = line.match(pattern);
-                        if (match) {
-                            const candidate = TextCorrector.correctNumber(match[1], 16);
-                            if (TextCorrector.isValidKK(candidate)) {
-                                this.data.noKK = candidate;
-                                return;
-                            }
-                        }
-                    }
-                }
-
-                // Strategy 2: Find standalone 16-digit numbers that look like KK
-                for (let line of this.rawLines) {
-                    // Look for 16-digit pattern with possible spaces
-                    const matches = line.match(/[0-9OIl\s]{16,20}/g);
-                    if (matches) {
-                        for (let match of matches) {
-                            const candidate = TextCorrector.correctNumber(match, 16);
-                            if (TextCorrector.isValidKK(candidate)) {
-                                this.data.noKK = candidate;
-                                return;
-                            }
-                        }
-                    }
-                }
-
-                // Strategy 3: Find 4 groups of 4 digits (common KK format)
-                for (let line of this.rawLines) {
-                    const match = line.match(/([0-9OIl]{4})\s*([0-9OIl]{4})\s*([0-9OIl]{4})\s*([0-9OIl]{4})/);
-                    if (match) {
-                        const candidate = TextCorrector.correctNumber(
-                            match[1] + match[2] + match[3] + match[4], 16
-                        );
-                        if (TextCorrector.isValidKK(candidate)) {
-                            this.data.noKK = candidate;
-                            return;
-                        }
-                    }
-                }
-            }
-
-            _extractNamaKK() {
-                // Strategy 1: Look for "Nama Kepala Keluarga" label
-                for (let i = 0; i < this.rawLines.length; i++) {
-                    const line = this.rawLines[i];
-                    if (/kepala\s*keluarga|nama\s*kk|kepala\s*kel/i.test(line)) {
-                        // Check same line after colon
-                        const sameLineMatch = line.match(/[:;]\s*([A-Za-z\s\.',]{3,50})/i);
-                        if (sameLineMatch) {
-                            this.data.namaKK = TextCorrector.cleanName(sameLineMatch[1]);
-                            return;
-                        }
-                        // Check next line
-                        if (i + 1 < this.rawLines.length) {
-                            const nextLine = this.rawLines[i + 1];
-                            if (!/\d{4,}/.test(nextLine) && nextLine.length > 3) {
-                                this.data.namaKK = TextCorrector.cleanName(nextLine);
-                                return;
-                            }
-                        }
-                    }
-                }
-
-                // Strategy 2: Look for "Nama" label near top of document
-                for (let i = 0; i < Math.min(15, this.rawLines.length); i++) {
-                    const line = this.rawLines[i];
-                    if (/^\s*nama\s*[:;]/i.test(line)) {
-                        const match = line.match(/[:;]\s*([A-Za-z\s\.',]{3,50})/i);
-                        if (match) {
-                            this.data.namaKK = TextCorrector.cleanName(match[1]);
-                            return;
-                        }
-                    }
-                }
-
-                // Strategy 3: First reasonable name after header (first 10 lines)
-                for (let i = 3; i < Math.min(10, this.rawLines.length); i++) {
-                    const line = this.rawLines[i];
-                    if (line.length > 5 && line.length < 50 && !/\d/.test(line) && /^[A-Za-z\s\.',]+$/.test(line)) {
-                        this.data.namaKK = TextCorrector.cleanName(line);
-                        return;
-                    }
-                }
-            }
-
-            _extractAlamat() {
-                for (let line of this.rawLines) {
-                    const alamatMatch = line.match(/alamat[\s:]*(.+)/i);
-                    if (alamatMatch) {
-                        this.data.alamat = alamatMatch[1].trim();
-                        return;
-                    }
-                }
-            }
-
-            _extractRTRW() {
-                for (let line of this.rawLines) {
-                    // RT/RW format variations
-                    const rtRwMatch = line.match(/RT\s*[\/]?\s*RW[\s:]*([0-9OIl]{1,3})[\s\/]+([0-9OIl]{1,3})/i);
-                    if (rtRwMatch) {
-                        this.data.rt = TextCorrector.correctNumber(rtRwMatch[1], 3).padStart(3, '0');
-                        this.data.rw = TextCorrector.correctNumber(rtRwMatch[2], 3).padStart(3, '0');
-                        return;
-                    }
-
-                    const rtMatch = line.match(/RT[\s:]*([0-9OIl]{1,3})/i);
-                    const rwMatch = line.match(/RW[\s:]*([0-9OIl]{1,3})/i);
-                    if (rtMatch) this.data.rt = TextCorrector.correctNumber(rtMatch[1], 3).padStart(3, '0');
-                    if (rwMatch) this.data.rw = TextCorrector.correctNumber(rwMatch[1], 3).padStart(3, '0');
-                }
-            }
-
-            _extractWilayah() {
-                for (let line of this.rawLines) {
-                    if (/desa|kelurahan/i.test(line)) {
-                        const match = line.match(/(desa|kelurahan)[\s:]*(.+)/i);
-                        if (match) this.data.desa = match[2].trim();
-                    }
-                    if (/kecamatan/i.test(line)) {
-                        const match = line.match(/kecamatan[\s:]*(.+)/i);
-                        if (match) this.data.kecamatan = match[2].trim();
-                    }
-                    if (/kabupaten|kota/i.test(line)) {
-                        const match = line.match(/(kabupaten|kota)[\s:]*(.+)/i);
-                        if (match) this.data.kabupaten = match[2].trim();
-                    }
-                    if (/provinsi/i.test(line)) {
-                        const match = line.match(/provinsi[\s:]*(.+)/i);
-                        if (match) this.data.provinsi = match[2].trim();
-                    }
-                    if (/kode\s*pos/i.test(line)) {
-                        const match = line.match(/kode\s*pos[\s:]*([0-9OIl]{5})/i);
-                        if (match) this.data.kodePos = TextCorrector.correctNumber(match[1], 5);
-                    }
-                }
-            }
-
-            _extractTanggal() {
-                for (let line of this.rawLines) {
-                    const tglMatch = line.match(/(tanggal|tgl)[\s:]*([0-9OIl]{1,2})[\s\-\/]([0-9]{1,2})[\s\-\/]([0-9]{2,4})/i);
-                    if (tglMatch) {
-                        const d = tglMatch[2].padStart(2, '0');
-                        const m = tglMatch[3].padStart(2, '0');
-                        let y = tglMatch[4];
-                        if (y.length === 2) y = '20' + y;
-                        this.data.tglDikeluarkan = `${y}-${m}-${d}`;
-                        return;
-                    }
-                }
-            }
-
-            _extractAnggota(words) {
-                // Use both line-based and word-based (with bounding boxes) extraction
-                const anggota = [];
-
-                // Strategy 1: Table-based extraction using word positions
-                if (words && words.length > 0) {
-                    const tableAnggota = this._extractFromTable(words);
-                    if (tableAnggota.length > 0) {
-                        anggota.push(...tableAnggota);
-                    }
-                }
-
-                // Strategy 2: Line-based extraction if table fails
-                if (anggota.length === 0) {
-                    const lineAnggota = this._extractFromLines();
-                    if (lineAnggota.length > 0) {
-                        anggota.push(...lineAnggota);
-                    }
-                }
-
-                // Strategy 3: Pattern-based extraction for NIK-Nama pairs
-                if (anggota.length === 0) {
-                    const patternAnggota = this._extractFromPatterns();
-                    if (patternAnggota.length > 0) {
-                        anggota.push(...patternAnggota);
-                    }
-                }
-
-                this.data.anggota = anggota;
-            }
-
-            _extractFromTable(words) {
-                const anggota = [];
-
-                // Group words by rows (similar y-coordinate)
-                const rowTolerance = 15; // pixels
-                const rows = [];
-                let currentRow = [];
-                let currentY = -1;
-
-                // Sort words by y then x
-                const sortedWords = [...words].sort((a, b) => {
-                    if (Math.abs(a.bbox.y0 - b.bbox.y0) < rowTolerance) {
-                        return a.bbox.x0 - b.bbox.x0;
-                    }
-                    return a.bbox.y0 - b.bbox.y0;
-                });
-
-                for (let word of sortedWords) {
-                    if (currentY === -1 || Math.abs(word.bbox.y0 - currentY) < rowTolerance) {
-                        currentRow.push(word);
-                        currentY = word.bbox.y0;
-                    } else {
-                        if (currentRow.length > 0) rows.push([...currentRow]);
-                        currentRow = [word];
-                        currentY = word.bbox.y0;
-                    }
-                }
-                if (currentRow.length > 0) rows.push(currentRow);
-
-                // Find rows that contain NIK patterns
-                for (let row of rows) {
-                    const rowText = row.map(w => w.text).join(' ');
-
-                    // Look for NIK in this row
-                    const nikMatch = rowText.match(/\b([0-9OIl]{4}\s*[0-9OIl]{4}\s*[0-9OIl]{4}\s*[0-9OIl]{4})\b/);
-                    if (nikMatch) {
-                        const nik = TextCorrector.correctNumber(nikMatch[1], 16);
-                        if (TextCorrector.isValidNIK(nik)) {
-                            // Find name in same row or adjacent rows
-                            let nama = '';
-                            let tglLahir = '';
-                            let jenisKelamin = '';
-                            let status = '';
-
-                            // Extract name from row text (before NIK usually)
-                            const beforeNIK = rowText.substring(0, rowText.indexOf(nikMatch[1])).trim();
-                            const afterNIK = rowText.substring(rowText.indexOf(nikMatch[1]) + nikMatch[1].length).trim();
-
-                            // Try to find name
-                            const nameMatch = beforeNIK.match(/([A-Z][a-zA-Z\s\.',]{2,40})$/);
-                            if (nameMatch) {
-                                nama = TextCorrector.cleanName(nameMatch[1]);
-                            }
-
-                            // Look for date in afterNIK
-                            const dateMatch = afterNIK.match(/([0-9OIl]{1,2})[\s\-\/]([0-9]{1,2})[\s\-\/]([0-9]{4})/);
-                            if (dateMatch) {
-                                tglLahir = TextCorrector.correctDate(`${dateMatch[1]}-${dateMatch[2]}-${dateMatch[3]}`);
-                            }
-
-                            // Look for gender
-                            if (/LAKI|Laki|LAKI-LAKI|LELAKI/i.test(rowText)) {
-                                jenisKelamin = 'Laki-laki';
-                            } else if (/PEREMPUAN|Perempuan/i.test(rowText)) {
-                                jenisKelamin = 'Perempuan';
-                            }
-
-                            // Look for status
-                            const statusPatterns = [
-                                { pattern: /KEPALA\s*KELUARGA/i, value: 'Kepala Keluarga' },
-                                { pattern: /ISTRI/i, value: 'Istri' },
-                                { pattern: /ANAK/i, value: 'Anak' },
-                                { pattern: /MENANTU/i, value: 'Menantu' },
-                                { pattern: /CUCU/i, value: 'Cucu' },
-                                { pattern: /ORANG\s*TUA/i, value: 'Orang Tua' },
-                                { pattern: /MERTUA/i, value: 'Mertua' },
-                            ];
-
-                            for (let sp of statusPatterns) {
-                                if (sp.pattern.test(rowText)) {
-                                    status = sp.value;
-                                    break;
-                                }
-                            }
-
-                            anggota.push({
-                                nik: nik,
-                                nama: nama,
-                                tempatLahir: '',
-                                tglLahir: tglLahir,
-                                jenisKelamin: jenisKelamin,
-                                status: status
-                            });
-                        }
-                    }
-                }
-
-                return anggota;
-            }
-
-            _extractFromLines() {
-                const anggota = [];
-
-                for (let i = 0; i < this.rawLines.length; i++) {
-                    const line = this.rawLines[i];
-
-                    // Look for NIK pattern (16 digits)
-                    const nikMatch = line.match(/\b([0-9OIl]{4}\s*[0-9OIl]{4}\s*[0-9OIl]{4}\s*[0-9OIl]{4})\b/);
-                    if (nikMatch) {
-                        const nik = TextCorrector.correctNumber(nikMatch[1], 16);
-                        if (TextCorrector.isValidNIK(nik)) {
-                            let nama = '';
-                            let tglLahir = '';
-                            let jenisKelamin = '';
-                            let status = '';
-                            let tempatLahir = '';
-
-                            // Check surrounding lines for additional info
-                            for (let j = Math.max(0, i - 2); j <= Math.min(this.rawLines.length - 1, i + 3); j++) {
-                                if (j === i) continue;
-                                const nearbyLine = this.rawLines[j];
-
-                                // Gender
-                                if (/LAKI|Laki|LELAKI/i.test(nearbyLine) && !jenisKelamin) {
-                                    jenisKelamin = 'Laki-laki';
-                                } else if (/PEREMPUAN|Perempuan/i.test(nearbyLine) && !jenisKelamin) {
-                                    jenisKelamin = 'Perempuan';
-                                }
-
-                                // Status
-                                const statusPatterns = [
-                                    { pattern: /KEPALA\s*KELUARGA/i, value: 'Kepala Keluarga' },
-                                    { pattern: /\bISTRI\b/i, value: 'Istri' },
-                                    { pattern: /\bANAK\b/i, value: 'Anak' },
-                                    { pattern: /MENANTU/i, value: 'Menantu' },
-                                    { pattern: /CUCU/i, value: 'Cucu' },
-                                    { pattern: /ORANG\s*TUA/i, value: 'Orang Tua' },
-                                    { pattern: /MERTUA/i, value: 'Mertua' },
-                                    { pattern: /FAMILI/i, value: 'Famili Lain' },
-                                    { pattern: /PEMBANTU/i, value: 'Pembantu' },
-                                ];
-
-                                for (let sp of statusPatterns) {
-                                    if (sp.pattern.test(nearbyLine) && !status) {
-                                        status = sp.value;
-                                        break;
-                                    }
-                                }
-
-                                // Date of birth
-                                const dateMatch = nearbyLine.match(/([A-Za-z\s]{3,20})[\s,]*([0-9OIl]{1,2})[\s\-\/]([0-9]{1,2})[\s\-\/]([0-9]{4})/);
-                                if (dateMatch && !tglLahir) {
-                                    tempatLahir = dateMatch[1].trim();
-                                    tglLahir = TextCorrector.correctDate(`${dateMatch[2]}-${dateMatch[3]}-${dateMatch[4]}`);
-                                }
-                            }
-
-                            // Try to extract name from line before NIK
-                            const beforeNIK = line.substring(0, line.indexOf(nikMatch[1])).trim();
-                            const nameMatch = beforeNIK.match(/([A-Z][a-zA-Z\s\.',]{2,40})$/);
-                            if (nameMatch) {
-                                nama = TextCorrector.cleanName(nameMatch[1]);
-                            }
-
-                            // If no name found, check previous line
-                            if (!nama && i > 0) {
-                                const prevLine = this.rawLines[i - 1];
-                                if (prevLine.length > 3 && !/\d{4,}/.test(prevLine)) {
-                                    nama = TextCorrector.cleanName(prevLine);
-                                }
-                            }
-
-                            anggota.push({
-                                nik: nik,
-                                nama: nama,
-                                tempatLahir: tempatLahir,
-                                tglLahir: tglLahir,
-                                jenisKelamin: jenisKelamin,
-                                status: status
-                            });
-                        }
-                    }
-                }
-
-                return anggota;
-            }
-
-            _extractFromPatterns() {
-                const anggota = [];
-                const fullText = this.rawLines.join(' ');
-
-                // Find all 16-digit sequences that could be NIK
-                const nikPattern = /([0-9OIl]{4}\s*[0-9OIl]{4}\s*[0-9OIl]{4}\s*[0-9OIl]{4})/g;
-                let match;
-
-                while ((match = nikPattern.exec(fullText)) !== null) {
-                    const nik = TextCorrector.correctNumber(match[1], 16);
-                    if (TextCorrector.isValidNIK(nik)) {
-                        // Try to find name before this NIK
-                        const beforeText = fullText.substring(0, match.index);
-                        const words = beforeText.split(/\s+/).reverse();
-                        let nama = '';
-
-                        for (let word of words) {
-                            if (word.length > 2 && /^[A-Za-z\.,']+$/.test(word)) {
-                                nama = word + ' ' + nama;
-                            } else if (nama.length > 0) {
-                                break;
-                            }
-                        }
-
-                        anggota.push({
-                            nik: nik,
-                            nama: TextCorrector.cleanName(nama.trim()),
-                            tempatLahir: '',
-                            tglLahir: '',
-                            jenisKelamin: '',
-                            status: ''
-                        });
-                    }
-                }
-
-                return anggota;
-            }
-
-            _calculateConfidence() {
-                let score = 0;
-                let factors = 0;
-
-                if (this.data.noKK && TextCorrector.isValidKK(this.data.noKK)) {
-                    score += 30;
-                }
-                if (this.data.namaKK) {
-                    score += 20;
-                }
-                if (this.data.anggota.length > 0) {
-                    score += Math.min(50, this.data.anggota.length * 10);
-                }
-
-                this.confidence = Math.min(100, score);
-            }
+            });
         }
 
-        // ============================================================
-        // TESSERACT OCR MANAGER
-        // ============================================================
-
-        class TesseractManager {
-            constructor() {
-                this.worker = null;
-                this.preprocessor = new ImagePreprocessor();
-                this.parser = new KKParser();
-                this.isInitializing = false;
-            }
-
-            async initialize() {
-                if (this.worker || this.isInitializing) return;
-                this.isInitializing = true;
-
-                try {
-                    // Create worker with Indonesian language
-                    this.worker = await Tesseract.createWorker('ind', 1, {
-                        logger: (m) => {
-                            console.log('Tesseract:', m.status, Math.round((m.progress || 0) * 100) + '%');
-                            updateOCRProgress(m.status, m.progress || 0);
-                        },
-                        errorHandler: (err) => console.error('Tesseract error:', err)
-                    });
-
-                    // Set parameters for better accuracy on structured documents
-                    await this.worker.setParameters({
-                        tessedit_char_whitelist: '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz.,;/:()-\'\s',
-                        preserve_interword_spaces: '1',
-                        tessedit_pageseg_mode: '6', // Assume uniform block of text
-                    });
-
-                } catch (err) {
-                    console.error('Failed to initialize Tesseract:', err);
-                    // Fallback to English
-                    try {
-                        this.worker = await Tesseract.createWorker('eng', 1, {
-                            logger: (m) => {
-                                console.log('Tesseract (eng):', m.status, Math.round((m.progress || 0) * 100) + '%');
-                                updateOCRProgress(m.status, m.progress || 0);
-                            }
-                        });
-                        await this.worker.setParameters({
-                            tessedit_char_whitelist: '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz.,;/:()-\'\s',
-                            preserve_interword_spaces: '1',
-                            tessedit_pageseg_mode: '6',
-                        });
-                    } catch (err2) {
-                        console.error('Failed to initialize Tesseract English too:', err2);
-                    }
-                } finally {
-                    this.isInitializing = false;
-                }
-            }
-
-            async processImage(imageSrc) {
-                if (!this.worker) {
-                    await this.initialize();
-                }
-
-                if (!this.worker) {
-                    throw new Error('OCR engine tidak dapat diinisialisasi');
-                }
-
-                // Step 1: Preprocess image
-                updateOCRStatus('Mempersiapkan gambar...');
-                const processedImage = await this.preprocessor.preprocess(imageSrc);
-
-                // Step 2: Run OCR with detailed output
-                updateOCRStatus('Memindai teks...');
-                const result = await this.worker.recognize(processedImage, {}, {
-                    text: true,
-                    blocks: true,
-                    words: true,
-                });
-
-                console.log('OCR Raw Text:', result.data.text);
-                console.log('OCR Confidence:', result.data.confidence);
-                console.log('OCR Words:', result.data.words ? result.data.words.length : 0);
-
-                // Step 3: Parse the results
-                updateOCRStatus('Memparsing data...');
-                const parsedData = this.parser.parse(result.data.text, result.data.words || []);
-
-                return {
-                    rawText: result.data.text,
-                    confidence: result.data.confidence,
-                    parsedData: parsedData,
-                    words: result.data.words || []
-                };
-            }
-
-            async terminate() {
-                if (this.worker) {
-                    await this.worker.terminate();
-                    this.worker = null;
-                }
-            }
+        async function saveToDB(data) {
+            if (!db) await openDB();
+            return new Promise((resolve, reject) => {
+                const tx = db.transaction(STORE_NAME, 'readwrite');
+                const store = tx.objectStore(STORE_NAME);
+                const req = store.put(data);
+                req.onsuccess = () => resolve(req.result);
+                req.onerror = () => reject(req.error);
+            });
         }
 
-        // Global Tesseract manager instance
-        const tesseractManager = new TesseractManager();
-
-        // ============================================================
-        // UI HELPER FUNCTIONS
-        // ============================================================
-
-        function updateOCRProgress(status, progress) {
-            const progressBar = document.getElementById('ocrProgressBar');
-            const statusText = document.getElementById('ocrStatusText');
-
-            if (progressBar) {
-                const pct = Math.round((progress || 0) * 100);
-                progressBar.style.width = pct + '%';
-            }
-
-            if (statusText && status) {
-                const statusMap = {
-                    'loading language traineddata': 'Memuat model bahasa...',
-                    'initializing api': 'Menginisialisasi OCR...',
-                    'recognizing text': 'Membaca teks...',
-                    'done': 'Selesai!'
-                };
-                statusText.textContent = statusMap[status] || status;
-            }
+        async function getAllDrafts() {
+            if (!db) await openDB();
+            return new Promise((resolve, reject) => {
+                const tx = db.transaction(STORE_NAME, 'readonly');
+                const store = tx.objectStore(STORE_NAME);
+                const req = store.getAll();
+                req.onsuccess = () => resolve(req.result);
+                req.onerror = () => reject(req.error);
+            });
         }
 
-        function updateOCRStatus(text) {
-            const statusText = document.getElementById('ocrStatusText');
-            if (statusText) statusText.textContent = text;
+        async function getDraft(id) {
+            if (!db) await openDB();
+            return new Promise((resolve, reject) => {
+                const tx = db.transaction(STORE_NAME, 'readonly');
+                const store = tx.objectStore(STORE_NAME);
+                const req = store.get(id);
+                req.onsuccess = () => resolve(req.result);
+                req.onerror = () => reject(req.error);
+            });
         }
 
-        function showOCROverlay(show) {
-            const overlay = document.getElementById('ocrOverlay');
-            if (overlay) {
-                overlay.classList.toggle('active', show);
-            }
+        async function deleteDraft(id) {
+            if (!db) await openDB();
+            return new Promise((resolve, reject) => {
+                const tx = db.transaction(STORE_NAME, 'readwrite');
+                const store = tx.objectStore(STORE_NAME);
+                const req = store.delete(id);
+                req.onsuccess = () => resolve();
+                req.onerror = () => reject(req.error);
+            });
         }
 
-        function setOCRPreview(src) {
-            const img = document.getElementById('ocrPreviewImg');
-            if (img) img.src = src;
-        }
-
-        // ============================================================
-        // FORM & EVENT HANDLERS
-        // ============================================================
-
-        let anggotaCount = 0;
-
-        function showForm(mode) {
-            document.getElementById('homePage').style.display = 'none';
-            if (mode === 'family') {
-                document.getElementById('familyForm').classList.add('active');
-                document.getElementById('businessForm').classList.remove('active');
-            } else {
-                document.getElementById('businessForm').classList.add('active');
-                document.getElementById('familyForm').classList.remove('active');
-            }
+        function goToPage(pageId) {
+            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+            document.getElementById(pageId).classList.add('active');
             window.scrollTo(0, 0);
         }
 
-        function goHome() {
-            document.getElementById('homePage').style.display = 'block';
-            document.getElementById('familyForm').classList.remove('active');
-            document.getElementById('businessForm').classList.remove('active');
-            window.scrollTo(0, 0);
+        function goToMode(mode) {
+            if (mode === 'keluarga') goToPage('pageModeKeluarga');
+            else goToPage('pageModeBangunan');
         }
 
-        function toggleRumah() {
-            const val = document.getElementById('f_rumah').value;
-            document.getElementById('fieldRumahMilik').classList.toggle('show', val === 'Milik');
-            document.getElementById('fieldRumahSewa').classList.toggle('show', val === 'Sewa');
+        function startForm(type) {
+            resetForm();
+            currentDraftId = null;
+            goToPage('pageForm');
+            showToast('Form baru siap diisi. Data akan auto-save.');
         }
 
-        function hitungLuasTanah() {
-            const p = parseFloat(document.getElementById('f_tanah_panjang').value) || 0;
-            const l = parseFloat(document.getElementById('f_tanah_lebar').value) || 0;
-            document.getElementById('f_tanah_luas').value = (p * l).toFixed(2);
+        function resetForm() {
+            document.getElementById('mainForm').reset();
+            document.getElementById('anggotaContainer').innerHTML = '<p class="text-muted text-center" id="anggotaEmpty">Belum ada anggota keluarga</p>';
+            document.getElementById('formUsaha').classList.add('hidden');
+            anggotaCount = 0;
+            currentDraftId = null;
+            ['thnProduksi','thnOperasional','thnOmzet'].forEach(id => { document.getElementById(id).textContent = 'Rp 0'; });
+        }
+
+        function getRadioValue(name) {
+            const el = document.querySelector('input[name="' + name + '"]:checked');
+            return el ? el.value : '';
+        }
+
+        function setRadioValue(name, value) {
+            document.querySelectorAll('input[name="' + name + '"]').forEach(el => { el.checked = (el.value === value); });
+        }
+
+        function getFormData() {
+            const anggota = [];
+            document.querySelectorAll('.anggota-card').forEach(card => {
+                anggota.push({
+                    nama: card.querySelector('.ang-nama').value,
+                    nik: card.querySelector('.ang-nik').value,
+                    tglLahir: card.querySelector('.ang-tgl').value,
+                    pendidikan: card.querySelector('.ang-pendidikan').value,
+                    status: card.querySelector('.ang-status').value
+                });
+            });
+            return {
+                noBangunan: document.getElementById('noBangunan').value,
+                koordinat: document.getElementById('koordinat').value,
+                alamat: document.getElementById('alamat').value,
+                noKK: document.getElementById('noKK').value,
+                noWA: document.getElementById('noWA').value,
+                namaKK: document.getElementById('namaKK').value,
+                nikKK: document.getElementById('nikKK').value,
+                tglLahirKK: document.getElementById('tglLahirKK').value,
+                jkKK: getRadioValue('jkKK'),
+                pendidikanKK: document.getElementById('pendidikanKK').value,
+                pekerjaanKK: document.getElementById('pekerjaanKK').value,
+                statusKawinKK: document.getElementById('statusKawinKK').value,
+                namaPasangan: document.getElementById('namaPasangan').value,
+                pekerjaanPasangan: document.getElementById('pekerjaanPasangan').value,
+                gajiBulanan: document.getElementById('gajiBulanan').value,
+                listrikBulanan: document.getElementById('listrikBulanan').value,
+                noMeter: document.getElementById('noMeter').value,
+                dayaListrik: document.getElementById('dayaListrik').value,
+                statusRumah: getRadioValue('statusRumah'),
+                panjangBangunan: document.getElementById('panjangBangunan').value,
+                lebarBangunan: document.getElementById('lebarBangunan').value,
+                luasBangunan: document.getElementById('luasBangunan').value,
+                panjangTanah: document.getElementById('panjangTanah').value,
+                lebarTanah: document.getElementById('lebarTanah').value,
+                luasTanah: document.getElementById('luasTanah').value,
+                anggota: anggota,
+                adaUsaha: getRadioValue('adaUsaha'),
+                namaKomersial: document.getElementById('namaKomersial').value,
+                waUsaha: document.getElementById('waUsaha').value,
+                nib: getRadioValue('nib'),
+                namaPengusaha: document.getElementById('namaPengusaha').value,
+                jkPengusaha: getRadioValue('jkPengusaha'),
+                nikPengusaha: document.getElementById('nikPengusaha').value,
+                umurPengusaha: document.getElementById('umurPengusaha').value,
+                kegiatanUtama: document.getElementById('kegiatanUtama').value,
+                produksiBarang: getRadioValue('produksiBarang'),
+                biayaProduksi: document.getElementById('biayaProduksi').value,
+                periodeProduksi: document.getElementById('periodeProduksi').value,
+                biayaOperasional: document.getElementById('biayaOperasional').value,
+                periodeOperasional: document.getElementById('periodeOperasional').value,
+                omzet: document.getElementById('omzet').value,
+                periodeOmzet: document.getElementById('periodeOmzet').value,
+                updatedAt: new Date().toISOString()
+            };
+        }
+
+        function setFormData(data) {
+            document.getElementById('noBangunan').value = data.noBangunan || '';
+            document.getElementById('koordinat').value = data.koordinat || '';
+            document.getElementById('alamat').value = data.alamat || '';
+            document.getElementById('noKK').value = data.noKK || '';
+            document.getElementById('noWA').value = data.noWA || '';
+            document.getElementById('namaKK').value = data.namaKK || '';
+            document.getElementById('nikKK').value = data.nikKK || '';
+            document.getElementById('tglLahirKK').value = data.tglLahirKK || '';
+            setRadioValue('jkKK', data.jkKK || '');
+            document.getElementById('pendidikanKK').value = data.pendidikanKK || '';
+            document.getElementById('pekerjaanKK').value = data.pekerjaanKK || '';
+            document.getElementById('statusKawinKK').value = data.statusKawinKK || '';
+            document.getElementById('namaPasangan').value = data.namaPasangan || '';
+            document.getElementById('pekerjaanPasangan').value = data.pekerjaanPasangan || '';
+            document.getElementById('gajiBulanan').value = data.gajiBulanan || '';
+            document.getElementById('listrikBulanan').value = data.listrikBulanan || '';
+            document.getElementById('noMeter').value = data.noMeter || '';
+            document.getElementById('dayaListrik').value = data.dayaListrik || '';
+            setRadioValue('statusRumah', data.statusRumah || '');
+            document.getElementById('panjangBangunan').value = data.panjangBangunan || '';
+            document.getElementById('lebarBangunan').value = data.lebarBangunan || '';
+            document.getElementById('luasBangunan').value = data.luasBangunan || '';
+            document.getElementById('panjangTanah').value = data.panjangTanah || '';
+            document.getElementById('lebarTanah').value = data.lebarTanah || '';
+            document.getElementById('luasTanah').value = data.luasTanah || '';
+            document.getElementById('anggotaContainer').innerHTML = '';
+            anggotaCount = 0;
+            if (data.anggota && data.anggota.length > 0) { data.anggota.forEach(a => tambahAnggota(a)); }
+            else { document.getElementById('anggotaContainer').innerHTML = '<p class="text-muted text-center" id="anggotaEmpty">Belum ada anggota keluarga</p>'; }
+            setRadioValue('adaUsaha', data.adaUsaha || '');
+            if (data.adaUsaha === 'Ya') document.getElementById('formUsaha').classList.remove('hidden');
+            else document.getElementById('formUsaha').classList.add('hidden');
+            document.getElementById('namaKomersial').value = data.namaKomersial || '';
+            document.getElementById('waUsaha').value = data.waUsaha || '';
+            setRadioValue('nib', data.nib || '');
+            document.getElementById('namaPengusaha').value = data.namaPengusaha || '';
+            setRadioValue('jkPengusaha', data.jkPengusaha || '');
+            document.getElementById('nikPengusaha').value = data.nikPengusaha || '';
+            document.getElementById('umurPengusaha').value = data.umurPengusaha || '';
+            document.getElementById('kegiatanUtama').value = data.kegiatanUtama || '';
+            setRadioValue('produksiBarang', data.produksiBarang || '');
+            document.getElementById('biayaProduksi').value = data.biayaProduksi || '';
+            document.getElementById('periodeProduksi').value = data.periodeProduksi || 'bulan';
+            document.getElementById('biayaOperasional').value = data.biayaOperasional || '';
+            document.getElementById('periodeOperasional').value = data.periodeOperasional || 'bulan';
+            document.getElementById('omzet').value = data.omzet || '';
+            document.getElementById('periodeOmzet').value = data.periodeOmzet || 'bulan';
+            hitungTahunan();
+        }
+
+        let saveTimeout = null;
+        function autoSave() {
+            if (saveTimeout) clearTimeout(saveTimeout);
+            saveTimeout = setTimeout(async () => {
+                const data = getFormData();
+                if (currentDraftId) data.id = currentDraftId;
+                if (data.noBangunan || data.namaKK || data.noKK) {
+                    const id = await saveToDB(data);
+                    currentDraftId = id;
+                    showAutoSave();
+                }
+            }, 1000);
+        }
+
+        function showAutoSave() {
+            const el = document.getElementById('autoSaveIndicator');
+            el.style.display = 'block';
+            setTimeout(() => { el.style.display = 'none'; }, 2000);
+        }
+
+        async function saveDraft() {
+            const data = getFormData();
+            if (currentDraftId) data.id = currentDraftId;
+            const id = await saveToDB(data);
+            currentDraftId = id;
+            showToast('Draft berhasil disimpan!');
+            renderDraftList();
+        }
+
+        async function renderDraftList() {
+            const drafts = await getAllDrafts();
+            const container = document.getElementById('draftList');
+            if (drafts.length === 0) {
+                container.innerHTML = '<div class="empty-state"><div class="icon">&#128194;</div><p>Belum ada draft tersimpan</p></div>';
+                return;
+            }
+            container.innerHTML = drafts.map(d => {
+                const date = new Date(d.updatedAt).toLocaleString('id-ID');
+                const title = d.noBangunan ? 'Bangunan #' + d.noBangunan : (d.namaKK ? d.namaKK : 'Draft Tanpa Nama');
+                return '<div class="draft-item"><div class="draft-info"><div class="draft-title">' + title + '</div><div class="draft-date">' + date + '</div></div><div class="draft-actions"><button class="btn btn-primary btn-draft-action" onclick="loadDraft(' + d.id + ')">Lanjutkan</button><button class="btn btn-danger btn-draft-action" onclick="hapusDraft(' + d.id + ')">Hapus</button></div></div>';
+            }).join('');
+        }
+
+        async function loadDraft(id) {
+            const draft = await getDraft(id);
+            if (!draft) { showToast('Draft tidak ditemukan!', 'danger'); return; }
+            resetForm();
+            currentDraftId = draft.id;
+            setFormData(draft);
+            goToPage('pageForm');
+            showToast('Draft berhasil dimuat!');
+        }
+
+        async function hapusDraft(id) {
+            if (!confirm('Yakin ingin menghapus draft ini?')) return;
+            await deleteDraft(id);
+            renderDraftList();
+            showToast('Draft dihapus!');
+        }
+
+        function tambahAnggota(data) {
+            const container = document.getElementById('anggotaContainer');
+            const emptyMsg = document.getElementById('anggotaEmpty');
+            if (emptyMsg) emptyMsg.remove();
+            anggotaCount++;
+            const div = document.createElement('div');
+            div.className = 'anggota-card fade-in';
+            div.innerHTML = '<button type="button" class="btn btn-outline-danger btn-sm btn-remove-anggota" onclick="hapusAnggota(this)">x</button>' +
+                '<div class="mb-2"><label class="form-label">Nama</label><input type="text" class="form-control ang-nama" placeholder="Nama anggota" value="' + (data ? data.nama : '') + '" onchange="autoSave()"></div>' +
+                '<div class="mb-2"><label class="form-label">NIK</label><input type="text" class="form-control ang-nik" placeholder="16 digit" maxlength="16" value="' + (data ? data.nik : '') + '" oninput="this.value=this.value.replace(/\\D/g,\'\')" onchange="autoSave()"></div>' +
+                '<div class="mb-2"><label class="form-label">Tanggal Lahir</label><input type="date" class="form-control ang-tgl" value="' + (data ? data.tglLahir : '') + '" onchange="autoSave()"></div>' +
+                '<div class="mb-2"><label class="form-label">Pendidikan</label><select class="form-select ang-pendidikan" onchange="autoSave()"><option value="">-- Pilih --</option><option value="Tidak/Belum Sekolah" ' + (data && data.pendidikan === 'Tidak/Belum Sekolah' ? 'selected' : '') + '>Tidak/Belum Sekolah</option><option value="SD/Sederajat" ' + (data && data.pendidikan === 'SD/Sederajat' ? 'selected' : '') + '>SD/Sederajat</option><option value="SMP/Sederajat" ' + (data && data.pendidikan === 'SMP/Sederajat' ? 'selected' : '') + '>SMP/Sederajat</option><option value="SMA/Sederajat" ' + (data && data.pendidikan === 'SMA/Sederajat' ? 'selected' : '') + '>SMA/Sederajat</option><option value="D1/D2" ' + (data && data.pendidikan === 'D1/D2' ? 'selected' : '') + '>D1/D2</option><option value="D3" ' + (data && data.pendidikan === 'D3' ? 'selected' : '') + '>D3</option><option value="S1/D4" ' + (data && data.pendidikan === 'S1/D4' ? 'selected' : '') + '>S1/D4</option><option value="S2" ' + (data && data.pendidikan === 'S2' ? 'selected' : '') + '>S2</option><option value="S3" ' + (data && data.pendidikan === 'S3' ? 'selected' : '') + '>S3</option></select></div>' +
+                '<div><label class="form-label">Status dalam Keluarga</label><select class="form-select ang-status" onchange="autoSave()"><option value="">-- Pilih --</option><option value="Kepala Keluarga" ' + (data && data.status === 'Kepala Keluarga' ? 'selected' : '') + '>Kepala Keluarga</option><option value="Suami" ' + (data && data.status === 'Suami' ? 'selected' : '') + '>Suami</option><option value="Istri" ' + (data && data.status === 'Istri' ? 'selected' : '') + '>Istri</option><option value="Anak" ' + (data && data.status === 'Anak' ? 'selected' : '') + '>Anak</option><option value="Orang Tua" ' + (data && data.status === 'Orang Tua' ? 'selected' : '') + '>Orang Tua</option><option value="Menantu" ' + (data && data.status === 'Menantu' ? 'selected' : '') + '>Menantu</option><option value="Cucu" ' + (data && data.status === 'Cucu' ? 'selected' : '') + '>Cucu</option><option value="Saudara" ' + (data && data.status === 'Saudara' ? 'selected' : '') + '>Saudara</option><option value="Lainnya" ' + (data && data.status === 'Lainnya' ? 'selected' : '') + '>Lainnya</option></select></div>';
+            container.appendChild(div);
+            autoSave();
+        }
+
+        function hapusAnggota(btn) {
+            btn.closest('.anggota-card').remove();
+            const container = document.getElementById('anggotaContainer');
+            if (container.children.length === 0) {
+                container.innerHTML = '<p class="text-muted text-center" id="anggotaEmpty">Belum ada anggota keluarga</p>';
+            }
+            autoSave();
         }
 
         function hitungLuasBangunan() {
-            const p = parseFloat(document.getElementById('f_bangunan_panjang').value) || 0;
-            const l = parseFloat(document.getElementById('f_bangunan_lebar').value) || 0;
-            document.getElementById('f_bangunan_luas').value = (p * l).toFixed(2);
+            const p = parseFloat(document.getElementById('panjangBangunan').value) || 0;
+            const l = parseFloat(document.getElementById('lebarBangunan').value) || 0;
+            document.getElementById('luasBangunan').value = (p * l).toFixed(2);
         }
 
-        function selectSumberData(option) {
-            document.getElementById('f_sumber_data').value = option;
-            document.getElementById('btnSumberPrelist').classList.toggle('selected', option === 'prelist');
-            document.getElementById('btnSumberAssignment').classList.toggle('selected', option === 'assignment');
-            document.getElementById('fieldAssignmentBaru').classList.toggle('show', option === 'assignment');
+        function hitungLuasTanah() {
+            const p = parseFloat(document.getElementById('panjangTanah').value) || 0;
+            const l = parseFloat(document.getElementById('lebarTanah').value) || 0;
+            document.getElementById('luasTanah').value = (p * l).toFixed(2);
         }
 
-        // ============================================================
-        // ADVANCED KK UPLOAD & OCR HANDLER
-        // ============================================================
-
-        async function handleKKUpload(input) {
-            const file = input.files[0];
-            if (!file) return;
-
-            // Show preview
-            const reader = new FileReader();
-            reader.onload = async function(e) {
-                const imgSrc = e.target.result;
-                const img = document.getElementById('previewKK');
-                img.src = imgSrc;
-                img.parentElement.classList.add('has-image');
-
-                // Show OCR overlay
-                setOCRPreview(imgSrc);
-                showOCROverlay(true);
-                updateOCRStatus('Mempersiapkan gambar...');
-                document.getElementById('ocrProgressBar').style.width = '0%';
-
-                try {
-                    // Process with advanced OCR
-                    const result = await tesseractManager.processImage(imgSrc);
-
-                    const parsedData = result.parsedData;
-
-                    // Fill form fields with OCR data
-                    fillOCRFields(parsedData);
-
-                    // Update stats
-                    updateOCRStats(result.confidence, parsedData);
-
-                    // Show results
-                    document.getElementById('ocrResult').classList.add('show');
-                    document.getElementById('ocrStats').style.display = 'block';
-
-                    // Also fill main form fields if empty
-                    if (!document.getElementById('f_no_kk').value && parsedData.noKK) {
-                        document.getElementById('f_no_kk').value = parsedData.noKK;
-                    }
-                    if (!document.getElementById('f_nama_kk').value && parsedData.namaKK) {
-                        document.getElementById('f_nama_kk').value = parsedData.namaKK;
-                    }
-
-                    // Success message
-                    let msg = 'Foto KK berhasil discan!\\n\\n';
-                    msg += 'Akurasi OCR: ' + Math.round(result.confidence) + '%\\n';
-                    msg += 'Anggota terdeteksi: ' + parsedData.anggota.length + '\\n';
-                    msg += 'No. KK: ' + (parsedData.noKK ? '✓ Valid' : '✗ Tidak terdeteksi') + '\\n\\n';
-                    msg += 'Silakan periksa dan koreksi data hasil OCR di bawah.';
-
-                    showOCROverlay(false);
-                    alert(msg);
-
-                } catch (error) {
-                    console.error('OCR Error:', error);
-                    showOCROverlay(false);
-
-                    // Show empty form for manual entry
-                    document.getElementById('ocrResult').classList.add('show');
-                    document.getElementById('anggotaKeluargaOCR').innerHTML = '';
-                    anggotaCount = 0;
-
-                    // Add default empty rows
-                    tambahAnggotaOCR();
-                    tambahAnggotaOCR();
-                    tambahAnggotaOCR();
-
-                    alert('OCR gagal: ' + error.message + '\\n\\nSilakan isi data KK secara manual.');
-                }
-            };
-            reader.readAsDataURL(file);
-        }
-
-        function fillOCRFields(parsedData) {
-            document.getElementById('f_no_kk_ocr').value = parsedData.noKK || '';
-            document.getElementById('f_nama_kk_ocr').value = parsedData.namaKK || '';
-            document.getElementById('f_alamat_kk_ocr').value = parsedData.alamat || '';
-            document.getElementById('f_rt_kk_ocr').value = parsedData.rt || '';
-            document.getElementById('f_rw_kk_ocr').value = parsedData.rw || '';
-            document.getElementById('f_kodepos_kk_ocr').value = parsedData.kodePos || '';
-            document.getElementById('f_desa_kk_ocr').value = parsedData.desa || '';
-            document.getElementById('f_kecamatan_kk_ocr').value = parsedData.kecamatan || '';
-            document.getElementById('f_kabupaten_kk_ocr').value = parsedData.kabupaten || '';
-            document.getElementById('f_provinsi_kk_ocr').value = parsedData.provinsi || '';
-            document.getElementById('f_tgl_kk_ocr').value = parsedData.tglDikeluarkan || '';
-
-            // Build anggota keluarga rows
-            document.getElementById('anggotaKeluargaOCR').innerHTML = '';
-            anggotaCount = 0;
-
-            if (parsedData.anggota && parsedData.anggota.length > 0) {
-                parsedData.anggota.forEach(anggota => {
-                    tambahAnggotaOCR();
-                    const rows = document.querySelectorAll('.anggota-row');
-                    const lastRow = rows[rows.length - 1];
-                    if (lastRow) {
-                        lastRow.querySelector('.anggota-nik').value = anggota.nik || '';
-                        lastRow.querySelector('.anggota-nama').value = anggota.nama || '';
-                        lastRow.querySelector('.anggota-tempat').value = anggota.tempatLahir || '';
-                        lastRow.querySelector('.anggota-tgl').value = anggota.tglLahir || '';
-                        lastRow.querySelector('.anggota-jk').value = anggota.jenisKelamin || '';
-                        lastRow.querySelector('.anggota-status').value = anggota.status || '';
-                    }
-                });
-            } else {
-                // Default 3 empty rows if no anggota detected
-                tambahAnggotaOCR();
-                tambahAnggotaOCR();
-                tambahAnggotaOCR();
-            }
-        }
-
-        function updateOCRStats(confidence, parsedData) {
-            const accuracyEl = document.getElementById('ocrAccuracy');
-            const anggotaEl = document.getElementById('ocrAnggotaCount');
-            const kkValidEl = document.getElementById('ocrKKValid');
-
-            if (accuracyEl) accuracyEl.textContent = Math.round(confidence) + '%';
-            if (anggotaEl) anggotaEl.textContent = parsedData.anggota.length;
-            if (kkValidEl) {
-                kkValidEl.textContent = parsedData.noKK && TextCorrector.isValidKK(parsedData.noKK) ? '✓ Ya' : '✗ Tidak';
-                kkValidEl.style.color = parsedData.noKK && TextCorrector.isValidKK(parsedData.noKK) ? 'var(--success-color)' : 'var(--danger-color)';
-            }
-        }
-
-        function tambahAnggotaOCR() {
-            anggotaCount++;
-            const container = document.getElementById('anggotaKeluargaOCR');
-            const row = document.createElement('div');
-            row.className = 'anggota-row mb-3 p-3';
-            row.style.cssText = 'background:#f8f9fa; border-radius:10px; border:1px solid var(--border-color);';
-            row.id = 'anggota_' + anggotaCount;
-            row.innerHTML = `
-                <div class="d-flex justify-content-between align-items-center mb-2">
-                    <strong style="color:var(--primary-color); font-size:0.9rem;">Anggota #${anggotaCount}</strong>
-                    <button type="button" class="btn btn-sm btn-outline-danger" onclick="hapusAnggotaOCR(${anggotaCount})" style="padding:2px 8px; font-size:0.75rem;">
-                        <i class="bi bi-trash"></i>
-                    </button>
-                </div>
-                <div class="row g-2">
-                    <div class="col-12">
-                        <label class="form-label" style="font-size:0.75rem;">NIK</label>
-                        <input type="text" class="form-control form-control-sm anggota-nik" placeholder="16 digit NIK" maxlength="16">
-                    </div>
-                    <div class="col-12">
-                        <label class="form-label" style="font-size:0.75rem;">Nama Lengkap</label>
-                        <input type="text" class="form-control form-control-sm anggota-nama" placeholder="Nama lengkap">
-                    </div>
-                    <div class="col-6">
-                        <label class="form-label" style="font-size:0.75rem;">Tempat Lahir</label>
-                        <input type="text" class="form-control form-control-sm anggota-tempat" placeholder="Tempat lahir">
-                    </div>
-                    <div class="col-6">
-                        <label class="form-label" style="font-size:0.75rem;">Tanggal Lahir</label>
-                        <input type="date" class="form-control form-control-sm anggota-tgl">
-                    </div>
-                    <div class="col-6">
-                        <label class="form-label" style="font-size:0.75rem;">Jenis Kelamin</label>
-                        <select class="form-select form-select-sm anggota-jk">
-                            <option value="" disabled selected>Pilih...</option>
-                            <option value="Laki-laki">Laki-laki</option>
-                            <option value="Perempuan">Perempuan</option>
-                        </select>
-                    </div>
-                    <div class="col-6">
-                        <label class="form-label" style="font-size:0.75rem;">Status Hubungan</label>
-                        <select class="form-select form-select-sm anggota-status">
-                            <option value="" disabled selected>Pilih...</option>
-                            <option value="Kepala Keluarga">Kepala Keluarga</option>
-                            <option value="Istri">Istri</option>
-                            <option value="Anak">Anak</option>
-                            <option value="Menantu">Menantu</option>
-                            <option value="Cucu">Cucu</option>
-                            <option value="Orang Tua">Orang Tua</option>
-                            <option value="Mertua">Mertua</option>
-                            <option value="Famili Lain">Famili Lain</option>
-                            <option value="Pembantu">Pembantu</option>
-                            <option value="Lainnya">Lainnya</option>
-                        </select>
-                    </div>
-                </div>
-            `;
-            container.appendChild(row);
-        }
-
-        function hapusAnggotaOCR(id) {
-            const row = document.getElementById('anggota_' + id);
-            if (row) row.remove();
-        }
-
-        function getAnggotaKeluargaData() {
-            const rows = document.querySelectorAll('.anggota-row');
-            let data = [];
-            rows.forEach(row => {
-                const nik = row.querySelector('.anggota-nik').value;
-                const nama = row.querySelector('.anggota-nama').value;
-                const tempat = row.querySelector('.anggota-tempat').value;
-                const tgl = row.querySelector('.anggota-tgl').value;
-                const jk = row.querySelector('.anggota-jk').value;
-                const status = row.querySelector('.anggota-status').value;
-                if (nik || nama) {
-                    data.push({ nik, nama, tempat, tgl, jk, status });
-                }
-            });
-            return data;
-        }
-
-        function selectUsaha(option) {
-            document.getElementById('f_punya_usaha').value = option;
-            document.getElementById('btnUsahaTidak').classList.toggle('selected', option === 'tidak');
-            document.getElementById('btnUsahaYa').classList.toggle('selected', option === 'ya');
-            document.getElementById('fieldUsaha').classList.toggle('show', option === 'ya');
-        }
-
-        function previewImage(input, previewId) {
-            const file = input.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    const img = document.getElementById(previewId);
-                    img.src = e.target.result;
-                    img.parentElement.classList.add('has-image');
-                };
-                reader.readAsDataURL(file);
-            }
-        }
-
-        function getLocation(mode) {
-            if (!navigator.geolocation) {
-                alert('Browser tidak mendukung geolokasi. Silakan aktifkan GPS.');
-                return;
-            }
-
-            const btn = event.target;
-            const originalText = btn.innerHTML;
-            btn.innerHTML = '<i class="bi bi-arrow-repeat spin me-2"></i>Mengambil lokasi...';
+        function getGPS() {
+            const btn = document.querySelector('.gps-btn');
+            btn.textContent = 'Mengambil...';
             btn.disabled = true;
-
+            if (!navigator.geolocation) {
+                showToast('GPS tidak didukung di perangkat ini', 'danger');
+                btn.textContent = 'Ambil GPS'; btn.disabled = false; return;
+            }
             navigator.geolocation.getCurrentPosition(
-                function(position) {
-                    const lat = position.coords.latitude;
-                    const long = position.coords.longitude;
-
-                    if (mode === 'family') {
-                        document.getElementById('f_lat').value = lat;
-                        document.getElementById('f_long').value = long;
-                        document.getElementById('coordFamilyText').textContent = lat + ', ' + long;
-                        document.getElementById('coordFamily').style.display = 'block';
-                    } else {
-                        document.getElementById('b_lat').value = lat;
-                        document.getElementById('b_long').value = long;
-                        document.getElementById('coordBusinessText').textContent = lat + ', ' + long;
-                        document.getElementById('coordBusiness').style.display = 'block';
-                    }
-
-                    btn.innerHTML = '<i class="bi bi-check-circle-fill me-2"></i>Lokasi Berhasil Diambil';
-                    btn.classList.remove('btn-outline-primary');
-                    btn.classList.add('btn-success');
-                    setTimeout(() => {
-                        btn.innerHTML = originalText;
-                        btn.disabled = false;
-                        btn.classList.remove('btn-success');
-                        btn.classList.add('btn-outline-primary');
-                    }, 2000);
+                (pos) => {
+                    const lat = pos.coords.latitude.toFixed(6);
+                    const lng = pos.coords.longitude.toFixed(6);
+                    document.getElementById('koordinat').value = lat + ', ' + lng;
+                    autoSave();
+                    btn.textContent = 'GPS OK';
+                    setTimeout(() => { btn.textContent = 'Ambil GPS'; btn.disabled = false; }, 2000);
                 },
-                function(error) {
-                    let msg = 'Gagal mengambil lokasi. ';
-                    switch(error.code) {
-                        case error.PERMISSION_DENIED:
-                            msg += 'Izin lokasi ditolak. Harap aktifkan izin GPS di pengaturan browser.';
-                            break;
-                        case error.POSITION_UNAVAILABLE:
-                            msg += 'Informasi lokasi tidak tersedia.';
-                            break;
-                        case error.TIMEOUT:
-                            msg += 'Waktu pengambilan lokasi habis.';
-                            break;
-                        default:
-                            msg += 'Error tidak diketahui.';
-                    }
-                    alert(msg);
-                    btn.innerHTML = originalText;
-                    btn.disabled = false;
-                },
-                { enableHighAccuracy: true, timeout: 10000, maximumAge: 0 }
+                (err) => { showToast('Gagal ambil GPS: ' + err.message, 'danger'); btn.textContent = 'Ambil GPS'; btn.disabled = false; },
+                { enableHighAccuracy: true, timeout: 15000, maximumAge: 0 }
             );
         }
 
-        function formatRupiah(angka) {
-            if (!angka) return '0';
-            return 'Rp ' + parseInt(angka).toLocaleString('id-ID');
+        function toggleUsaha(show) {
+            const el = document.getElementById('formUsaha');
+            if (show) el.classList.remove('hidden');
+            else el.classList.add('hidden');
         }
 
-        function submitFamily(e) {
-            e.preventDefault();
-
-            const lat = document.getElementById('f_lat').value;
-            const long = document.getElementById('f_long').value;
-
-            if (!lat || !long) {
-                alert('Lokasi belum diambil! Harap klik "Ambil Lokasi Realtime" terlebih dahulu.');
-                return false;
-            }
-
-            const punyaUsaha = document.getElementById('f_punya_usaha').value;
-            if (!punyaUsaha) {
-                alert('Harap pilih opsi usaha keluarga (Ya/Tidak)!');
-                return false;
-            }
-
-            let text = `*SENSUS EKONOMI 2026 - MODE KELUARGA*
-`;
-            text += `================================
-
-`;
-            text += `*DATA DASAR*
-`;
-            text += `No. Urut Bangunan: ${document.getElementById('f_no_bangunan').value}
-`;
-            text += `No. Urut Keluarga: ${document.getElementById('f_no_keluarga').value}
-`;
-            text += `Nama KK: ${document.getElementById('f_nama_kk').value}
-`;
-            text += `No. KK: ${document.getElementById('f_no_kk').value}
-`;
-            text += `Sumber Data: ${document.getElementById('f_sumber_data').value || '-'}
-
-`;
-
-            const sumberData = document.getElementById('f_sumber_data').value;
-            if (sumberData === 'assignment') {
-                text += `*DATA KARTU KELUARGA (OCR)*
-`;
-                text += `No. KK (OCR): ${document.getElementById('f_no_kk_ocr').value || '-'}
-`;
-                text += `Nama KK (OCR): ${document.getElementById('f_nama_kk_ocr').value || '-'}
-`;
-                text += `Alamat: ${document.getElementById('f_alamat_kk_ocr').value || '-'}
-`;
-                text += `RT/RW: ${document.getElementById('f_rt_kk_ocr').value || '-'} / ${document.getElementById('f_rw_kk_ocr').value || '-'}
-`;
-                text += `Kode Pos: ${document.getElementById('f_kodepos_kk_ocr').value || '-'}
-`;
-                text += `Desa/Kel: ${document.getElementById('f_desa_kk_ocr').value || '-'}
-`;
-                text += `Kecamatan: ${document.getElementById('f_kecamatan_kk_ocr').value || '-'}
-`;
-                text += `Kabupaten/Kota: ${document.getElementById('f_kabupaten_kk_ocr').value || '-'}
-`;
-                text += `Provinsi: ${document.getElementById('f_provinsi_kk_ocr').value || '-'}
-`;
-                text += `Tgl Dikeluarkan: ${document.getElementById('f_tgl_kk_ocr').value || '-'}
-
-`;
-
-                const anggota = getAnggotaKeluargaData();
-                if (anggota.length > 0) {
-                    text += `*ANGGOTA KELUARGA (OCR)*
-`;
-                    anggota.forEach((a, i) => {
-                        text += `[${i+1}] ${a.nama || '-'} | NIK: ${a.nik || '-'} | ${a.jk || '-'} | ${a.status || '-'} | ${a.tempat || ''}${a.tgl ? ', ' + a.tgl : ''}
-`;
-                    });
-                    text += `
-`;
-                }
-            }
-
-            text += `*PEKERJAAN & PENGHASILAN*
-`;
-            text += `Pekerjaan KK: ${document.getElementById('f_pekerjaan_kk').value || '-'}
-`;
-            text += `Pekerjaan Istri/Anggota: ${document.getElementById('f_pekerjaan_istri').value || '-'}
-`;
-            text += `Penghasilan KK/Bulan: ${formatRupiah(document.getElementById('f_penghasilan_kk').value)}
-`;
-            text += `Penghasilan Anggota/Bulan: ${formatRupiah(document.getElementById('f_penghasilan_anggota').value)}
-
-`;
-
-            text += `*KEPEMILIKAN ASET*
-`;
-            const rumah = document.getElementById('f_rumah').value;
-            text += `Rumah: ${rumah || '-'}
-`;
-            if (rumah === 'Milik') {
-                text += `  Jenis Surat: ${document.getElementById('f_jenis_surat').value || '-'}
-`;
-            } else if (rumah === 'Sewa') {
-                text += `  Sewa/Bulan: ${formatRupiah(document.getElementById('f_sewa_bulan').value)}
-`;
-            }
-            text += `Luas Tanah: ${document.getElementById('f_tanah_luas').value || 0} m² (P:${document.getElementById('f_tanah_panjang').value || 0}m x L:${document.getElementById('f_tanah_lebar').value || 0}m)
-`;
-            text += `Luas Bangunan: ${document.getElementById('f_bangunan_luas').value || 0} m² (P:${document.getElementById('f_bangunan_panjang').value || 0}m x L:${document.getElementById('f_bangunan_lebar').value || 0}m)
-`;
-            text += `Sepeda Motor: ${document.getElementById('f_motor').value || 0} unit | Nilai: ${document.getElementById('f_motor_harga').value || '-'}
-`;
-            text += `Mobil: ${document.getElementById('f_mobil').value || 0} unit | Perkiraan Harga: ${formatRupiah(document.getElementById('f_mobil_harga').value)}
-`;
-            text += `Kulkas: ${document.getElementById('f_kulkas').value || 0} unit
-`;
-            text += `AC: ${document.getElementById('f_ac').value || 0} unit
-
-`;
-
-            text += `*PENGELUARAN*
-`;
-            text += `Listrik/Bulan: ${formatRupiah(document.getElementById('f_listrik').value)}
-`;
-            text += `Nomor Meter PLN: ${document.getElementById('f_no_meter_pln').value || '-'}
-`;
-            text += `Daya Meter: ${document.getElementById('f_daya_meter').value ? document.getElementById('f_daya_meter').value + ' VA' : '-'}
-`;
-            text += `WiFi/Internet/Bulan: ${formatRupiah(document.getElementById('f_internet').value)}
-`;
-            text += `Pengeluaran Rutin/Tahun: ${formatRupiah(document.getElementById('f_pengeluaran_tahun').value)}
-
-`;
-
-            text += `*PENDIDIKAN*
-`;
-            text += `KK: ${document.getElementById('f_pendidikan_kk').value || '-'}
-`;
-            text += `Istri: ${document.getElementById('f_pendidikan_istri').value || '-'}
-`;
-            text += `Anak 1: ${document.getElementById('f_pendidikan_anak1').value || '-'}
-`;
-            text += `Anak 2: ${document.getElementById('f_pendidikan_anak2').value || '-'}
-`;
-            text += `Anak 3: ${document.getElementById('f_pendidikan_anak3').value || '-'}
-`;
-            text += `Anak 4: ${document.getElementById('f_pendidikan_anak4').value || '-'}
-`;
-            text += `Anak 5: ${document.getElementById('f_pendidikan_anak5').value || '-'}
-
-`;
-
-            text += `*USAHA KELUARGA*
-`;
-            text += `Memiliki Usaha: ${punyaUsaha.toUpperCase()}
-`;
-            if (punyaUsaha === 'ya') {
-                text += `Nama Usaha: ${document.getElementById('f_nama_usaha').value || '-'}
-`;
-                text += `Jenis Usaha: ${document.getElementById('f_jenis_usaha').value || '-'}
-`;
-                text += `Tahun Mulai: ${document.getElementById('f_tahun_usaha').value || '-'}
-`;
-                text += `Biaya Produksi/Tahun: ${formatRupiah(document.getElementById('f_biaya_produksi').value)}
-`;
-                text += `Biaya Operasional/Tahun: ${formatRupiah(document.getElementById('f_biaya_operasional').value)}
-`;
-                text += `Nilai Produksi/Tahun: ${formatRupiah(document.getElementById('f_nilai_produksi').value)}
-`;
-                text += `Jumlah Pekerja: ${document.getElementById('f_pekerja_total').value || 0}
-`;
-                text += `Pekerja Wanita: ${document.getElementById('f_pekerja_wanita').value || 0}
-`;
-                text += `Pekerja Pria: ${document.getElementById('f_pekerja_pria').value || 0}
-`;
-                text += `Pekerja Digaji: ${document.getElementById('f_pekerja_gaji').value || 0}
-`;
-                text += `Pemilik: ${document.getElementById('f_pemilik_usaha').value || '-'}
-`;
-                text += `Lokasi Usaha: ${document.getElementById('f_lokasi_usaha').value || '-'}
-`;
-            }
-            text += `
-`;
-
-            text += `*LOKASI*
-`;
-            text += `Koordinat: ${lat}, ${long}
-`;
-            text += `Maps: https://maps.google.com/?q=${lat},${long}
-
-`;
-            text += `*DOKUMENTASI*
-`;
-            text += `Foto KK: ${document.getElementById('f_foto_kk').files.length > 0 ? '✓ Dilampirkan' : '-'}
-`;
-            text += `Foto Rumah Depan: ${document.getElementById('f_foto_rumah').files.length > 0 ? '✓ Dilampirkan' : '-'}
-`;
-            text += `Foto Ruang Tamu: ${document.getElementById('f_foto_ruang').files.length > 0 ? '✓ Dilampirkan' : '-'}
-
-`;
-            text += `================================
-`;
-            text += `_Terima kasih telah berpartisipasi dalam Sensus Ekonomi 2026_`;
-
-            const waUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(text)}`;
-            window.open(waUrl,"_blank");
-            return false;
+        function formatRupiah(el) {
+            let val = el.value.replace(/[^0-9]/g, '');
+            if (val === '') { el.value = ''; return; }
+            el.value = parseInt(val).toLocaleString('id-ID');
         }
 
-        function submitBusiness(e) {
-            e.preventDefault();
+        function parseRupiah(str) { return parseInt((str || '').replace(/[^0-9]/g, '')) || 0; }
+        function formatRupiahStr(num) { return 'Rp ' + num.toLocaleString('id-ID'); }
 
-            const lat = document.getElementById('b_lat').value;
-            const long = document.getElementById('b_long').value;
-
-            if (!lat || !long) {
-                alert('Lokasi belum diambil! Harap klik "Ambil Lokasi Realtime" terlebih dahulu.');
-                return false;
-            }
-
-            let text = `*SENSUS EKONOMI 2026 - MODE BANGUNAN USAHA*\n`;
-            text += `================================\n\n`;
-            text += `*DATA BANGUNAN & USAHA*\n`;
-            text += `No. Urut Bangunan: ${document.getElementById('b_no_bangunan').value}\n`;
-            text += `Nama Usaha: ${document.getElementById('b_nama_usaha').value}\n`;
-            text += `Jenis Usaha: ${document.getElementById('b_jenis_usaha').value}\n`;
-            text += `Tahun Mulai: ${document.getElementById('b_tahun_usaha').value}\n`;
-            text += `Biaya Produksi/Tahun: ${formatRupiah(document.getElementById('b_biaya_produksi').value)}\n`;
-            text += `Biaya Operasional/Tahun: ${formatRupiah(document.getElementById('b_biaya_operasional').value)}\n`;
-            text += `Nilai Produksi/Tahun: ${formatRupiah(document.getElementById('b_nilai_produksi').value)}\n`;
-            text += `Jumlah Pekerja: ${document.getElementById('b_pekerja_total').value}\n`;
-            text += `Pekerja Wanita: ${document.getElementById('b_pekerja_wanita').value || 0}\n`;
-            text += `Pekerja Pria: ${document.getElementById('b_pekerja_pria').value || 0}\n`;
-            text += `Pekerja Digaji: ${document.getElementById('b_pekerja_gaji').value || 0}\n`;
-            text += `Penanggung Jawab: ${document.getElementById('b_pemilik').value}\n`;
-            text += `NIK: ${document.getElementById('b_nik').value}\n`;
-            text += `Umur: ${document.getElementById('b_umur').value} tahun\n`;
-            text += `Lokasi Usaha: ${document.getElementById('b_lokasi').value || '-'}\n\n`;
-
-            text += `*LOKASI*\n`;
-            text += `Koordinat: ${lat}, ${long}\n`;
-            text += `Maps: https://maps.google.com/?q=${lat},${long}\n\n`;
-            text += `*Dokumentasi:*\n`;
-            text += `[Foto Bangunan Depan, Interior Usaha dilampirkan]\n\n`;
-            text += `================================\n`;
-            text += `_Terima kasih telah berpartisipasi dalam Sensus Ekonomi 2026_`;
-
-            const waUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(text)}`;
-            window.open(waUrl,"_blank");
-            return false;
+        function hitungTahunan() {
+            const periodeMap = { hari: 365, minggu: 52, bulan: 12, tahun: 1 };
+            const bp = parseRupiah(document.getElementById('biayaProduksi').value);
+            const pp = periodeMap[document.getElementById('periodeProduksi').value] || 12;
+            document.getElementById('thnProduksi').textContent = formatRupiahStr(bp * pp);
+            const bo = parseRupiah(document.getElementById('biayaOperasional').value);
+            const po = periodeMap[document.getElementById('periodeOperasional').value] || 12;
+            document.getElementById('thnOperasional').textContent = formatRupiahStr(bo * po);
+            const om = parseRupiah(document.getElementById('omzet').value);
+            const pom = periodeMap[document.getElementById('periodeOmzet').value] || 12;
+            document.getElementById('thnOmzet').textContent = formatRupiahStr(om * pom);
         }
 
-        // Progress bar simulation
-        document.querySelectorAll('input, select').forEach(input => {
-            input.addEventListener('change', updateProgress);
-            input.addEventListener('input', updateProgress);
-        });
-
-        function updateProgress() {
-            // Simple progress update logic can be added here
+        function showToast(msg, type) {
+            type = type || 'success';
+            const toastEl = document.getElementById('liveToast');
+            toastEl.className = 'toast align-items-center text-white bg-' + type + ' border-0';
+            document.getElementById('toastBody').textContent = msg;
+            const toast = new bootstrap.Toast(toastEl, { delay: 3000 });
+            toast.show();
         }
 
-        // Initialize Tesseract on page load (preload)
-        document.addEventListener('DOMContentLoaded', function() {
-            // Preload Tesseract worker in background
-            setTimeout(() => {
-                tesseractManager.initialize().catch(err => {
-                    console.log('Preload Tesseract failed (will retry on use):', err);
+        async function kirimWhatsApp() {
+            const data = getFormData();
+            const noBangunan = data.noBangunan || 'Tanpa Nomor';
+            let msg = '*SENSUS EKONOMI 2026 - DESA SUKADAMAI*\n';
+            msg += '=======================================\n\n';
+            msg += '*DATA BANGUNAN*\n';
+            msg += 'Nomor Bangunan: ' + (data.noBangunan || '-') + '\n';
+            msg += 'Koordinat GPS: ' + (data.koordinat || '-') + '\n';
+            msg += 'Alamat: ' + (data.alamat || '-') + '\n';
+            msg += 'Nomor KK: ' + (data.noKK || '-') + '\n';
+            msg += 'Nomor WA: ' + (data.noWA || '-') + '\n\n';
+            msg += '*DATA KEPALA KELUARGA*\n';
+            msg += 'Nama: ' + (data.namaKK || '-') + '\n';
+            msg += 'NIK: ' + (data.nikKK || '-') + '\n';
+            msg += 'Tgl Lahir: ' + (data.tglLahirKK || '-') + '\n';
+            msg += 'Jenis Kelamin: ' + (data.jkKK || '-') + '\n';
+            msg += 'Pendidikan: ' + (data.pendidikanKK || '-') + '\n';
+            msg += 'Pekerjaan: ' + (data.pekerjaanKK || '-') + '\n';
+            msg += 'Status Kawin: ' + (data.statusKawinKK || '-') + '\n\n';
+            msg += '*DATA PASANGAN*\n';
+            msg += 'Nama: ' + (data.namaPasangan || '-') + '\n';
+            msg += 'Pekerjaan: ' + (data.pekerjaanPasangan || '-') + '\n\n';
+            msg += '*DATA EKONOMI*\n';
+            msg += 'Gaji/Upah Bulanan: ' + (data.gajiBulanan || 'Rp 0') + '\n';
+            msg += 'Pengeluaran Listrik: ' + (data.listrikBulanan || 'Rp 0') + '\n';
+            msg += 'Nomor Meter: ' + (data.noMeter || '-') + '\n';
+            msg += 'Daya Listrik: ' + (data.dayaListrik ? data.dayaListrik + ' VA' : '-') + '\n\n';
+            msg += '*STATUS RUMAH*\n';
+            msg += 'Status: ' + (data.statusRumah || '-') + '\n\n';
+            msg += '*LUAS BANGUNAN*\n';
+            msg += 'Panjang: ' + (data.panjangBangunan || '0') + ' m\n';
+            msg += 'Lebar: ' + (data.lebarBangunan || '0') + ' m\n';
+            msg += 'Luas: ' + (data.luasBangunan || '0') + ' m2\n\n';
+            msg += '*LUAS TANAH*\n';
+            msg += 'Panjang: ' + (data.panjangTanah || '0') + ' m\n';
+            msg += 'Lebar: ' + (data.lebarTanah || '0') + ' m\n';
+            msg += 'Luas: ' + (data.luasTanah || '0') + ' m2\n\n';
+            msg += '*ANGGOTA KELUARGA*\n';
+            if (data.anggota && data.anggota.length > 0) {
+                data.anggota.forEach((a, i) => {
+                    msg += (i + 1) + '. ' + (a.nama || '-') + ' | NIK: ' + (a.nik || '-') + ' | Status: ' + (a.status || '-') + '\n';
                 });
-            }, 2000);
+            } else { msg += 'Tidak ada anggota tambahan\n'; }
+            msg += '\n';
+            msg += '*USAHA*\n';
+            msg += 'Ada Usaha: ' + (data.adaUsaha || '-') + '\n';
+            if (data.adaUsaha === 'Ya') {
+                msg += 'Nama Komersial: ' + (data.namaKomersial || '-') + '\n';
+                msg += 'WA Usaha: ' + (data.waUsaha || '-') + '\n';
+                msg += 'NIB: ' + (data.nib || '-') + '\n';
+                msg += 'Nama Pengusaha: ' + (data.namaPengusaha || '-') + '\n';
+                msg += 'JK Pengusaha: ' + (data.jkPengusaha || '-') + '\n';
+                msg += 'NIK Pengusaha: ' + (data.nikPengusaha || '-') + '\n';
+                msg += 'Umur: ' + (data.umurPengusaha || '-') + ' th\n';
+                msg += 'Kegiatan Utama: ' + (data.kegiatanUtama || '-') + '\n';
+                msg += 'Produksi Barang: ' + (data.produksiBarang || '-') + '\n';
+                const periodeMap = { hari: 365, minggu: 52, bulan: 12, tahun: 1 };
+                const bp = parseRupiah(data.biayaProduksi); const pp = periodeMap[data.periodeProduksi] || 12;
+                const bo = parseRupiah(data.biayaOperasional); const po = periodeMap[data.periodeOperasional] || 12;
+                const om = parseRupiah(data.omzet); const pom = periodeMap[data.periodeOmzet] || 12;
+                msg += 'Biaya Produksi/thn: Rp ' + (bp * pp).toLocaleString('id-ID') + '\n';
+                msg += 'Biaya Operasional/thn: Rp ' + (bo * po).toLocaleString('id-ID') + '\n';
+                msg += 'Omzet/thn: Rp ' + (om * pom).toLocaleString('id-ID') + '\n';
+            }
+            msg += '\n=======================================\n';
+            msg += 'Dikirim via Aplikasi Sensus Ekonomi 2026';
+
+            const waUrl = 'https://wa.me/6285791111335?text=' + encodeURIComponent(msg);
+            window.open(waUrl, '_blank');
+
+            // Hapus draft setelah WA dibuka
+            if (currentDraftId) {
+                await deleteDraft(currentDraftId);
+                currentDraftId = null;
+                resetForm();
+                renderDraftList();
+                showToast('Draft otomatis dihapus setelah kirim WA');
+            }
+        }
+
+        // Init
+        document.addEventListener('DOMContentLoaded', async () => {
+            await openDB();
+            renderDraftList();
         });
+    </script>
+
+    <script>
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('service-worker.js')
+                .then((reg) => console.log('SW registered:', reg.scope))
+                .catch((err) => console.log('SW registration failed:', err));
+        }
     </script>
 </body>
 </html>
